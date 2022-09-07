@@ -113,7 +113,7 @@ results_dt = pd.DataFrame({'crit':critdf,
                            'accuracy':accuracy,
                            'precision':precision,
                            'recall':recall})
-results_dt.to_csv('dt_results.csv')
+results_dt.to_csv('dt_results_d1.csv')
 
 # %%
 # Neural Network or MLP in sklearn terms
@@ -165,8 +165,7 @@ results_mlp = pd.DataFrame({'activation':activationdf,
                            'accuracy':accuracy,
                            'precision':precision,
                            'recall':recall})
-results_mlp.to_csv('mlp_results.csv')
-# %%
+results_mlp.to_csv('mlp_results_d1.csv')
 # %%
 # knn
 import time
@@ -217,5 +216,5 @@ results_knn = pd.DataFrame({'neighbors':neighborsdf,
                            'precision':precisiondf,
                            'recall':recalldf})
 
-results_knn.to_csv('knn_results.csv')
+results_knn.to_csv('knn_results_d1.csv')
 # %%

@@ -1,4 +1,10 @@
 #%%
+#plot_confusion_matrix(model_dt,x_train_dt,y_train_dt)
+#plot_confusion_matrix(model_dt,x_test_dt,y_test_dt)
+# %%
+#plot_roc_curve(model_dt,x_train_dt,y_train_dt)
+#plot_roc_curve(model_dt,x_test_dt,y_test_dt)
+#%%
 # basic packages
 from configparser import MAX_INTERPOLATION_DEPTH
 import pandas as pd
@@ -18,41 +24,54 @@ from sklearn.preprocessing import StandardScaler as ss
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
-# %%
-data = pd.read_csv('Bank Customer Churn Prediction.csv')
-data.head()
-# %%
-#import pandas_profiling as pr
-#pr.ProfileReport(data)
-# %%
-clean = data[['credit_score','age','tenure',
-              'balance','credit_card','active_member',
-              'estimated_salary','churn']]
-# one hot encode country
-countries = pd.get_dummies(data.country,drop_first=True)
-# one hot encode gender
-clean['gender'] = pd.get_dummies(data.gender,drop_first=True)
-# one hot encode the 4 products
-products = pd.get_dummies(data.products_number,drop_first=True,prefix='product')
 
-cleanT = pd.concat([clean,countries,products],axis = 1)
+
+# %%
+data1 = pd.read_csv('subscribed.csv')
+data1.head()
+# %%
+data1.loc[data1.marital.isna(),'marital'] = 'Unknown'
+data1.loc[data1.customer_age.isna(),'customer_age'] = data1.customer_age.mean()
+data1.loc[data1.balance.isna(),'balance'] = data1.balance.mean()
+data1.loc[data1.personal_loan.isna(),'personal_loan'] = 'no'
+data1.loc[data1.last_contact_duration.isna(),'last_contact_duration'] = data1.last_contact_duration.mean()
+data1.loc[data1.num_contacts_in_campaign.isna(),'num_contacts_in_campaign'] = data1.num_contacts_in_campaign.mean()
+
+clean1 = pd.DataFrame(data1[['customer_age',
+                    'balance',
+                    'last_contact_duration',
+                    'num_contacts_in_campaign',
+                    'num_contacts_prev_campaign']])
+clean1['subscribed'] = data1.term_deposit_subscribed
 #%%
-X = cleanT.drop(columns = 'churn')
-Y = cleanT.churn
-#%%
-x_train,x_test,y_train,y_test = train_test_split(X,Y,
-                                                 test_size=.2,
-                                                 random_state=43)
+marital_status = pd.get_dummies(data1.marital,drop_first = True,prefix='married')
+jobs = pd.get_dummies(data1.job_type,drop_first = True,prefix='jt')
+edu = pd.get_dummies(data1.education,drop_first=True,prefix='edu')
+clean1['default'] = pd.get_dummies(data1.default,drop_first=True)
+clean1['housing_loan'] = pd.get_dummies(data1.housing_loan)['yes']
+clean1['personal_loan'] = pd.get_dummies(data1.personal_loan,drop_first=True)
+comm_type = pd.get_dummies(data1.communication_type,drop_first=True,prefix='comm_type')
+outcomes = pd.get_dummies(data1.prev_campaign_outcome,drop_first=True,prefix='out')
 
-scaler = ss().fit(x_train)
+cleanT1 = pd.concat([jobs,edu,comm_type,marital_status,clean1],axis = 1)
+# %%
+X1 = cleanT1.drop(columns = ['subscribed'])
+Y1 = cleanT1.subscribed
+# %%
+x_train1,x_test1,y_train1,y_test1 = train_test_split(X1,
+                                                Y1,
+                                                test_size = .2,
+                                                random_state=42)
 
-x_train = scaler.transform(x_train)
-x_test = scaler.transform(x_test)
+scaler = ss().fit(x_train1)
+
+x_train1 = scaler.transform(x_train1)
+x_test1 = scaler.transform(x_test1)
 
 # %%
-####################################################
+########################################################
 # Decision Tree
-####################################################
+########################################################
 import time
 critdf = []
 splitdf = []
@@ -74,20 +93,20 @@ for c in crit:
                         ,max_depth=d
                         ,random_state=42)
 
-            model_dt.fit(x_train,y_train)
+            model_dt.fit(x_train1,y_train1)
 
             endt = time.time()
             ellapsed_time = endt - startt
 
-            pred_dt = model_dt.predict(x_test)
+            pred_dt = model_dt.predict(x_test1)
 
             critdf.append(c)
             splitdf.append(s)
             depthdf.append(d)
             timedf.append(ellapsed_time)
-            accuracy.append(accuracy_score(y_test,pred_dt))
-            precision.append(precision_score(y_test,pred_dt))
-            recall.append(recall_score(y_test,pred_dt))
+            accuracy.append(accuracy_score(y_test1,pred_dt))
+            precision.append(precision_score(y_test1,pred_dt))
+            recall.append(recall_score(y_test1,pred_dt))
 # %%
 results_dt = pd.DataFrame({'crit':critdf,
                            'split':splitdf,
@@ -96,11 +115,12 @@ results_dt = pd.DataFrame({'crit':critdf,
                            'accuracy':accuracy,
                            'precision':precision,
                            'recall':recall})
-results_dt.to_csv('dt_results_d2.csv')
+results_dt.to_csv('dt_results_d1.csv')
+
 # %%
-####################################################
+########################################################
 # Neural Network or MLP in sklearn terms
-####################################################
+########################################################
 import time
 activationdf = []
 solverdf = []
@@ -114,36 +134,34 @@ layers = [2,4,6,8,10]
 solver = ['sgd','adam']
 activation = ['identity','logistic','relu']
 itter = [200,250,300,350,400,450,500,550,600,650,700]
-count = 0
+c= 0
 for l in layers:
     for s in solver:
         for a in activation:
             for i in itter:
-                print('{} out of 150'.format(count)) 
+                print('{} out of 150'.format(c))
+                c = c + 1
                 startt = time.time()
                 model_mlp = mlp(hidden_layer_sizes=l,
                                 activation= a,
                                 solver= s,
                                 max_iter=i)
 
-                model_mlp.fit(x_train,y_train)
+                model_mlp.fit(x_train1,y_train1)
 
                 endt = time.time()
                 ellapsed_time = endt - startt
 
-                pred = model_mlp.predict(x_test)
+                pred = model_mlp.predict(x_test1)
 
                 activationdf.append(a)
                 solverdf.append(s)
                 layersdf.append(l)
                 itterdf.append(i)
                 timedf.append(ellapsed_time)
-                accuracy.append(accuracy_score(y_test,pred))
-                precision.append(precision_score(y_test,pred))
-                recall.append(recall_score(y_test,pred))
-                print('\n\n')
-
-                count = count + 1
+                accuracy.append(accuracy_score(y_test1,pred))
+                precision.append(precision_score(y_test1,pred))
+                recall.append(recall_score(y_test1,pred))
 # %%
 results_mlp = pd.DataFrame({'activation':activationdf,
                            'solver':solverdf,
@@ -153,12 +171,11 @@ results_mlp = pd.DataFrame({'activation':activationdf,
                            'accuracy':accuracy,
                            'precision':precision,
                            'recall':recall})
-#%%
-results_mlp.to_csv('mlp_results_d2.csv')
+results_mlp.to_csv('mlp_results_d1.csv')
 # %%
-####################################################
+########################################################
 # knn
-####################################################
+########################################################
 import time
 timedf = []
 accuracydf = []
@@ -183,17 +200,17 @@ for n in neighbors:
                             algorithm=a,
                             metric=m)
 
-            model_knn.fit(x_train,y_train)
+            model_knn.fit(x_train1,y_train1)
 
             endt = time.time()
             ellapsed_time = endt - startt
 
-            pred = model_knn.predict(x_test)
+            pred = model_knn.predict(x_test1)
 
             timedf.append(ellapsed_time)
-            accuracydf.append(accuracy_score(y_test,pred))
-            precisiondf.append(precision_score(y_test,pred))
-            recalldf.append(recall_score(y_test,pred))
+            accuracydf.append(accuracy_score(y_test1,pred))
+            precisiondf.append(precision_score(y_test1,pred))
+            recalldf.append(recall_score(y_test1,pred))
 
             neighborsdf.append(n)
             algorithmdf.append(a)
@@ -206,12 +223,12 @@ results_knn = pd.DataFrame({'neighbors':neighborsdf,
                            'accuracy':accuracydf,
                            'precision':precisiondf,
                            'recall':recalldf})
-#%%
-results_knn.to_csv('knn_results_d2.csv')
-#%%
-####################################################
+
+results_knn.to_csv('knn_results_d1.csv')
+# %%
+########################################################
 # xgboost
-####################################################
+########################################################
 import time
 timedf = []
 accuracydf = []
@@ -238,17 +255,17 @@ for l in loss:
                                     n_estimators=ne
                                 )
 
-            model_boost.fit(x_train,y_train)
+            model_boost.fit(x_train1,y_train1)
 
             endt = time.time()
             ellapsed_time = endt - startt
 
-            pred = model_boost.predict(x_test)
+            pred = model_boost.predict(x_test1)
 
             timedf.append(ellapsed_time)
-            accuracydf.append(accuracy_score(y_test,pred))
-            precisiondf.append(precision_score(y_test,pred))
-            recalldf.append(recall_score(y_test,pred))
+            accuracydf.append(accuracy_score(y_test1,pred))
+            precisiondf.append(precision_score(y_test1,pred))
+            recalldf.append(recall_score(y_test1,pred))
 
             lossdf.append(l)
             learn_ratedf.append(lr)
@@ -262,5 +279,7 @@ results_boost = pd.DataFrame({'loss':lossdf,
                            'precision':precisiondf,
                            'recall':recalldf})
 
-results_boost.to_csv('boost_results_d2.csv')
-#%%
+results_boost.to_csv('boost_results_d1.csv')
+# %%
+
+

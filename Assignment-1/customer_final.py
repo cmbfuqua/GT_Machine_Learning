@@ -48,7 +48,7 @@ decision_tree2 = dt(criterion = 'entropy',splitter = 'random',max_depth = 6)
 MLP2 = mlp(activation = 'relu',solver = 'sgd',hidden_layer_sizes = 2,max_iter = 500)
 KNN2 = knn(n_neighbors = 250, algorithm = 'ball_tree',metric = 'manhattan')
 boost2 = xgboost(loss = 'exponential',learning_rate=.1,n_estimators=10)
-
+svm2 = svc(kernel = 'poly',probability=True)
 #%%
 X = cleanT.drop(columns= ['churn'])
 Y = cleanT.churn
@@ -68,8 +68,8 @@ means = []
 maxs = []
 stds = []
 
-models = [decision_tree2,MLP2,KNN2,boost2]
-models_names = ['decision_tree2','MLP2','KNN2','boost2']
+models = [decision_tree2,MLP2,KNN2,boost2,svm2]
+models_names = ['decision_tree2','MLP2','KNN2','boost2','SVM2']
 for i in range(len(models)):
     cvscores = cross_val_score(models[i]
                               ,x_train

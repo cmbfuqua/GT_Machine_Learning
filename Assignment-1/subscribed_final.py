@@ -59,6 +59,7 @@ decision_tree1 = dt(criterion = 'gini',splitter = 'best',max_depth = 4)
 MLP1 = mlp(activation = 'logistic',solver = 'sgd',hidden_layer_sizes = 2,max_iter = 550)
 KNN1 = knn(n_neighbors = 70, algorithm = 'ball_tree',metric = 'euclidean')
 boost1 = xgboost(loss = 'exponential',learning_rate=.1,n_estimators=30)
+svm1 = svc(kernel = 'poly',probability=True)
 #%%
 X1 = cleanT1.drop(columns= ['subscribed'])
 Y1 = cleanT1.subscribed
@@ -78,8 +79,8 @@ means = []
 maxs = []
 stds = []
 
-models = [decision_tree1,MLP1,KNN1,boost1]
-models_names = ['decision_tree1','MLP1','KNN1','boost1']
+models = [decision_tree1,MLP1,KNN1,boost1,svm1]
+models_names = ['decision_tree1','MLP1','KNN1','boost1','SVM1']
 for i in range(len(models)):
     cvscores = cross_val_score(models[i]
                               ,x_train1

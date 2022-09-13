@@ -96,7 +96,7 @@ results_dt = pd.DataFrame({'crit':critdf,
                            'accuracy':accuracy,
                            'precision':precision,
                            'recall':recall})
-results_dt.to_csv('dt_results_d2.csv')
+results_dt.to_csv('dt_results_d2.csv',index = False)
 # %%
 ####################################################
 # Neural Network or MLP in sklearn terms
@@ -154,7 +154,7 @@ results_mlp = pd.DataFrame({'activation':activationdf,
                            'precision':precision,
                            'recall':recall})
 #%%
-results_mlp.to_csv('mlp_results_d2.csv')
+results_mlp.to_csv('mlp_results_d2.csv',index = False)
 # %%
 ####################################################
 # knn
@@ -207,7 +207,7 @@ results_knn = pd.DataFrame({'neighbors':neighborsdf,
                            'precision':precisiondf,
                            'recall':recalldf})
 #%%
-results_knn.to_csv('knn_results_d2.csv')
+results_knn.to_csv('knn_results_d2.csv',index = False)
 #%%
 ####################################################
 # xgboost
@@ -262,7 +262,7 @@ results_boost = pd.DataFrame({'loss':lossdf,
                            'precision':precisiondf,
                            'recall':recalldf})
 
-results_boost.to_csv('boost_results_d2.csv')
+results_boost.to_csv('boost_results_d2.csv',index = False)
 #%%
 # %%
 ########################################################
@@ -313,5 +313,55 @@ results_svm = pd.DataFrame({'kernel':Kerneldf,
                            'precision':precisiondf,
                            'recall':recalldf})
 
-results_svm.to_csv('svm_results_d2.csv')
+results_svm.to_csv('svm_results_d2.csv',index = False)
+# %%
+# %%
+import time
+timedf = []
+accuracydf = []
+precisiondf = []
+recalldf = []
+
+
+kernel = ['poly']
+probability = [True]
+degree = [1,2,3,4,5,6,7,8,9,10]
+
+Kerneldf = []
+probabilitydf = []
+degreedf = []
+
+
+for k in kernel:
+    for p in probability:
+        for d in degree:
+            print('moving on')
+            startt = time.time()
+            model_svm = svc(kernel = k, probability = p, degree = d)
+
+            model_svm.fit(x_train,y_train)
+
+            endt = time.time()
+            ellapsed_time = endt - startt
+
+            pred = model_svm.predict(x_test)
+
+            timedf.append(ellapsed_time)
+            accuracydf.append(accuracy_score(y_test,pred))
+            precisiondf.append(precision_score(y_test,pred))
+            recalldf.append(recall_score(y_test,pred))
+
+            Kerneldf.append(k)
+            probabilitydf.append(str(p))
+            degreedf.append(d)
+# %%
+results_svm = pd.DataFrame({'kernel':Kerneldf,
+                            'probability':probabilitydf,
+                            'degree':degreedf,
+                           'time':timedf,
+                           'accuracy':accuracydf,
+                           'precision':precisiondf,
+                           'recall':recalldf})
+
+results_svm.to_csv('svm2_results_d2.csv',index = False)
 # %%

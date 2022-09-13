@@ -56,7 +56,7 @@ best = pd.DataFrame({'model':model,
                      })
 best.head()
 #%%
-best.to_csv('best_metrics_parameters.csv')
+best.to_csv('best_metrics_parameters.csv',index = False)
 # %%
 '''
 Optimizing for precision

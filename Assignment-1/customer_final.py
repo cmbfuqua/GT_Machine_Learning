@@ -94,6 +94,6 @@ scores = pd.DataFrame({'model':models_names,
                        'mean':means,
                        'max':maxs,
                        'std':stds})
-scores.to_csv('final_model_precision_validation_scores2.csv')
+scores.to_csv('final_model_precision_validation_scores2.csv',index = False)
 scores.head()
 # %%

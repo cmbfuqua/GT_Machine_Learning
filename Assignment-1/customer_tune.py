@@ -264,3 +264,54 @@ results_boost = pd.DataFrame({'loss':lossdf,
 
 results_boost.to_csv('boost_results_d2.csv')
 #%%
+# %%
+########################################################
+# SVM
+########################################################
+import time
+timedf = []
+accuracydf = []
+precisiondf = []
+recalldf = []
+
+
+kernel = ['linear','poly','rbf','sigmoid']
+probability = [True, False]
+
+Kerneldf = []
+probabilitydf = []
+
+
+for k in kernel:
+    for p in probability:
+        print('moving on')
+        startt = time.time()
+        model_svm = svc(
+                            kernel = k,
+                            probability = p
+                            )
+
+        model_svm.fit(x_train,y_train)
+
+        endt = time.time()
+        ellapsed_time = endt - startt
+
+        pred = model_svm.predict(x_test)
+
+        timedf.append(ellapsed_time)
+        accuracydf.append(accuracy_score(y_test,pred))
+        precisiondf.append(precision_score(y_test,pred))
+        recalldf.append(recall_score(y_test,pred))
+
+        Kerneldf.append(k)
+        probabilitydf.append(str(p))
+# %%
+results_svm = pd.DataFrame({'kernel':Kerneldf,
+                            'probability':probabilitydf,
+                           'time':timedf,
+                           'accuracy':accuracydf,
+                           'precision':precisiondf,
+                           'recall':recalldf})
+
+results_svm.to_csv('svm_results_d2.csv')
+# %%

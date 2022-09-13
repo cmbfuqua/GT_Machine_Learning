@@ -1,9 +1,7 @@
 #%%
 #plot_confusion_matrix(model_dt,x_train_dt,y_train_dt)
 #plot_confusion_matrix(model_dt,x_test_dt,y_test_dt)
-# %%
-#plot_roc_curve(model_dt,x_train_dt,y_train_dt)
-#plot_roc_curve(model_dt,x_test_dt,y_test_dt)
+
 #%%
 # basic packages
 from configparser import MAX_INTERPOLATION_DEPTH
@@ -281,5 +279,50 @@ results_boost = pd.DataFrame({'loss':lossdf,
 
 results_boost.to_csv('boost_results_d1.csv')
 # %%
+########################################################
+# SVM
+########################################################
+import time
+timedf = []
+accuracydf = []
+precisiondf = []
+recalldf = []
 
 
+kernel = ['linear','poly','rbf','sigmoid']
+probability = [True, False]
+
+Kerneldf = []
+probabilitydf = []
+
+
+for k in kernel:
+    for p in probability:
+        print('moving on')
+        startt = time.time()
+        model_svm = svc(kernel = k, probability = p)
+
+        model_svm.fit(x_train1,y_train1)
+
+        endt = time.time()
+        ellapsed_time = endt - startt
+
+        pred = model_svm.predict(x_test1)
+
+        timedf.append(ellapsed_time)
+        accuracydf.append(accuracy_score(y_test1,pred))
+        precisiondf.append(precision_score(y_test1,pred))
+        recalldf.append(recall_score(y_test1,pred))
+
+        Kerneldf.append(k)
+        probabilitydf.append(str(p))
+# %%
+results_svm = pd.DataFrame({'kernel':Kerneldf,
+                            'probability':probabilitydf,
+                           'time':timedf,
+                           'accuracy':accuracydf,
+                           'precision':precisiondf,
+                           'recall':recalldf})
+
+results_svm.to_csv('svm_results_d1.csv')
+# %%

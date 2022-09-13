@@ -49,8 +49,61 @@ comm_type = pd.get_dummies(data1.communication_type,drop_first=True,prefix='comm
 outcomes = pd.get_dummies(data1.prev_campaign_outcome,drop_first=True,prefix='out')
 
 cleanT1 = pd.concat([jobs,edu,comm_type,marital_status,clean1],axis = 1)
+
+yes = cleanT1.loc[cleanT1.subscribed == 1]
+no = cleanT1.loc[cleanT1.subscribed == 0].head(3394) #Balance Data
+
+cleanT1 = pd.concat([yes,no],axis = 0)
 #%%
-decision_tree1 = dt(crit = 'gini',split = 'best',depth = 4)
-MLP1 = mlp(activation = 'logistic',solver = 'sgd',layers = 2,iter = 550)
-KNN1 = knn(n_neighbors = 100, algorithm = 'ball_tree',metric = 'manhattan')
+decision_tree1 = dt(criterion = 'gini',splitter = 'best',max_depth = 4)
+MLP1 = mlp(activation = 'logistic',solver = 'sgd',hidden_layer_sizes = 2,max_iter = 550)
+KNN1 = knn(n_neighbors = 70, algorithm = 'ball_tree',metric = 'euclidean')
 boost1 = xgboost(loss = 'exponential',learning_rate=.1,n_estimators=30)
+#%%
+X1 = cleanT1.drop(columns= ['subscribed'])
+Y1 = cleanT1.subscribed
+
+x_train1,x_test1,y_train1,y_test1 = train_test_split(X1,
+                                                Y1,
+                                                test_size = .2,
+                                                random_state=42)
+
+scaler = ss().fit(x_train1)
+
+x_train1 = scaler.transform(x_train1)
+x_test1 = scaler.transform(x_test1)
+
+mins = []
+means = []
+maxs = []
+stds = []
+
+models = [decision_tree1,MLP1,KNN1,boost1]
+models_names = ['decision_tree1','MLP1','KNN1','boost1']
+for i in range(len(models)):
+    cvscores = cross_val_score(models[i]
+                              ,x_train1
+                              ,y_train1
+                              ,cv = 10
+                              ,scoring = 'precision')
+    
+    #print('before removing 0s \nmin: {}  max:{} \n'.format(cvscores.min(),cvscores.max()))
+
+    cvscores = cvscores[np.greater_equal(cvscores,.01)] # This gets rid of the 0s
+
+    print("{}: {} precision with a std of {}".format(models_names[i],cvscores.mean().round(2), cvscores.std().round(4)))
+    print('min: {}  max:{} \n'.format(cvscores.min().round(2),cvscores.max().round(2)))
+
+    mins.append(cvscores.min().round(3))
+    means.append(cvscores.mean().round(3))
+    maxs.append(cvscores.max().round(3))
+    stds.append(cvscores.std().round(3))
+#%%
+scores = pd.DataFrame({'model':models_names,
+                       'min':mins,
+                       'mean':means,
+                       'max':maxs,
+                       'std':stds})
+scores.to_csv('final_model_precision_validation_scores1.csv')
+scores.head()
+# %%

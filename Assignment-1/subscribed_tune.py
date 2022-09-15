@@ -80,7 +80,7 @@ precision = []
 recall = []
 crit = ['gini','entropy']
 spli = ['best','random']
-dep = [1,4,6,8,10,12,14,16,18,20,22,24,26,28,30]
+dep = [1,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30]
 
 for c in crit:
     for s in spli:

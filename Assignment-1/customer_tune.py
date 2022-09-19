@@ -37,6 +37,9 @@ products = pd.get_dummies(data.products_number,drop_first=True,prefix='product')
 
 cleanT = pd.concat([clean,countries,products],axis = 1)
 #%%
+churn = cleanT.loc[cleanT.churn ==1]
+nchurn = cleanT.loc[cleanT.churn ==0].head(2037)
+cleanT = pd.concat([churn,nchurn])
 X = cleanT.drop(columns = 'churn')
 Y = cleanT.churn
 #%%
@@ -114,12 +117,12 @@ layers = [2,4,6,8,10]
 solver = ['sgd','adam']
 activation = ['identity','logistic','relu']
 itter = [200,250,300,350,400,450,500,550,600,650,700]
-count = 0
+count = 1
 for l in layers:
     for s in solver:
         for a in activation:
             for i in itter:
-                print('{} out of 150'.format(count)) 
+                print('{} out of 330'.format(count)) 
                 startt = time.time()
                 model_mlp = mlp(hidden_layer_sizes=l,
                                 activation= a,

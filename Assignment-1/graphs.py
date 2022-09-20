@@ -58,6 +58,9 @@ refined_svm = pd.concat([svm1,svm2])
 boost2 = pd.concat([b21,b22])
 
 # %%
+#############################################
+# part 1
+#############################################
 gb = alt.Chart(
     decision_tree.loc[(decision_tree.crit == 'gini') & (decision_tree.split == 'best')],
     ).mark_line().encode(
@@ -278,3 +281,6 @@ degree = alt.Chart(refined_svm).mark_line(point = True).encode(
 ).configure_axis(labelFontSize=20,titleFontSize=20)
 degree.save('graphs/svm_degree.png')
 # %%
+##########################################
+# part 2
+##########################################

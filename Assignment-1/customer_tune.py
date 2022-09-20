@@ -367,4 +367,61 @@ results_svm = pd.DataFrame({'kernel':Kerneldf,
                            'recall':recalldf})
 
 results_svm.to_csv('svm2_results_d2.csv',index = False)
+#%%
+########################################################
+# xgboost round 2
+########################################################
+import time
+timedf = []
+accuracydf = []
+precisiondf = []
+recalldf = []
+
+
+loss = ['log_loss','deviance','exponential']
+learn_rate = [.1,.5,1,1.5,2]
+n_est = range(1,50,5)
+
+lossdf = []
+learn_ratedf = []
+n_estdf = []
+
+for l in loss:
+    for lr in learn_rate:
+        for ne in n_est:
+            print('moving on')
+            startt = time.time()
+            model_boost = xgboost(
+                                    loss=l,
+                                    learning_rate=lr,
+                                    n_estimators=ne
+                                )
+
+            model_boost.fit(x_train,y_train)
+
+            endt = time.time()
+            ellapsed_time = endt - startt
+
+            pred = model_boost.predict(x_test)
+
+            timedf.append(ellapsed_time)
+            accuracydf.append(accuracy_score(y_test,pred))
+            precisiondf.append(precision_score(y_test,pred))
+            recalldf.append(recall_score(y_test,pred))
+
+            lossdf.append(l)
+            learn_ratedf.append(lr)
+            n_estdf.append(ne)
+
+# %%
+results_boost = pd.DataFrame({'loss':lossdf,
+                           'learning_rate':learn_ratedf,
+                           'n_estimators':n_estdf,
+                           'time':timedf,
+                           'accuracy':accuracydf,
+                           'precision':precisiondf,
+                           'recall':recalldf})
+
+results_boost.to_csv('boost2_results_d2.csv',index = False)
+
 # %%

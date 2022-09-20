@@ -53,6 +53,9 @@ outcomes = pd.get_dummies(data1.prev_campaign_outcome,drop_first=True,prefix='ou
 
 cleanT1 = pd.concat([jobs,edu,comm_type,marital_status,clean1],axis = 1)
 # %%
+sub = cleanT1.loc[cleanT1.subscribed == 1]
+nsub = cleanT1.loc[cleanT1.subscribed == 0].head(len(sub))
+cleanT1 = pd.concat([sub,nsub])
 X1 = cleanT1.drop(columns = ['subscribed'])
 Y1 = cleanT1.subscribed
 # %%
@@ -132,12 +135,12 @@ layers = [2,4,6,8,10]
 solver = ['sgd','adam']
 activation = ['identity','logistic','relu']
 itter = [200,250,300,350,400,450,500,550,600,650,700]
-c= 0
+c= 1
 for l in layers:
     for s in solver:
         for a in activation:
             for i in itter:
-                print('{} out of 150'.format(c))
+                print('{} out of 330'.format(c))
                 c = c + 1
                 startt = time.time()
                 model_mlp = mlp(hidden_layer_sizes=l,
@@ -326,6 +329,9 @@ results_svm = pd.DataFrame({'kernel':Kerneldf,
 
 results_svm.to_csv('svm_results_d1.csv',index = False)
 # %%
+########################################################
+# SVM2
+########################################################
 import time
 timedf = []
 accuracydf = []
@@ -374,4 +380,60 @@ results_svm = pd.DataFrame({'kernel':Kerneldf,
                            'recall':recalldf})
 
 results_svm.to_csv('svm2_results_d1.csv',index = False)
+# %%
+########################################################
+# xgboost round 2
+########################################################
+import time
+timedf = []
+accuracydf = []
+precisiondf = []
+recalldf = []
+
+
+loss = ['log_loss','deviance','exponential']
+learn_rate = [.1,.5,1,1.5,2]
+n_est = range(1,50,5)
+
+lossdf = []
+learn_ratedf = []
+n_estdf = []
+
+for l in loss:
+    for lr in learn_rate:
+        for ne in n_est:
+            print('moving on')
+            startt = time.time()
+            model_boost = xgboost(
+                                    loss=l,
+                                    learning_rate=lr,
+                                    n_estimators=ne
+                                )
+
+            model_boost.fit(x_train1,y_train1)
+
+            endt = time.time()
+            ellapsed_time = endt - startt
+
+            pred = model_boost.predict(x_test1)
+
+            timedf.append(ellapsed_time)
+            accuracydf.append(accuracy_score(y_test1,pred))
+            precisiondf.append(precision_score(y_test1,pred))
+            recalldf.append(recall_score(y_test1,pred))
+
+            lossdf.append(l)
+            learn_ratedf.append(lr)
+            n_estdf.append(ne)
+
+# %%
+results_boost = pd.DataFrame({'loss':lossdf,
+                           'learning_rate':learn_ratedf,
+                           'n_estimators':n_estdf,
+                           'time':timedf,
+                           'accuracy':accuracydf,
+                           'precision':precisiondf,
+                           'recall':recalldf})
+
+results_boost.to_csv('boost2_results_d1.csv',index = False)
 # %%

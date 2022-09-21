@@ -16,10 +16,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler as ss
 from sklearn.model_selection import cross_val_score
 # metrics
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-
+from sklearn.metrics import plot_confusion_matrix as plot_cm
+from sklearn.metrics import plot_precision_recall_curve as plot_prc
+from sklearn.metrics import plot_roc_curve as plot_roc
 
 # %%
 data1 = pd.read_csv('subscribed.csv')
@@ -56,10 +55,10 @@ no = cleanT1.loc[cleanT1.subscribed == 0].head(3394) #Balance Data
 cleanT1 = pd.concat([yes,no],axis = 0)
 #%%
 decision_tree1 = dt(criterion = 'gini',splitter = 'best',max_depth = 4)
-MLP1 = mlp(activation = 'logistic',solver = 'sgd',hidden_layer_sizes = 2,max_iter = 550)
-KNN1 = knn(n_neighbors = 70, algorithm = 'ball_tree',metric = 'euclidean')
-boost1 = xgboost(loss = 'exponential',learning_rate=.1,n_estimators=30)
-svm1 = svc(kernel = 'poly',probability=True)
+MLP1 = mlp(activation = 'logistic',solver = 'adam',hidden_layer_sizes = 10,max_iter = 650)
+KNN1 = knn(n_neighbors = 2, algorithm = 'ball_tree',metric = 'euclidean')
+boost1 = xgboost(loss = 'log_loss',learning_rate=.1,n_estimators=6)
+svm1 = svc(kernel = 'poly',probability=True,degree=1)
 #%%
 X1 = cleanT1.drop(columns= ['subscribed'])
 Y1 = cleanT1.subscribed
@@ -80,13 +79,14 @@ maxs = []
 stds = []
 
 models = [decision_tree1,MLP1,KNN1,boost1,svm1]
-models_names = ['decision_tree1','MLP1','KNN1','boost1','SVM1']
+models_names = ['DecisionTree1','MLP1','KNN1','boost1','SVM1']
 for i in range(len(models)):
     cvscores = cross_val_score(models[i]
                               ,x_train1
                               ,y_train1
                               ,cv = 10
                               ,scoring = 'precision')
+    models[i].fit(x_train1,y_train1)
     
     #print('before removing 0s \nmin: {}  max:{} \n'.format(cvscores.min(),cvscores.max()))
 
@@ -107,4 +107,38 @@ scores = pd.DataFrame({'model':models_names,
                        'std':stds})
 scores.to_csv('final_model_precision_validation_scores1.csv',index = False)
 scores.head()
+# %%
+best_MetPar = pd.read_csv('best_metrics_parameters.csv')
+#%%
+# Decision Tree
+plot_cm(decision_tree1,x_test1,y_test1)
+plot_roc(decision_tree1,x_test1,y_test1)
+plot_prc(decision_tree1,x_test1,y_test1)
+#%%
+# Decision Tree
+plot_cm(boost1,x_test1,y_test1)
+plot_roc(boost1,x_test1,y_test1)
+plot_prc(boost1,x_test1,y_test1)
+
+#%%
+# Decision Tree
+plot_cm(MLP1,x_test1,y_test1)
+plot_roc(MLP1,x_test1,y_test1)
+plot_prc(MLP1,x_test1,y_test1)
+#%%
+# Decision Tree
+plot_cm(svm1,x_test1,y_test1)
+plot_roc(svm1,x_test1,y_test1)
+plot_prc(svm1,x_test1,y_test1)
+#%%
+# Decision Tree
+plot_cm(KNN1,x_test1,y_test1)
+plot_roc(KNN1,x_test1,y_test1)
+plot_prc(KNN1,x_test1,y_test1)
+#plot_roc(decision_tree1,X1,Y1)
+# %%
+best = best_MetPar
+best.loc[(best.metric_name == 'time') & (best.model.str.endswith('1'))]
+#%%
+best.loc[(best.metric_name == 'precision') & (best.model.str.endswith('1'))].sort_values(by = 'metric',ascending = False)
 # %%

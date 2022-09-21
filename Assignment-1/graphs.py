@@ -284,3 +284,9 @@ degree.save('graphs/svm_degree.png')
 ##########################################
 # part 2
 ##########################################
+data1_best = best_MetPar.loc[(best_MetPar.metric_name == 'precision') & (best_MetPar.model.str.endswith('1') )].sort_values(by = 'metric',ascending=False)
+data2_best = best_MetPar.loc[(best_MetPar.metric_name == 'precision') & (best_MetPar.model.str.endswith('2') )].sort_values(by = 'metric',ascending=False)
+
+#%%
+
+# %%

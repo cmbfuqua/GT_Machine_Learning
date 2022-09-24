@@ -12,12 +12,12 @@ k1 = pd.read_csv('knn_results_d1.csv')
 k2 = pd.read_csv('knn_results_d2.csv')
 m1 = pd.read_csv('mlp_results_d1.csv')
 m2 = pd.read_csv('mlp_results_d2.csv')
-s1 = pd.read_csv('svm_results_d2.csv')
+s1 = pd.read_csv('svm_results_d1.csv')
 s2 = pd.read_csv('svm_results_d2.csv')
 s21 = pd.read_csv('svm2_results_d1.csv')
 s22 = pd.read_csv('svm2_results_d2.csv')
 b21 = pd.read_csv('boost2_results_d1.csv')
-b22 = pd.read_csv('boost2_results_d1.csv')
+b22 = pd.read_csv('boost2_results_d2.csv')
 
 dfs = [b1,b2,d1,d2,k1,k2,m1,m2,s1,s2,b21,b22,s21,s22]
 dfsname = ['Boost1','Boost2','DecisionTree1','DecisionTree2','KNN1','KNN2','MLP1','MLP2','SVM1','SVM2','Boost21','Boost22','SVM21','SVM22']

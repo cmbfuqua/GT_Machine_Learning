@@ -378,7 +378,7 @@ precisiondf = []
 recalldf = []
 
 
-loss = ['log_loss','deviance','exponential']
+loss = ['log_loss','exponential'] # Deviance is equivalent to the log_loss param
 learn_rate = [.1,.5,1,1.5,2]
 n_est = range(1,50,5)
 
@@ -421,7 +421,7 @@ results_boost = pd.DataFrame({'loss':lossdf,
                            'accuracy':accuracydf,
                            'precision':precisiondf,
                            'recall':recalldf})
-
+#%%
 results_boost.to_csv('boost2_results_d2.csv',index = False)
 
 # %%

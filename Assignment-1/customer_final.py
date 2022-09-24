@@ -17,6 +17,9 @@ from sklearn.preprocessing import StandardScaler as ss
 from sklearn.model_selection import cross_val_score
 
 # metrics
+from sklearn.metrics import plot_confusion_matrix as plot_cm
+from sklearn.metrics import plot_precision_recall_curve as plot_prc
+from sklearn.metrics import plot_roc_curve as plot_roc
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
@@ -44,11 +47,11 @@ no = cleanT.loc[cleanT.churn == 0].head(2037) #Balance Data
 
 cleanT = pd.concat([yes,no],axis = 0)
 #%%
-decision_tree2 = dt(criterion = 'entropy',splitter = 'random',max_depth = 6)
-MLP2 = mlp(activation = 'relu',solver = 'sgd',hidden_layer_sizes = 2,max_iter = 500)
-KNN2 = knn(n_neighbors = 250, algorithm = 'ball_tree',metric = 'manhattan')
-boost2 = xgboost(loss = 'exponential',learning_rate=.1,n_estimators=10)
-svm2 = svc(kernel = 'poly',probability=True)
+decision_tree2 = dt(criterion = 'gini',splitter = 'best',max_depth = 2)
+MLP2 = mlp(activation = 'logistic',max_iter = 600,solver = 'sgd',hidden_layer_sizes = 2)
+KNN2 = knn(n_neighbors = 4, algorithm = 'ball_tree',metric = 'euclidean')
+boost2 = xgboost(loss = 'log_loss',learning_rate=.1,n_estimators=6)
+svm2 = svc(kernel = 'poly',probability=True,degree=10)
 #%%
 X = cleanT.drop(columns= ['churn'])
 Y = cleanT.churn
@@ -56,7 +59,7 @@ Y = cleanT.churn
 x_train,x_test,y_train,y_test = train_test_split(X,
                                                 Y,
                                                 test_size = .2,
-                                                random_state=42)
+                                                random_state=43)
 
 scaler = ss().fit(x_train)
 
@@ -78,7 +81,7 @@ for i in range(len(models)):
                               ,scoring = 'precision')
     
     #print('before removing 0s \nmin: {}  max:{} \n'.format(cvscores.min(),cvscores.max()))
-
+    models[i].fit(x_train,y_train)
     cvscores = cvscores[np.greater_equal(cvscores,.01)] # This gets rid of the 0s
 
     print("{}: {} precision with a std of {}".format(models_names[i],cvscores.mean().round(2), cvscores.std().round(4)))
@@ -96,4 +99,42 @@ scores = pd.DataFrame({'model':models_names,
                        'std':stds})
 scores.to_csv('final_model_precision_validation_scores2.csv',index = False)
 scores.head()
+
+# %%
+best_MetPar = pd.read_csv('best_metrics_parameters.csv')
+data2_best = best_MetPar.loc[(best_MetPar.metric_name == 'precision') & (best_MetPar.model.str.endswith('2') )].sort_values(by = 'metric',ascending=False)
+
+#%%
+# Decision Tree
+plot_cm(decision_tree2,x_test,y_test)
+plot_roc(decision_tree2,x_test,y_test)
+#plot_prc(decision_tree2,x_test,y_test)
+#%%
+# Decision Tree
+plot_cm(boost2,x_test,y_test)
+plot_roc(boost2,x_test,y_test)
+#plot_prc(boost2,x_test,y_test)
+
+#%%
+# Decision Tree
+plot_cm(MLP2,x_test,y_test)
+plot_roc(MLP2,x_test,y_test)
+#plot_prc(MLP2,x_test,y_test)
+#%%
+# Decision Tree
+plot_cm(svm2,x_test,y_test)
+plot_roc(svm2,x_test,y_test)
+#plot_prc(svm2,x_test,y_test)
+#%%
+# Decision Tree
+plot_cm(KNN2,x_test,y_test)
+plot_roc(KNN2,x_test,y_test)
+#plot_prc(KNN2,x_test,y_test)
+#plot_roc(decision_tree1,X1,Y1)
+# %%
+best = best_MetPar
+best.loc[(best.metric_name == 'time') & (best.model.str.endswith('2'))]
+#%%
+best.loc[(best.metric_name == 'accuracy') & (best.model.str.endswith('2'))].sort_values(by = 'metric',ascending = False)
+
 # %%

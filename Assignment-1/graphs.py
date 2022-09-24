@@ -49,7 +49,7 @@ final_val1 = pd.read_csv('final_model_precision_validation_scores1.csv')
 final_val2 = pd.read_csv('final_model_precision_validation_scores2.csv')
 
 decision_tree = pd.concat([d1,d2])
-knn = pd.concat([k1,k2])
+knns = pd.concat([k1,k2])
 boost = pd.concat([b1,b2])
 mlps = pd.concat([m1,m2])
 mlps = mlps.loc[mlps.solver == 'adam'] # removing the adam values because it is too much to demonstrate
@@ -131,7 +131,7 @@ er = alt.Chart(
  #   alt.Column('metric')
 #)
 ################################
-beoge = alt.Chart(knn.loc[(knn.algorithm == 'ball_tree') & (knn.metric == 'euclidean')]
+beoge = alt.Chart(knns.loc[(knns.algorithm == 'ball_tree') & (knns.metric == 'euclidean')]
                 ).mark_line().encode(
                     alt.X('neighbors', title = 'Number of Neighbors'),
                     alt.Y('precision',title = 'Precision Score'),
@@ -143,7 +143,7 @@ beoge = alt.Chart(knn.loc[(knn.algorithm == 'ball_tree') & (knn.metric == 'eucli
                         'subtitleColor':'gray'
                     }
                 )
-beogm = alt.Chart(knn.loc[(knn.algorithm == 'ball_tree') & (knn.metric == 'manhattan')]
+beogm = alt.Chart(knns.loc[(knns.algorithm == 'ball_tree') & (knns.metric == 'manhattan')]
                 ).mark_line().encode(
                     alt.X('neighbors', title = 'Number of Neighbors'),
                     alt.Y('precision',title = 'Precision Score'),
@@ -157,56 +157,56 @@ beogm = alt.Chart(knn.loc[(knn.algorithm == 'ball_tree') & (knn.metric == 'manha
                 )
 
 
-be = alt.Chart(knn.loc[(knn.algorithm == 'ball_tree') & (knn.metric == 'euclidean')]
+be = alt.Chart(knns.loc[(knns.algorithm == 'ball_tree') & (knns.metric == 'euclidean')]
                 ).mark_point(clip=True).encode(
                     alt.X('neighbors', title = 'Number of Neighbors',scale = alt.Scale(domain=(0,25))),
                     alt.Y('precision',title = 'Precision Score',scale = alt.Scale(zero = False)),
                     alt.Color('dataset_name',title = 'Dataset type',legend = None)
                 )
 
-bm = alt.Chart(knn.loc[(knn.algorithm == 'ball_tree') & (knn.metric == 'manhattan')]
+bm = alt.Chart(knns.loc[(knns.algorithm == 'ball_tree') & (knns.metric == 'manhattan')]
                 ).mark_point(clip=True).encode(
                     alt.X('neighbors', title = 'Number of Neighbors',scale = alt.Scale(domain=(0,25))),
                     alt.Y('precision',title = 'Precision Score',scale = alt.Scale(zero = False)),
                     alt.Color('dataset_name',title = 'Dataset type',legend = None, scale=alt.Scale(range = ['red','black']))
                 )
 
-bre = alt.Chart(knn.loc[(knn.algorithm == 'brute') & (knn.metric == 'euclidean')]
+bre = alt.Chart(knns.loc[(knns.algorithm == 'brute') & (knns.metric == 'euclidean')]
                 ).mark_point(clip=True).encode(
                     alt.X('neighbors', title = 'Number of Neighbors',scale = alt.Scale(domain=(0,25))),
                     alt.Y('precision',title = 'Precision Score',scale = alt.Scale(zero = False)),
                     alt.Color('dataset_name',title = 'Dataset type',legend = None)
                 )
 
-brm = alt.Chart(knn.loc[(knn.algorithm == 'brute') & (knn.metric == 'manhattan')]
+brm = alt.Chart(knns.loc[(knns.algorithm == 'brute') & (knns.metric == 'manhattan')]
                 ).mark_point(clip=True).encode(
                     alt.X('neighbors', title = 'Number of Neighbors',scale = alt.Scale(domain=(0,25))),
                     alt.Y('precision',title = 'Precision Score',scale = alt.Scale(zero = False)),
                     alt.Color('dataset_name',title = 'Dataset type',legend = None, scale=alt.Scale(range = ['red','black']))
                 )
 
-ke = alt.Chart(knn.loc[(knn.algorithm == 'kd_tree') & (knn.metric == 'euclidean')]
+ke = alt.Chart(knns.loc[(knns.algorithm == 'kd_tree') & (knns.metric == 'euclidean')]
                 ).mark_point(clip=True).encode(
                     alt.X('neighbors', title = 'Number of Neighbors',scale = alt.Scale(domain=(0,25))),
                     alt.Y('precision',title = 'Precision Score',scale = alt.Scale(zero = False)),
                     alt.Color('dataset_name',title = 'Dataset type',legend = None)
                 )
 
-km = alt.Chart(knn.loc[(knn.algorithm == 'kd_tree') & (knn.metric == 'manhattan')]
+km = alt.Chart(knns.loc[(knns.algorithm == 'kd_tree') & (knns.metric == 'manhattan')]
                 ).mark_point(clip=True).encode(
                     alt.X('neighbors', title = 'Number of Neighbors',scale = alt.Scale(domain=(0,25))),
                     alt.Y('precision',title = 'Precision Score',scale = alt.Scale(zero = False)),
                     alt.Color('dataset_name',title = 'Dataset type',legend = None, scale=alt.Scale(range = ['red','black']))
                 )
 
-ae = alt.Chart(knn.loc[(knn.algorithm == 'auto') & (knn.metric == 'euclidean')]
+ae = alt.Chart(knns.loc[(knns.algorithm == 'auto') & (knns.metric == 'euclidean')]
                 ).mark_line(clip=True).encode(
                     alt.X('neighbors', title = 'Number of Neighbors',scale = alt.Scale(domain=(0,25))),
                     alt.Y('precision',title = 'Precision Score',scale = alt.Scale(zero = False)),
                     alt.Color('dataset_name',title = 'Dataset type',legend = None)
                 )
 
-am = alt.Chart(knn.loc[(knn.algorithm == 'auto') & (knn.metric == 'manhattan')]
+am = alt.Chart(knns.loc[(knns.algorithm == 'auto') & (knns.metric == 'manhattan')]
                 ).mark_line(clip=True).encode(
                     alt.X('neighbors', title = 'Number of Neighbors',scale = alt.Scale(domain=(0,25))),
                     alt.Y('precision',title = 'Precision Score',scale = alt.Scale(zero = False)),

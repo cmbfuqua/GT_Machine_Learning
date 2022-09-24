@@ -16,7 +16,7 @@ In the middle you will see an area where I loop through all of the results and p
 ##### Step 4
 Finally, in the "..._final.py" file is where I create the final version of my models and create the graphs that I will be using in my report. I am optimizing for precision so my graphs and hyperparameter choices will reflect this choice.
 
-Here is the URL to get to my repo: 
+Here is the URL to get to my repo: https://github.com/cmbfuqua/GT_Machine_Learning/tree/main/Assignment-1
 
 
 

@@ -368,56 +368,8 @@ knapsack_data.to_csv('knapsack_time_data.csv')
 # Part 2, The ANN
 ###################################################
 # go through cleaning process
-# %%
-'''
-data1 = pd.read_csv('subscribed.csv')
-data1.head()
 
-data1.loc[data1.marital.isna(),'marital'] = 'Unknown'
-data1.loc[data1.customer_age.isna(),'customer_age'] = data1.customer_age.mean()
-data1.loc[data1.balance.isna(),'balance'] = data1.balance.mean()
-data1.loc[data1.personal_loan.isna(),'personal_loan'] = 'no'
-data1.loc[data1.last_contact_duration.isna(),'last_contact_duration'] = data1.last_contact_duration.mean()
-data1.loc[data1.num_contacts_in_campaign.isna(),'num_contacts_in_campaign'] = data1.num_contacts_in_campaign.mean()
-
-clean1 = pd.DataFrame(data1[['customer_age',
-                    'balance',
-                    'last_contact_duration',
-                    'num_contacts_in_campaign',
-                    'num_contacts_prev_campaign']])
-clean1['subscribed'] = data1.term_deposit_subscribed
-
-marital_status = pd.get_dummies(data1.marital,drop_first = True,prefix='married')
-jobs = pd.get_dummies(data1.job_type,drop_first = True,prefix='jt')
-edu = pd.get_dummies(data1.education,drop_first=True,prefix='edu')
-clean1['default'] = pd.get_dummies(data1.default,drop_first=True)
-clean1['housing_loan'] = pd.get_dummies(data1.housing_loan)['yes']
-clean1['personal_loan'] = pd.get_dummies(data1.personal_loan,drop_first=True)
-comm_type = pd.get_dummies(data1.communication_type,drop_first=True,prefix='comm_type')
-outcomes = pd.get_dummies(data1.prev_campaign_outcome,drop_first=True,prefix='out')
-
-cleanT1 = pd.concat([jobs,edu,comm_type,marital_status,clean1],axis = 1)
-
-yes = cleanT1.loc[cleanT1.subscribed == 1]
-no = cleanT1.loc[cleanT1.subscribed == 0].head(3394) #Balance Data
-
-cleanT1 = pd.concat([yes,no],axis = 0)
-
-X = cleanT1.drop(columns= ['subscribed'])
-y = cleanT1.subscribed
-
-x_train,x_test,y_train,y_test = train_test_split(X,
-                                                y,
-                                                test_size = .2,
-                                                random_state=42)
-
-scaler = ss().fit(x_train)
-
-#x_train = pd.DataFrame(scaler.transform(x_train))
-#x_test = pd.DataFrame(scaler.transform(x_test))
-'''
 #%%
-#Brandon cleaning
 # Data cleaning
 data_raw = pd.read_csv('https://raw.githubusercontent.com/brandonritchie/SupervisedLearningProject1/master/Train.csv')
 data_raw = pd.get_dummies(data_raw, columns = ['job_type','marital','education','default', 'prev_campaign_outcome'])
@@ -620,9 +572,6 @@ print('Time: {}\nPrecision: {}\nAccuracy: {}\n\n'.format(round(clock_time,2),pre
 # %%
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import SVC
-from sklearn.datasets import load_digits
 from sklearn.model_selection import learning_curve
 from sklearn.model_selection import ShuffleSplit
 def plot_learning_curve(
@@ -690,6 +639,7 @@ def plot_learning_curve(
     return plt
 
 # %%
+# Final models and their learning curves
 s = time.time()
 sima = ann(activation='identity',
             hidden_nodes=[10],

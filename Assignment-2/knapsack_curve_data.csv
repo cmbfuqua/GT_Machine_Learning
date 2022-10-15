@@ -1,0 +1,1574 @@
+,iteration,score,size,algorithm
+0,2.0,4.0,5,Genetic
+1,3.0,4.0,5,Genetic
+2,4.0,4.0,5,Genetic
+3,5.0,4.0,5,Genetic
+4,6.0,4.0,5,Genetic
+5,7.0,4.0,5,Genetic
+6,8.0,4.0,5,Genetic
+7,9.0,4.0,5,Genetic
+8,10.0,4.0,5,Genetic
+9,11.0,4.0,5,Genetic
+10,12.0,4.0,5,Genetic
+11,14.0,3.0,5,Random Hill Climb
+12,15.0,3.0,5,Random Hill Climb
+13,16.0,3.0,5,Random Hill Climb
+14,17.0,3.0,5,Random Hill Climb
+15,18.0,3.0,5,Random Hill Climb
+16,19.0,3.0,5,Random Hill Climb
+17,20.0,3.0,5,Random Hill Climb
+18,21.0,3.0,5,Random Hill Climb
+19,22.0,3.0,5,Random Hill Climb
+20,23.0,3.0,5,Random Hill Climb
+21,24.0,3.0,5,Random Hill Climb
+22,2.0,4.0,5,MIMIC
+23,3.0,4.0,5,MIMIC
+24,4.0,4.0,5,MIMIC
+25,5.0,4.0,5,MIMIC
+26,6.0,4.0,5,MIMIC
+27,7.0,4.0,5,MIMIC
+28,8.0,4.0,5,MIMIC
+29,9.0,4.0,5,MIMIC
+30,10.0,4.0,5,MIMIC
+31,11.0,4.0,5,MIMIC
+32,12.0,4.0,5,MIMIC
+33,2.0,3.0,5,Simulated Annealing
+34,4.0,2.0,5,Simulated Annealing
+35,6.0,2.0,5,Simulated Annealing
+36,8.0,2.0,5,Simulated Annealing
+37,10.0,4.0,5,Simulated Annealing
+38,12.0,2.0,5,Simulated Annealing
+39,14.0,2.0,5,Simulated Annealing
+40,16.0,2.0,5,Simulated Annealing
+41,17.0,2.0,5,Simulated Annealing
+42,19.0,2.0,5,Simulated Annealing
+43,21.0,2.0,5,Simulated Annealing
+44,22.0,2.0,5,Simulated Annealing
+45,24.0,2.0,5,Simulated Annealing
+46,26.0,2.0,5,Simulated Annealing
+47,28.0,4.0,5,Simulated Annealing
+48,29.0,4.0,5,Simulated Annealing
+49,31.0,3.0,5,Simulated Annealing
+50,32.0,3.0,5,Simulated Annealing
+51,34.0,4.0,5,Simulated Annealing
+52,35.0,4.0,5,Simulated Annealing
+53,36.0,4.0,5,Simulated Annealing
+54,37.0,4.0,5,Simulated Annealing
+55,39.0,3.0,5,Simulated Annealing
+56,41.0,3.0,5,Simulated Annealing
+57,43.0,3.0,5,Simulated Annealing
+58,44.0,3.0,5,Simulated Annealing
+59,46.0,3.0,5,Simulated Annealing
+60,48.0,3.0,5,Simulated Annealing
+61,49.0,3.0,5,Simulated Annealing
+62,51.0,4.0,5,Simulated Annealing
+63,52.0,4.0,5,Simulated Annealing
+64,53.0,4.0,5,Simulated Annealing
+65,54.0,4.0,5,Simulated Annealing
+66,56.0,2.0,5,Simulated Annealing
+67,58.0,3.0,5,Simulated Annealing
+68,59.0,3.0,5,Simulated Annealing
+69,60.0,3.0,5,Simulated Annealing
+70,61.0,3.0,5,Simulated Annealing
+71,63.0,3.0,5,Simulated Annealing
+72,65.0,4.0,5,Simulated Annealing
+73,67.0,3.0,5,Simulated Annealing
+74,68.0,3.0,5,Simulated Annealing
+75,70.0,3.0,5,Simulated Annealing
+76,72.0,3.0,5,Simulated Annealing
+77,74.0,3.0,5,Simulated Annealing
+78,76.0,3.0,5,Simulated Annealing
+79,78.0,3.0,5,Simulated Annealing
+80,80.0,4.0,5,Simulated Annealing
+81,81.0,4.0,5,Simulated Annealing
+82,82.0,4.0,5,Simulated Annealing
+83,83.0,4.0,5,Simulated Annealing
+84,84.0,4.0,5,Simulated Annealing
+85,85.0,4.0,5,Simulated Annealing
+86,86.0,4.0,5,Simulated Annealing
+87,87.0,4.0,5,Simulated Annealing
+88,89.0,2.0,5,Simulated Annealing
+89,90.0,2.0,5,Simulated Annealing
+90,92.0,3.0,5,Simulated Annealing
+91,93.0,3.0,5,Simulated Annealing
+92,94.0,3.0,5,Simulated Annealing
+93,95.0,3.0,5,Simulated Annealing
+94,96.0,3.0,5,Simulated Annealing
+95,98.0,3.0,5,Simulated Annealing
+96,100.0,3.0,5,Simulated Annealing
+97,102.0,4.0,5,Simulated Annealing
+98,104.0,3.0,5,Simulated Annealing
+99,105.0,3.0,5,Simulated Annealing
+100,106.0,3.0,5,Simulated Annealing
+101,107.0,3.0,5,Simulated Annealing
+102,108.0,3.0,5,Simulated Annealing
+103,110.0,4.0,5,Simulated Annealing
+104,111.0,4.0,5,Simulated Annealing
+105,112.0,4.0,5,Simulated Annealing
+106,113.0,4.0,5,Simulated Annealing
+107,114.0,4.0,5,Simulated Annealing
+108,115.0,4.0,5,Simulated Annealing
+109,116.0,4.0,5,Simulated Annealing
+110,117.0,4.0,5,Simulated Annealing
+111,118.0,4.0,5,Simulated Annealing
+112,119.0,4.0,5,Simulated Annealing
+113,120.0,4.0,5,Simulated Annealing
+114,2.0,8.0,10,Genetic
+115,4.0,9.0,10,Genetic
+116,5.0,9.0,10,Genetic
+117,6.0,9.0,10,Genetic
+118,7.0,9.0,10,Genetic
+119,8.0,9.0,10,Genetic
+120,9.0,9.0,10,Genetic
+121,10.0,9.0,10,Genetic
+122,11.0,9.0,10,Genetic
+123,12.0,9.0,10,Genetic
+124,13.0,9.0,10,Genetic
+125,14.0,9.0,10,Genetic
+126,15.0,5.0,10,Random Hill Climb
+127,16.0,5.0,10,Random Hill Climb
+128,18.0,7.0,10,Random Hill Climb
+129,19.0,7.0,10,Random Hill Climb
+130,21.0,9.0,10,Random Hill Climb
+131,22.0,9.0,10,Random Hill Climb
+132,23.0,9.0,10,Random Hill Climb
+133,24.0,9.0,10,Random Hill Climb
+134,25.0,9.0,10,Random Hill Climb
+135,26.0,9.0,10,Random Hill Climb
+136,27.0,9.0,10,Random Hill Climb
+137,28.0,9.0,10,Random Hill Climb
+138,29.0,9.0,10,Random Hill Climb
+139,30.0,9.0,10,Random Hill Climb
+140,31.0,9.0,10,Random Hill Climb
+141,2.0,8.0,10,MIMIC
+142,4.0,9.0,10,MIMIC
+143,5.0,9.0,10,MIMIC
+144,6.0,9.0,10,MIMIC
+145,7.0,9.0,10,MIMIC
+146,8.0,9.0,10,MIMIC
+147,9.0,9.0,10,MIMIC
+148,10.0,9.0,10,MIMIC
+149,11.0,9.0,10,MIMIC
+150,12.0,9.0,10,MIMIC
+151,13.0,9.0,10,MIMIC
+152,14.0,9.0,10,MIMIC
+153,2.0,5.0,10,Simulated Annealing
+154,4.0,7.0,10,Simulated Annealing
+155,6.0,7.0,10,Simulated Annealing
+156,7.0,7.0,10,Simulated Annealing
+157,9.0,7.0,10,Simulated Annealing
+158,11.0,5.0,10,Simulated Annealing
+159,13.0,7.0,10,Simulated Annealing
+160,15.0,6.0,10,Simulated Annealing
+161,17.0,6.0,10,Simulated Annealing
+162,18.0,6.0,10,Simulated Annealing
+163,20.0,5.0,10,Simulated Annealing
+164,22.0,5.0,10,Simulated Annealing
+165,24.0,5.0,10,Simulated Annealing
+166,25.0,5.0,10,Simulated Annealing
+167,26.0,5.0,10,Simulated Annealing
+168,28.0,3.0,10,Simulated Annealing
+169,30.0,3.0,10,Simulated Annealing
+170,32.0,3.0,10,Simulated Annealing
+171,34.0,2.0,10,Simulated Annealing
+172,36.0,2.0,10,Simulated Annealing
+173,38.0,4.0,10,Simulated Annealing
+174,40.0,4.0,10,Simulated Annealing
+175,42.0,3.0,10,Simulated Annealing
+176,44.0,3.0,10,Simulated Annealing
+177,46.0,3.0,10,Simulated Annealing
+178,48.0,3.0,10,Simulated Annealing
+179,50.0,5.0,10,Simulated Annealing
+180,52.0,6.0,10,Simulated Annealing
+181,53.0,6.0,10,Simulated Annealing
+182,55.0,6.0,10,Simulated Annealing
+183,57.0,6.0,10,Simulated Annealing
+184,58.0,6.0,10,Simulated Annealing
+185,59.0,6.0,10,Simulated Annealing
+186,60.0,6.0,10,Simulated Annealing
+187,62.0,6.0,10,Simulated Annealing
+188,64.0,6.0,10,Simulated Annealing
+189,66.0,5.0,10,Simulated Annealing
+190,68.0,5.0,10,Simulated Annealing
+191,70.0,5.0,10,Simulated Annealing
+192,72.0,5.0,10,Simulated Annealing
+193,74.0,5.0,10,Simulated Annealing
+194,75.0,5.0,10,Simulated Annealing
+195,77.0,4.0,10,Simulated Annealing
+196,79.0,6.0,10,Simulated Annealing
+197,81.0,6.0,10,Simulated Annealing
+198,83.0,6.0,10,Simulated Annealing
+199,84.0,6.0,10,Simulated Annealing
+200,86.0,6.0,10,Simulated Annealing
+201,88.0,6.0,10,Simulated Annealing
+202,90.0,8.0,10,Simulated Annealing
+203,91.0,8.0,10,Simulated Annealing
+204,92.0,8.0,10,Simulated Annealing
+205,93.0,8.0,10,Simulated Annealing
+206,94.0,8.0,10,Simulated Annealing
+207,96.0,7.0,10,Simulated Annealing
+208,97.0,7.0,10,Simulated Annealing
+209,98.0,7.0,10,Simulated Annealing
+210,99.0,7.0,10,Simulated Annealing
+211,100.0,7.0,10,Simulated Annealing
+212,101.0,7.0,10,Simulated Annealing
+213,102.0,7.0,10,Simulated Annealing
+214,103.0,7.0,10,Simulated Annealing
+215,105.0,8.0,10,Simulated Annealing
+216,107.0,8.0,10,Simulated Annealing
+217,108.0,8.0,10,Simulated Annealing
+218,110.0,9.0,10,Simulated Annealing
+219,111.0,9.0,10,Simulated Annealing
+220,112.0,9.0,10,Simulated Annealing
+221,113.0,9.0,10,Simulated Annealing
+222,114.0,9.0,10,Simulated Annealing
+223,115.0,9.0,10,Simulated Annealing
+224,116.0,9.0,10,Simulated Annealing
+225,117.0,9.0,10,Simulated Annealing
+226,119.0,8.0,10,Simulated Annealing
+227,120.0,8.0,10,Simulated Annealing
+228,121.0,8.0,10,Simulated Annealing
+229,122.0,8.0,10,Simulated Annealing
+230,124.0,9.0,10,Simulated Annealing
+231,125.0,9.0,10,Simulated Annealing
+232,126.0,9.0,10,Simulated Annealing
+233,127.0,9.0,10,Simulated Annealing
+234,128.0,9.0,10,Simulated Annealing
+235,129.0,9.0,10,Simulated Annealing
+236,130.0,9.0,10,Simulated Annealing
+237,131.0,9.0,10,Simulated Annealing
+238,132.0,9.0,10,Simulated Annealing
+239,133.0,9.0,10,Simulated Annealing
+240,134.0,9.0,10,Simulated Annealing
+241,2.0,11.0,15,Genetic
+242,4.0,12.0,15,Genetic
+243,5.0,12.0,15,Genetic
+244,6.0,12.0,15,Genetic
+245,8.0,13.0,15,Genetic
+246,9.0,13.0,15,Genetic
+247,11.0,14.0,15,Genetic
+248,12.0,14.0,15,Genetic
+249,13.0,14.0,15,Genetic
+250,14.0,14.0,15,Genetic
+251,15.0,14.0,15,Genetic
+252,16.0,14.0,15,Genetic
+253,17.0,14.0,15,Genetic
+254,18.0,14.0,15,Genetic
+255,19.0,14.0,15,Genetic
+256,20.0,14.0,15,Genetic
+257,21.0,14.0,15,Genetic
+258,22.0,7.0,15,Random Hill Climb
+259,24.0,9.0,15,Random Hill Climb
+260,26.0,11.0,15,Random Hill Climb
+261,27.0,11.0,15,Random Hill Climb
+262,28.0,11.0,15,Random Hill Climb
+263,29.0,11.0,15,Random Hill Climb
+264,30.0,11.0,15,Random Hill Climb
+265,31.0,11.0,15,Random Hill Climb
+266,32.0,11.0,15,Random Hill Climb
+267,34.0,13.0,15,Random Hill Climb
+268,35.0,13.0,15,Random Hill Climb
+269,36.0,13.0,15,Random Hill Climb
+270,37.0,13.0,15,Random Hill Climb
+271,38.0,13.0,15,Random Hill Climb
+272,39.0,13.0,15,Random Hill Climb
+273,40.0,13.0,15,Random Hill Climb
+274,41.0,13.0,15,Random Hill Climb
+275,42.0,13.0,15,Random Hill Climb
+276,43.0,13.0,15,Random Hill Climb
+277,44.0,13.0,15,Random Hill Climb
+278,2.0,13.0,15,MIMIC
+279,3.0,13.0,15,MIMIC
+280,4.0,13.0,15,MIMIC
+281,5.0,13.0,15,MIMIC
+282,6.0,13.0,15,MIMIC
+283,7.0,13.0,15,MIMIC
+284,8.0,13.0,15,MIMIC
+285,9.0,13.0,15,MIMIC
+286,10.0,13.0,15,MIMIC
+287,11.0,13.0,15,MIMIC
+288,12.0,13.0,15,MIMIC
+289,2.0,7.0,15,Simulated Annealing
+290,4.0,9.0,15,Simulated Annealing
+291,6.0,9.0,15,Simulated Annealing
+292,8.0,9.0,15,Simulated Annealing
+293,10.0,9.0,15,Simulated Annealing
+294,12.0,11.0,15,Simulated Annealing
+295,14.0,11.0,15,Simulated Annealing
+296,15.0,11.0,15,Simulated Annealing
+297,17.0,9.0,15,Simulated Annealing
+298,19.0,9.0,15,Simulated Annealing
+299,21.0,9.0,15,Simulated Annealing
+300,23.0,9.0,15,Simulated Annealing
+301,25.0,9.0,15,Simulated Annealing
+302,27.0,9.0,15,Simulated Annealing
+303,28.0,9.0,15,Simulated Annealing
+304,30.0,9.0,15,Simulated Annealing
+305,31.0,9.0,15,Simulated Annealing
+306,33.0,9.0,15,Simulated Annealing
+307,35.0,9.0,15,Simulated Annealing
+308,37.0,9.0,15,Simulated Annealing
+309,39.0,9.0,15,Simulated Annealing
+310,41.0,9.0,15,Simulated Annealing
+311,42.0,9.0,15,Simulated Annealing
+312,44.0,9.0,15,Simulated Annealing
+313,46.0,8.0,15,Simulated Annealing
+314,48.0,7.0,15,Simulated Annealing
+315,50.0,7.0,15,Simulated Annealing
+316,52.0,9.0,15,Simulated Annealing
+317,53.0,9.0,15,Simulated Annealing
+318,55.0,9.0,15,Simulated Annealing
+319,56.0,9.0,15,Simulated Annealing
+320,58.0,9.0,15,Simulated Annealing
+321,59.0,9.0,15,Simulated Annealing
+322,60.0,9.0,15,Simulated Annealing
+323,62.0,9.0,15,Simulated Annealing
+324,64.0,9.0,15,Simulated Annealing
+325,66.0,9.0,15,Simulated Annealing
+326,68.0,9.0,15,Simulated Annealing
+327,70.0,9.0,15,Simulated Annealing
+328,71.0,9.0,15,Simulated Annealing
+329,72.0,9.0,15,Simulated Annealing
+330,74.0,9.0,15,Simulated Annealing
+331,76.0,10.0,15,Simulated Annealing
+332,77.0,10.0,15,Simulated Annealing
+333,79.0,10.0,15,Simulated Annealing
+334,81.0,10.0,15,Simulated Annealing
+335,82.0,10.0,15,Simulated Annealing
+336,84.0,10.0,15,Simulated Annealing
+337,85.0,10.0,15,Simulated Annealing
+338,86.0,10.0,15,Simulated Annealing
+339,88.0,10.0,15,Simulated Annealing
+340,90.0,10.0,15,Simulated Annealing
+341,92.0,10.0,15,Simulated Annealing
+342,93.0,10.0,15,Simulated Annealing
+343,95.0,10.0,15,Simulated Annealing
+344,97.0,10.0,15,Simulated Annealing
+345,99.0,10.0,15,Simulated Annealing
+346,100.0,10.0,15,Simulated Annealing
+347,101.0,10.0,15,Simulated Annealing
+348,103.0,10.0,15,Simulated Annealing
+349,104.0,10.0,15,Simulated Annealing
+350,106.0,10.0,15,Simulated Annealing
+351,108.0,9.0,15,Simulated Annealing
+352,110.0,9.0,15,Simulated Annealing
+353,112.0,10.0,15,Simulated Annealing
+354,114.0,10.0,15,Simulated Annealing
+355,116.0,10.0,15,Simulated Annealing
+356,118.0,10.0,15,Simulated Annealing
+357,120.0,10.0,15,Simulated Annealing
+358,121.0,10.0,15,Simulated Annealing
+359,122.0,10.0,15,Simulated Annealing
+360,123.0,10.0,15,Simulated Annealing
+361,124.0,10.0,15,Simulated Annealing
+362,125.0,10.0,15,Simulated Annealing
+363,127.0,10.0,15,Simulated Annealing
+364,128.0,10.0,15,Simulated Annealing
+365,129.0,10.0,15,Simulated Annealing
+366,130.0,10.0,15,Simulated Annealing
+367,132.0,10.0,15,Simulated Annealing
+368,134.0,10.0,15,Simulated Annealing
+369,136.0,11.0,15,Simulated Annealing
+370,137.0,11.0,15,Simulated Annealing
+371,138.0,11.0,15,Simulated Annealing
+372,139.0,11.0,15,Simulated Annealing
+373,141.0,11.0,15,Simulated Annealing
+374,142.0,11.0,15,Simulated Annealing
+375,143.0,11.0,15,Simulated Annealing
+376,144.0,11.0,15,Simulated Annealing
+377,145.0,11.0,15,Simulated Annealing
+378,147.0,11.0,15,Simulated Annealing
+379,149.0,10.0,15,Simulated Annealing
+380,150.0,10.0,15,Simulated Annealing
+381,152.0,10.0,15,Simulated Annealing
+382,153.0,10.0,15,Simulated Annealing
+383,155.0,11.0,15,Simulated Annealing
+384,157.0,11.0,15,Simulated Annealing
+385,158.0,11.0,15,Simulated Annealing
+386,159.0,11.0,15,Simulated Annealing
+387,160.0,11.0,15,Simulated Annealing
+388,161.0,11.0,15,Simulated Annealing
+389,162.0,11.0,15,Simulated Annealing
+390,163.0,11.0,15,Simulated Annealing
+391,165.0,13.0,15,Simulated Annealing
+392,166.0,13.0,15,Simulated Annealing
+393,167.0,13.0,15,Simulated Annealing
+394,168.0,13.0,15,Simulated Annealing
+395,169.0,13.0,15,Simulated Annealing
+396,170.0,13.0,15,Simulated Annealing
+397,171.0,13.0,15,Simulated Annealing
+398,172.0,13.0,15,Simulated Annealing
+399,173.0,13.0,15,Simulated Annealing
+400,175.0,13.0,15,Simulated Annealing
+401,177.0,13.0,15,Simulated Annealing
+402,178.0,13.0,15,Simulated Annealing
+403,179.0,13.0,15,Simulated Annealing
+404,180.0,13.0,15,Simulated Annealing
+405,181.0,13.0,15,Simulated Annealing
+406,182.0,13.0,15,Simulated Annealing
+407,183.0,13.0,15,Simulated Annealing
+408,184.0,13.0,15,Simulated Annealing
+409,185.0,13.0,15,Simulated Annealing
+410,186.0,13.0,15,Simulated Annealing
+411,188.0,13.0,15,Simulated Annealing
+412,189.0,13.0,15,Simulated Annealing
+413,190.0,13.0,15,Simulated Annealing
+414,191.0,13.0,15,Simulated Annealing
+415,192.0,13.0,15,Simulated Annealing
+416,193.0,13.0,15,Simulated Annealing
+417,194.0,13.0,15,Simulated Annealing
+418,195.0,13.0,15,Simulated Annealing
+419,196.0,13.0,15,Simulated Annealing
+420,197.0,13.0,15,Simulated Annealing
+421,198.0,13.0,15,Simulated Annealing
+422,2.0,17.0,20,Genetic
+423,3.0,17.0,20,Genetic
+424,4.0,17.0,20,Genetic
+425,5.0,17.0,20,Genetic
+426,6.0,17.0,20,Genetic
+427,8.0,19.0,20,Genetic
+428,9.0,19.0,20,Genetic
+429,10.0,19.0,20,Genetic
+430,11.0,19.0,20,Genetic
+431,12.0,19.0,20,Genetic
+432,13.0,19.0,20,Genetic
+433,14.0,19.0,20,Genetic
+434,15.0,19.0,20,Genetic
+435,16.0,19.0,20,Genetic
+436,17.0,19.0,20,Genetic
+437,18.0,19.0,20,Genetic
+438,19.0,10.0,20,Random Hill Climb
+439,21.0,12.0,20,Random Hill Climb
+440,22.0,12.0,20,Random Hill Climb
+441,23.0,12.0,20,Random Hill Climb
+442,24.0,12.0,20,Random Hill Climb
+443,25.0,12.0,20,Random Hill Climb
+444,26.0,12.0,20,Random Hill Climb
+445,27.0,12.0,20,Random Hill Climb
+446,28.0,12.0,20,Random Hill Climb
+447,29.0,12.0,20,Random Hill Climb
+448,30.0,12.0,20,Random Hill Climb
+449,31.0,12.0,20,Random Hill Climb
+450,2.0,17.0,20,MIMIC
+451,4.0,18.0,20,MIMIC
+452,6.0,19.0,20,MIMIC
+453,7.0,19.0,20,MIMIC
+454,8.0,19.0,20,MIMIC
+455,9.0,19.0,20,MIMIC
+456,10.0,19.0,20,MIMIC
+457,11.0,19.0,20,MIMIC
+458,12.0,19.0,20,MIMIC
+459,13.0,19.0,20,MIMIC
+460,14.0,19.0,20,MIMIC
+461,15.0,19.0,20,MIMIC
+462,16.0,19.0,20,MIMIC
+463,1.0,10.0,20,Simulated Annealing
+464,3.0,8.0,20,Simulated Annealing
+465,5.0,7.0,20,Simulated Annealing
+466,7.0,9.0,20,Simulated Annealing
+467,9.0,9.0,20,Simulated Annealing
+468,11.0,7.0,20,Simulated Annealing
+469,13.0,7.0,20,Simulated Annealing
+470,15.0,7.0,20,Simulated Annealing
+471,16.0,7.0,20,Simulated Annealing
+472,18.0,7.0,20,Simulated Annealing
+473,20.0,9.0,20,Simulated Annealing
+474,22.0,11.0,20,Simulated Annealing
+475,24.0,9.0,20,Simulated Annealing
+476,26.0,11.0,20,Simulated Annealing
+477,28.0,11.0,20,Simulated Annealing
+478,30.0,13.0,20,Simulated Annealing
+479,32.0,12.0,20,Simulated Annealing
+480,34.0,14.0,20,Simulated Annealing
+481,35.0,14.0,20,Simulated Annealing
+482,36.0,14.0,20,Simulated Annealing
+483,38.0,14.0,20,Simulated Annealing
+484,39.0,14.0,20,Simulated Annealing
+485,41.0,14.0,20,Simulated Annealing
+486,43.0,14.0,20,Simulated Annealing
+487,44.0,14.0,20,Simulated Annealing
+488,45.0,14.0,20,Simulated Annealing
+489,47.0,14.0,20,Simulated Annealing
+490,49.0,14.0,20,Simulated Annealing
+491,50.0,14.0,20,Simulated Annealing
+492,51.0,14.0,20,Simulated Annealing
+493,52.0,14.0,20,Simulated Annealing
+494,53.0,14.0,20,Simulated Annealing
+495,55.0,14.0,20,Simulated Annealing
+496,57.0,14.0,20,Simulated Annealing
+497,59.0,13.0,20,Simulated Annealing
+498,61.0,13.0,20,Simulated Annealing
+499,63.0,13.0,20,Simulated Annealing
+500,65.0,14.0,20,Simulated Annealing
+501,67.0,14.0,20,Simulated Annealing
+502,69.0,14.0,20,Simulated Annealing
+503,71.0,14.0,20,Simulated Annealing
+504,72.0,14.0,20,Simulated Annealing
+505,74.0,14.0,20,Simulated Annealing
+506,76.0,14.0,20,Simulated Annealing
+507,77.0,14.0,20,Simulated Annealing
+508,79.0,14.0,20,Simulated Annealing
+509,80.0,14.0,20,Simulated Annealing
+510,82.0,14.0,20,Simulated Annealing
+511,83.0,14.0,20,Simulated Annealing
+512,84.0,14.0,20,Simulated Annealing
+513,86.0,14.0,20,Simulated Annealing
+514,88.0,14.0,20,Simulated Annealing
+515,89.0,14.0,20,Simulated Annealing
+516,91.0,14.0,20,Simulated Annealing
+517,93.0,14.0,20,Simulated Annealing
+518,95.0,14.0,20,Simulated Annealing
+519,97.0,14.0,20,Simulated Annealing
+520,98.0,14.0,20,Simulated Annealing
+521,100.0,14.0,20,Simulated Annealing
+522,102.0,14.0,20,Simulated Annealing
+523,104.0,16.0,20,Simulated Annealing
+524,106.0,18.0,20,Simulated Annealing
+525,107.0,18.0,20,Simulated Annealing
+526,109.0,19.0,20,Simulated Annealing
+527,110.0,19.0,20,Simulated Annealing
+528,111.0,19.0,20,Simulated Annealing
+529,112.0,19.0,20,Simulated Annealing
+530,114.0,18.0,20,Simulated Annealing
+531,115.0,18.0,20,Simulated Annealing
+532,116.0,18.0,20,Simulated Annealing
+533,117.0,18.0,20,Simulated Annealing
+534,118.0,18.0,20,Simulated Annealing
+535,120.0,18.0,20,Simulated Annealing
+536,121.0,18.0,20,Simulated Annealing
+537,122.0,18.0,20,Simulated Annealing
+538,124.0,18.0,20,Simulated Annealing
+539,125.0,18.0,20,Simulated Annealing
+540,127.0,19.0,20,Simulated Annealing
+541,128.0,19.0,20,Simulated Annealing
+542,129.0,19.0,20,Simulated Annealing
+543,130.0,19.0,20,Simulated Annealing
+544,131.0,19.0,20,Simulated Annealing
+545,132.0,19.0,20,Simulated Annealing
+546,133.0,19.0,20,Simulated Annealing
+547,134.0,19.0,20,Simulated Annealing
+548,135.0,19.0,20,Simulated Annealing
+549,136.0,19.0,20,Simulated Annealing
+550,137.0,19.0,20,Simulated Annealing
+551,2.0,18.0,25,Genetic
+552,3.0,18.0,25,Genetic
+553,5.0,20.0,25,Genetic
+554,7.0,21.0,25,Genetic
+555,8.0,21.0,25,Genetic
+556,10.0,22.0,25,Genetic
+557,11.0,22.0,25,Genetic
+558,12.0,22.0,25,Genetic
+559,13.0,22.0,25,Genetic
+560,14.0,22.0,25,Genetic
+561,16.0,23.0,25,Genetic
+562,17.0,23.0,25,Genetic
+563,18.0,23.0,25,Genetic
+564,20.0,24.0,25,Genetic
+565,21.0,24.0,25,Genetic
+566,22.0,24.0,25,Genetic
+567,23.0,24.0,25,Genetic
+568,24.0,24.0,25,Genetic
+569,25.0,24.0,25,Genetic
+570,26.0,24.0,25,Genetic
+571,27.0,24.0,25,Genetic
+572,28.0,24.0,25,Genetic
+573,29.0,24.0,25,Genetic
+574,30.0,24.0,25,Genetic
+575,31.0,13.0,25,Random Hill Climb
+576,32.0,13.0,25,Random Hill Climb
+577,33.0,13.0,25,Random Hill Climb
+578,34.0,13.0,25,Random Hill Climb
+579,36.0,15.0,25,Random Hill Climb
+580,37.0,15.0,25,Random Hill Climb
+581,38.0,15.0,25,Random Hill Climb
+582,40.0,16.0,25,Random Hill Climb
+583,41.0,16.0,25,Random Hill Climb
+584,42.0,16.0,25,Random Hill Climb
+585,43.0,16.0,25,Random Hill Climb
+586,44.0,16.0,25,Random Hill Climb
+587,45.0,16.0,25,Random Hill Climb
+588,46.0,16.0,25,Random Hill Climb
+589,47.0,16.0,25,Random Hill Climb
+590,48.0,16.0,25,Random Hill Climb
+591,49.0,16.0,25,Random Hill Climb
+592,50.0,16.0,25,Random Hill Climb
+593,2.0,19.0,25,MIMIC
+594,4.0,20.0,25,MIMIC
+595,6.0,22.0,25,MIMIC
+596,8.0,23.0,25,MIMIC
+597,9.0,23.0,25,MIMIC
+598,10.0,23.0,25,MIMIC
+599,11.0,23.0,25,MIMIC
+600,12.0,23.0,25,MIMIC
+601,13.0,23.0,25,MIMIC
+602,14.0,23.0,25,MIMIC
+603,15.0,23.0,25,MIMIC
+604,16.0,23.0,25,MIMIC
+605,17.0,23.0,25,MIMIC
+606,18.0,23.0,25,MIMIC
+607,2.0,11.0,25,Simulated Annealing
+608,3.0,11.0,25,Simulated Annealing
+609,5.0,9.0,25,Simulated Annealing
+610,7.0,10.0,25,Simulated Annealing
+611,9.0,10.0,25,Simulated Annealing
+612,11.0,8.0,25,Simulated Annealing
+613,13.0,8.0,25,Simulated Annealing
+614,15.0,8.0,25,Simulated Annealing
+615,17.0,10.0,25,Simulated Annealing
+616,19.0,12.0,25,Simulated Annealing
+617,20.0,12.0,25,Simulated Annealing
+618,22.0,12.0,25,Simulated Annealing
+619,24.0,14.0,25,Simulated Annealing
+620,26.0,14.0,25,Simulated Annealing
+621,28.0,14.0,25,Simulated Annealing
+622,30.0,16.0,25,Simulated Annealing
+623,32.0,16.0,25,Simulated Annealing
+624,34.0,16.0,25,Simulated Annealing
+625,35.0,16.0,25,Simulated Annealing
+626,36.0,16.0,25,Simulated Annealing
+627,37.0,16.0,25,Simulated Annealing
+628,38.0,16.0,25,Simulated Annealing
+629,40.0,16.0,25,Simulated Annealing
+630,42.0,16.0,25,Simulated Annealing
+631,44.0,16.0,25,Simulated Annealing
+632,46.0,16.0,25,Simulated Annealing
+633,48.0,16.0,25,Simulated Annealing
+634,50.0,16.0,25,Simulated Annealing
+635,51.0,16.0,25,Simulated Annealing
+636,52.0,16.0,25,Simulated Annealing
+637,53.0,16.0,25,Simulated Annealing
+638,55.0,16.0,25,Simulated Annealing
+639,57.0,16.0,25,Simulated Annealing
+640,58.0,16.0,25,Simulated Annealing
+641,59.0,16.0,25,Simulated Annealing
+642,60.0,16.0,25,Simulated Annealing
+643,61.0,16.0,25,Simulated Annealing
+644,62.0,16.0,25,Simulated Annealing
+645,64.0,16.0,25,Simulated Annealing
+646,66.0,16.0,25,Simulated Annealing
+647,68.0,16.0,25,Simulated Annealing
+648,70.0,17.0,25,Simulated Annealing
+649,72.0,17.0,25,Simulated Annealing
+650,74.0,17.0,25,Simulated Annealing
+651,76.0,17.0,25,Simulated Annealing
+652,77.0,17.0,25,Simulated Annealing
+653,78.0,17.0,25,Simulated Annealing
+654,79.0,17.0,25,Simulated Annealing
+655,81.0,17.0,25,Simulated Annealing
+656,82.0,17.0,25,Simulated Annealing
+657,84.0,17.0,25,Simulated Annealing
+658,85.0,17.0,25,Simulated Annealing
+659,86.0,17.0,25,Simulated Annealing
+660,88.0,19.0,25,Simulated Annealing
+661,90.0,19.0,25,Simulated Annealing
+662,91.0,19.0,25,Simulated Annealing
+663,93.0,19.0,25,Simulated Annealing
+664,94.0,19.0,25,Simulated Annealing
+665,96.0,19.0,25,Simulated Annealing
+666,97.0,19.0,25,Simulated Annealing
+667,98.0,19.0,25,Simulated Annealing
+668,100.0,19.0,25,Simulated Annealing
+669,101.0,19.0,25,Simulated Annealing
+670,102.0,19.0,25,Simulated Annealing
+671,103.0,19.0,25,Simulated Annealing
+672,105.0,18.0,25,Simulated Annealing
+673,107.0,18.0,25,Simulated Annealing
+674,109.0,18.0,25,Simulated Annealing
+675,110.0,18.0,25,Simulated Annealing
+676,111.0,18.0,25,Simulated Annealing
+677,112.0,18.0,25,Simulated Annealing
+678,114.0,19.0,25,Simulated Annealing
+679,116.0,21.0,25,Simulated Annealing
+680,117.0,21.0,25,Simulated Annealing
+681,118.0,21.0,25,Simulated Annealing
+682,120.0,21.0,25,Simulated Annealing
+683,121.0,21.0,25,Simulated Annealing
+684,122.0,21.0,25,Simulated Annealing
+685,123.0,21.0,25,Simulated Annealing
+686,124.0,21.0,25,Simulated Annealing
+687,125.0,21.0,25,Simulated Annealing
+688,126.0,21.0,25,Simulated Annealing
+689,127.0,21.0,25,Simulated Annealing
+690,128.0,21.0,25,Simulated Annealing
+691,129.0,21.0,25,Simulated Annealing
+692,130.0,21.0,25,Simulated Annealing
+693,2.0,22.0,30,Genetic
+694,3.0,22.0,30,Genetic
+695,5.0,23.0,30,Genetic
+696,7.0,24.0,30,Genetic
+697,8.0,24.0,30,Genetic
+698,10.0,26.0,30,Genetic
+699,11.0,26.0,30,Genetic
+700,12.0,26.0,30,Genetic
+701,13.0,26.0,30,Genetic
+702,15.0,27.0,30,Genetic
+703,17.0,28.0,30,Genetic
+704,18.0,28.0,30,Genetic
+705,19.0,28.0,30,Genetic
+706,20.0,28.0,30,Genetic
+707,21.0,28.0,30,Genetic
+708,22.0,28.0,30,Genetic
+709,24.0,29.0,30,Genetic
+710,25.0,29.0,30,Genetic
+711,26.0,29.0,30,Genetic
+712,27.0,29.0,30,Genetic
+713,28.0,29.0,30,Genetic
+714,29.0,29.0,30,Genetic
+715,30.0,29.0,30,Genetic
+716,31.0,29.0,30,Genetic
+717,32.0,29.0,30,Genetic
+718,33.0,29.0,30,Genetic
+719,34.0,29.0,30,Genetic
+720,35.0,13.0,30,Random Hill Climb
+721,36.0,13.0,30,Random Hill Climb
+722,38.0,15.0,30,Random Hill Climb
+723,40.0,17.0,30,Random Hill Climb
+724,41.0,17.0,30,Random Hill Climb
+725,43.0,19.0,30,Random Hill Climb
+726,44.0,19.0,30,Random Hill Climb
+727,45.0,19.0,30,Random Hill Climb
+728,46.0,19.0,30,Random Hill Climb
+729,47.0,19.0,30,Random Hill Climb
+730,48.0,19.0,30,Random Hill Climb
+731,49.0,19.0,30,Random Hill Climb
+732,50.0,19.0,30,Random Hill Climb
+733,51.0,19.0,30,Random Hill Climb
+734,52.0,19.0,30,Random Hill Climb
+735,53.0,19.0,30,Random Hill Climb
+736,2.0,24.0,30,MIMIC
+737,4.0,25.0,30,MIMIC
+738,5.0,25.0,30,MIMIC
+739,7.0,27.0,30,MIMIC
+740,8.0,27.0,30,MIMIC
+741,9.0,27.0,30,MIMIC
+742,10.0,27.0,30,MIMIC
+743,11.0,27.0,30,MIMIC
+744,12.0,27.0,30,MIMIC
+745,13.0,27.0,30,MIMIC
+746,14.0,27.0,30,MIMIC
+747,15.0,27.0,30,MIMIC
+748,16.0,27.0,30,MIMIC
+749,17.0,27.0,30,MIMIC
+750,1.0,13.0,30,Simulated Annealing
+751,3.0,15.0,30,Simulated Annealing
+752,5.0,13.0,30,Simulated Annealing
+753,7.0,13.0,30,Simulated Annealing
+754,9.0,13.0,30,Simulated Annealing
+755,11.0,13.0,30,Simulated Annealing
+756,12.0,13.0,30,Simulated Annealing
+757,13.0,13.0,30,Simulated Annealing
+758,15.0,15.0,30,Simulated Annealing
+759,17.0,17.0,30,Simulated Annealing
+760,18.0,17.0,30,Simulated Annealing
+761,20.0,17.0,30,Simulated Annealing
+762,22.0,17.0,30,Simulated Annealing
+763,24.0,17.0,30,Simulated Annealing
+764,26.0,17.0,30,Simulated Annealing
+765,28.0,19.0,30,Simulated Annealing
+766,30.0,19.0,30,Simulated Annealing
+767,32.0,19.0,30,Simulated Annealing
+768,34.0,19.0,30,Simulated Annealing
+769,36.0,19.0,30,Simulated Annealing
+770,38.0,19.0,30,Simulated Annealing
+771,40.0,19.0,30,Simulated Annealing
+772,41.0,19.0,30,Simulated Annealing
+773,43.0,19.0,30,Simulated Annealing
+774,44.0,19.0,30,Simulated Annealing
+775,46.0,17.0,30,Simulated Annealing
+776,47.0,17.0,30,Simulated Annealing
+777,49.0,17.0,30,Simulated Annealing
+778,51.0,17.0,30,Simulated Annealing
+779,52.0,17.0,30,Simulated Annealing
+780,54.0,17.0,30,Simulated Annealing
+781,56.0,19.0,30,Simulated Annealing
+782,58.0,20.0,30,Simulated Annealing
+783,60.0,20.0,30,Simulated Annealing
+784,62.0,20.0,30,Simulated Annealing
+785,64.0,22.0,30,Simulated Annealing
+786,65.0,22.0,30,Simulated Annealing
+787,67.0,22.0,30,Simulated Annealing
+788,69.0,22.0,30,Simulated Annealing
+789,70.0,22.0,30,Simulated Annealing
+790,71.0,22.0,30,Simulated Annealing
+791,72.0,22.0,30,Simulated Annealing
+792,74.0,22.0,30,Simulated Annealing
+793,75.0,22.0,30,Simulated Annealing
+794,77.0,22.0,30,Simulated Annealing
+795,78.0,22.0,30,Simulated Annealing
+796,79.0,22.0,30,Simulated Annealing
+797,81.0,22.0,30,Simulated Annealing
+798,83.0,22.0,30,Simulated Annealing
+799,85.0,22.0,30,Simulated Annealing
+800,87.0,22.0,30,Simulated Annealing
+801,89.0,22.0,30,Simulated Annealing
+802,90.0,22.0,30,Simulated Annealing
+803,92.0,22.0,30,Simulated Annealing
+804,94.0,22.0,30,Simulated Annealing
+805,96.0,22.0,30,Simulated Annealing
+806,97.0,22.0,30,Simulated Annealing
+807,99.0,22.0,30,Simulated Annealing
+808,101.0,22.0,30,Simulated Annealing
+809,103.0,22.0,30,Simulated Annealing
+810,105.0,22.0,30,Simulated Annealing
+811,107.0,22.0,30,Simulated Annealing
+812,108.0,22.0,30,Simulated Annealing
+813,110.0,21.0,30,Simulated Annealing
+814,112.0,21.0,30,Simulated Annealing
+815,113.0,21.0,30,Simulated Annealing
+816,115.0,21.0,30,Simulated Annealing
+817,116.0,21.0,30,Simulated Annealing
+818,117.0,21.0,30,Simulated Annealing
+819,119.0,21.0,30,Simulated Annealing
+820,120.0,21.0,30,Simulated Annealing
+821,121.0,21.0,30,Simulated Annealing
+822,122.0,21.0,30,Simulated Annealing
+823,123.0,21.0,30,Simulated Annealing
+824,124.0,21.0,30,Simulated Annealing
+825,126.0,21.0,30,Simulated Annealing
+826,128.0,22.0,30,Simulated Annealing
+827,130.0,24.0,30,Simulated Annealing
+828,131.0,24.0,30,Simulated Annealing
+829,132.0,24.0,30,Simulated Annealing
+830,134.0,24.0,30,Simulated Annealing
+831,136.0,24.0,30,Simulated Annealing
+832,138.0,25.0,30,Simulated Annealing
+833,139.0,25.0,30,Simulated Annealing
+834,141.0,25.0,30,Simulated Annealing
+835,142.0,25.0,30,Simulated Annealing
+836,143.0,25.0,30,Simulated Annealing
+837,144.0,25.0,30,Simulated Annealing
+838,145.0,25.0,30,Simulated Annealing
+839,146.0,25.0,30,Simulated Annealing
+840,148.0,25.0,30,Simulated Annealing
+841,149.0,25.0,30,Simulated Annealing
+842,150.0,25.0,30,Simulated Annealing
+843,152.0,25.0,30,Simulated Annealing
+844,153.0,25.0,30,Simulated Annealing
+845,155.0,26.0,30,Simulated Annealing
+846,156.0,26.0,30,Simulated Annealing
+847,157.0,26.0,30,Simulated Annealing
+848,158.0,26.0,30,Simulated Annealing
+849,159.0,26.0,30,Simulated Annealing
+850,161.0,26.0,30,Simulated Annealing
+851,162.0,26.0,30,Simulated Annealing
+852,163.0,26.0,30,Simulated Annealing
+853,164.0,26.0,30,Simulated Annealing
+854,166.0,26.0,30,Simulated Annealing
+855,167.0,26.0,30,Simulated Annealing
+856,168.0,26.0,30,Simulated Annealing
+857,169.0,26.0,30,Simulated Annealing
+858,170.0,26.0,30,Simulated Annealing
+859,171.0,26.0,30,Simulated Annealing
+860,172.0,26.0,30,Simulated Annealing
+861,173.0,26.0,30,Simulated Annealing
+862,174.0,26.0,30,Simulated Annealing
+863,176.0,26.0,30,Simulated Annealing
+864,177.0,26.0,30,Simulated Annealing
+865,179.0,26.0,30,Simulated Annealing
+866,180.0,26.0,30,Simulated Annealing
+867,181.0,26.0,30,Simulated Annealing
+868,183.0,26.0,30,Simulated Annealing
+869,184.0,26.0,30,Simulated Annealing
+870,185.0,26.0,30,Simulated Annealing
+871,186.0,26.0,30,Simulated Annealing
+872,187.0,26.0,30,Simulated Annealing
+873,188.0,26.0,30,Simulated Annealing
+874,189.0,26.0,30,Simulated Annealing
+875,190.0,26.0,30,Simulated Annealing
+876,191.0,26.0,30,Simulated Annealing
+877,192.0,26.0,30,Simulated Annealing
+878,193.0,26.0,30,Simulated Annealing
+879,2.0,25.0,35,Genetic
+880,4.0,26.0,35,Genetic
+881,5.0,26.0,35,Genetic
+882,7.0,27.0,35,Genetic
+883,8.0,27.0,35,Genetic
+884,10.0,29.0,35,Genetic
+885,11.0,29.0,35,Genetic
+886,12.0,29.0,35,Genetic
+887,13.0,29.0,35,Genetic
+888,15.0,30.0,35,Genetic
+889,16.0,30.0,35,Genetic
+890,17.0,30.0,35,Genetic
+891,18.0,30.0,35,Genetic
+892,20.0,31.0,35,Genetic
+893,21.0,31.0,35,Genetic
+894,22.0,31.0,35,Genetic
+895,24.0,32.0,35,Genetic
+896,25.0,32.0,35,Genetic
+897,26.0,32.0,35,Genetic
+898,27.0,32.0,35,Genetic
+899,28.0,32.0,35,Genetic
+900,29.0,32.0,35,Genetic
+901,30.0,32.0,35,Genetic
+902,31.0,32.0,35,Genetic
+903,32.0,32.0,35,Genetic
+904,33.0,32.0,35,Genetic
+905,34.0,32.0,35,Genetic
+906,36.0,17.0,35,Random Hill Climb
+907,38.0,19.0,35,Random Hill Climb
+908,39.0,19.0,35,Random Hill Climb
+909,40.0,19.0,35,Random Hill Climb
+910,41.0,19.0,35,Random Hill Climb
+911,42.0,19.0,35,Random Hill Climb
+912,43.0,19.0,35,Random Hill Climb
+913,44.0,19.0,35,Random Hill Climb
+914,45.0,19.0,35,Random Hill Climb
+915,47.0,21.0,35,Random Hill Climb
+916,49.0,23.0,35,Random Hill Climb
+917,50.0,23.0,35,Random Hill Climb
+918,51.0,23.0,35,Random Hill Climb
+919,52.0,23.0,35,Random Hill Climb
+920,53.0,23.0,35,Random Hill Climb
+921,54.0,23.0,35,Random Hill Climb
+922,55.0,23.0,35,Random Hill Climb
+923,56.0,23.0,35,Random Hill Climb
+924,57.0,23.0,35,Random Hill Climb
+925,59.0,25.0,35,Random Hill Climb
+926,61.0,26.0,35,Random Hill Climb
+927,62.0,26.0,35,Random Hill Climb
+928,63.0,26.0,35,Random Hill Climb
+929,64.0,26.0,35,Random Hill Climb
+930,65.0,26.0,35,Random Hill Climb
+931,66.0,26.0,35,Random Hill Climb
+932,67.0,26.0,35,Random Hill Climb
+933,69.0,28.0,35,Random Hill Climb
+934,70.0,28.0,35,Random Hill Climb
+935,71.0,28.0,35,Random Hill Climb
+936,72.0,28.0,35,Random Hill Climb
+937,73.0,28.0,35,Random Hill Climb
+938,74.0,28.0,35,Random Hill Climb
+939,75.0,28.0,35,Random Hill Climb
+940,76.0,28.0,35,Random Hill Climb
+941,77.0,28.0,35,Random Hill Climb
+942,78.0,28.0,35,Random Hill Climb
+943,79.0,28.0,35,Random Hill Climb
+944,2.0,27.0,35,MIMIC
+945,4.0,30.0,35,MIMIC
+946,5.0,30.0,35,MIMIC
+947,6.0,30.0,35,MIMIC
+948,8.0,31.0,35,MIMIC
+949,10.0,33.0,35,MIMIC
+950,11.0,33.0,35,MIMIC
+951,12.0,33.0,35,MIMIC
+952,13.0,33.0,35,MIMIC
+953,14.0,33.0,35,MIMIC
+954,15.0,33.0,35,MIMIC
+955,16.0,33.0,35,MIMIC
+956,17.0,33.0,35,MIMIC
+957,18.0,33.0,35,MIMIC
+958,19.0,33.0,35,MIMIC
+959,20.0,33.0,35,MIMIC
+960,2.0,17.0,35,Simulated Annealing
+961,4.0,19.0,35,Simulated Annealing
+962,6.0,19.0,35,Simulated Annealing
+963,7.0,19.0,35,Simulated Annealing
+964,9.0,19.0,35,Simulated Annealing
+965,11.0,19.0,35,Simulated Annealing
+966,13.0,21.0,35,Simulated Annealing
+967,15.0,21.0,35,Simulated Annealing
+968,17.0,21.0,35,Simulated Annealing
+969,19.0,21.0,35,Simulated Annealing
+970,21.0,21.0,35,Simulated Annealing
+971,23.0,21.0,35,Simulated Annealing
+972,25.0,21.0,35,Simulated Annealing
+973,27.0,21.0,35,Simulated Annealing
+974,29.0,21.0,35,Simulated Annealing
+975,30.0,21.0,35,Simulated Annealing
+976,32.0,21.0,35,Simulated Annealing
+977,33.0,21.0,35,Simulated Annealing
+978,35.0,23.0,35,Simulated Annealing
+979,37.0,23.0,35,Simulated Annealing
+980,39.0,23.0,35,Simulated Annealing
+981,41.0,23.0,35,Simulated Annealing
+982,43.0,23.0,35,Simulated Annealing
+983,44.0,23.0,35,Simulated Annealing
+984,45.0,23.0,35,Simulated Annealing
+985,46.0,23.0,35,Simulated Annealing
+986,48.0,23.0,35,Simulated Annealing
+987,50.0,24.0,35,Simulated Annealing
+988,51.0,24.0,35,Simulated Annealing
+989,52.0,24.0,35,Simulated Annealing
+990,54.0,24.0,35,Simulated Annealing
+991,56.0,26.0,35,Simulated Annealing
+992,57.0,26.0,35,Simulated Annealing
+993,58.0,26.0,35,Simulated Annealing
+994,59.0,26.0,35,Simulated Annealing
+995,61.0,28.0,35,Simulated Annealing
+996,63.0,28.0,35,Simulated Annealing
+997,65.0,28.0,35,Simulated Annealing
+998,67.0,28.0,35,Simulated Annealing
+999,68.0,28.0,35,Simulated Annealing
+1000,69.0,28.0,35,Simulated Annealing
+1001,70.0,28.0,35,Simulated Annealing
+1002,71.0,28.0,35,Simulated Annealing
+1003,72.0,28.0,35,Simulated Annealing
+1004,73.0,28.0,35,Simulated Annealing
+1005,74.0,28.0,35,Simulated Annealing
+1006,76.0,26.0,35,Simulated Annealing
+1007,77.0,26.0,35,Simulated Annealing
+1008,79.0,26.0,35,Simulated Annealing
+1009,81.0,26.0,35,Simulated Annealing
+1010,83.0,26.0,35,Simulated Annealing
+1011,85.0,26.0,35,Simulated Annealing
+1012,86.0,26.0,35,Simulated Annealing
+1013,88.0,26.0,35,Simulated Annealing
+1014,90.0,26.0,35,Simulated Annealing
+1015,91.0,26.0,35,Simulated Annealing
+1016,93.0,26.0,35,Simulated Annealing
+1017,94.0,26.0,35,Simulated Annealing
+1018,95.0,26.0,35,Simulated Annealing
+1019,97.0,26.0,35,Simulated Annealing
+1020,98.0,26.0,35,Simulated Annealing
+1021,100.0,26.0,35,Simulated Annealing
+1022,101.0,26.0,35,Simulated Annealing
+1023,102.0,26.0,35,Simulated Annealing
+1024,103.0,26.0,35,Simulated Annealing
+1025,105.0,26.0,35,Simulated Annealing
+1026,106.0,26.0,35,Simulated Annealing
+1027,107.0,26.0,35,Simulated Annealing
+1028,108.0,26.0,35,Simulated Annealing
+1029,109.0,26.0,35,Simulated Annealing
+1030,110.0,26.0,35,Simulated Annealing
+1031,112.0,26.0,35,Simulated Annealing
+1032,113.0,26.0,35,Simulated Annealing
+1033,115.0,26.0,35,Simulated Annealing
+1034,116.0,26.0,35,Simulated Annealing
+1035,118.0,26.0,35,Simulated Annealing
+1036,119.0,26.0,35,Simulated Annealing
+1037,120.0,26.0,35,Simulated Annealing
+1038,122.0,26.0,35,Simulated Annealing
+1039,124.0,26.0,35,Simulated Annealing
+1040,125.0,26.0,35,Simulated Annealing
+1041,127.0,26.0,35,Simulated Annealing
+1042,129.0,26.0,35,Simulated Annealing
+1043,130.0,26.0,35,Simulated Annealing
+1044,131.0,26.0,35,Simulated Annealing
+1045,132.0,26.0,35,Simulated Annealing
+1046,133.0,26.0,35,Simulated Annealing
+1047,134.0,26.0,35,Simulated Annealing
+1048,136.0,26.0,35,Simulated Annealing
+1049,137.0,26.0,35,Simulated Annealing
+1050,138.0,26.0,35,Simulated Annealing
+1051,140.0,27.0,35,Simulated Annealing
+1052,141.0,27.0,35,Simulated Annealing
+1053,143.0,27.0,35,Simulated Annealing
+1054,145.0,27.0,35,Simulated Annealing
+1055,147.0,27.0,35,Simulated Annealing
+1056,148.0,27.0,35,Simulated Annealing
+1057,149.0,27.0,35,Simulated Annealing
+1058,150.0,27.0,35,Simulated Annealing
+1059,151.0,27.0,35,Simulated Annealing
+1060,152.0,27.0,35,Simulated Annealing
+1061,153.0,27.0,35,Simulated Annealing
+1062,154.0,27.0,35,Simulated Annealing
+1063,156.0,27.0,35,Simulated Annealing
+1064,157.0,27.0,35,Simulated Annealing
+1065,158.0,27.0,35,Simulated Annealing
+1066,159.0,27.0,35,Simulated Annealing
+1067,160.0,27.0,35,Simulated Annealing
+1068,162.0,27.0,35,Simulated Annealing
+1069,163.0,27.0,35,Simulated Annealing
+1070,164.0,27.0,35,Simulated Annealing
+1071,165.0,27.0,35,Simulated Annealing
+1072,167.0,27.0,35,Simulated Annealing
+1073,169.0,27.0,35,Simulated Annealing
+1074,170.0,27.0,35,Simulated Annealing
+1075,171.0,27.0,35,Simulated Annealing
+1076,172.0,27.0,35,Simulated Annealing
+1077,173.0,27.0,35,Simulated Annealing
+1078,174.0,27.0,35,Simulated Annealing
+1079,175.0,27.0,35,Simulated Annealing
+1080,176.0,27.0,35,Simulated Annealing
+1081,177.0,27.0,35,Simulated Annealing
+1082,179.0,27.0,35,Simulated Annealing
+1083,181.0,27.0,35,Simulated Annealing
+1084,182.0,27.0,35,Simulated Annealing
+1085,183.0,27.0,35,Simulated Annealing
+1086,184.0,27.0,35,Simulated Annealing
+1087,185.0,27.0,35,Simulated Annealing
+1088,186.0,27.0,35,Simulated Annealing
+1089,187.0,27.0,35,Simulated Annealing
+1090,188.0,27.0,35,Simulated Annealing
+1091,190.0,27.0,35,Simulated Annealing
+1092,192.0,27.0,35,Simulated Annealing
+1093,194.0,27.0,35,Simulated Annealing
+1094,196.0,27.0,35,Simulated Annealing
+1095,197.0,27.0,35,Simulated Annealing
+1096,198.0,27.0,35,Simulated Annealing
+1097,200.0,27.0,35,Simulated Annealing
+1098,202.0,27.0,35,Simulated Annealing
+1099,204.0,27.0,35,Simulated Annealing
+1100,205.0,27.0,35,Simulated Annealing
+1101,206.0,27.0,35,Simulated Annealing
+1102,207.0,27.0,35,Simulated Annealing
+1103,208.0,27.0,35,Simulated Annealing
+1104,209.0,27.0,35,Simulated Annealing
+1105,211.0,27.0,35,Simulated Annealing
+1106,213.0,27.0,35,Simulated Annealing
+1107,215.0,27.0,35,Simulated Annealing
+1108,216.0,27.0,35,Simulated Annealing
+1109,217.0,27.0,35,Simulated Annealing
+1110,218.0,27.0,35,Simulated Annealing
+1111,219.0,27.0,35,Simulated Annealing
+1112,220.0,27.0,35,Simulated Annealing
+1113,221.0,27.0,35,Simulated Annealing
+1114,222.0,27.0,35,Simulated Annealing
+1115,223.0,27.0,35,Simulated Annealing
+1116,225.0,27.0,35,Simulated Annealing
+1117,226.0,27.0,35,Simulated Annealing
+1118,228.0,27.0,35,Simulated Annealing
+1119,230.0,28.0,35,Simulated Annealing
+1120,231.0,28.0,35,Simulated Annealing
+1121,233.0,30.0,35,Simulated Annealing
+1122,234.0,30.0,35,Simulated Annealing
+1123,235.0,30.0,35,Simulated Annealing
+1124,236.0,30.0,35,Simulated Annealing
+1125,237.0,30.0,35,Simulated Annealing
+1126,239.0,30.0,35,Simulated Annealing
+1127,241.0,30.0,35,Simulated Annealing
+1128,242.0,30.0,35,Simulated Annealing
+1129,243.0,30.0,35,Simulated Annealing
+1130,244.0,30.0,35,Simulated Annealing
+1131,245.0,30.0,35,Simulated Annealing
+1132,246.0,30.0,35,Simulated Annealing
+1133,248.0,30.0,35,Simulated Annealing
+1134,249.0,30.0,35,Simulated Annealing
+1135,250.0,30.0,35,Simulated Annealing
+1136,251.0,30.0,35,Simulated Annealing
+1137,252.0,30.0,35,Simulated Annealing
+1138,253.0,30.0,35,Simulated Annealing
+1139,254.0,30.0,35,Simulated Annealing
+1140,255.0,30.0,35,Simulated Annealing
+1141,256.0,30.0,35,Simulated Annealing
+1142,258.0,30.0,35,Simulated Annealing
+1143,259.0,30.0,35,Simulated Annealing
+1144,261.0,30.0,35,Simulated Annealing
+1145,262.0,30.0,35,Simulated Annealing
+1146,263.0,30.0,35,Simulated Annealing
+1147,264.0,30.0,35,Simulated Annealing
+1148,265.0,30.0,35,Simulated Annealing
+1149,266.0,30.0,35,Simulated Annealing
+1150,267.0,30.0,35,Simulated Annealing
+1151,268.0,30.0,35,Simulated Annealing
+1152,270.0,30.0,35,Simulated Annealing
+1153,271.0,30.0,35,Simulated Annealing
+1154,272.0,30.0,35,Simulated Annealing
+1155,273.0,30.0,35,Simulated Annealing
+1156,275.0,30.0,35,Simulated Annealing
+1157,276.0,30.0,35,Simulated Annealing
+1158,277.0,30.0,35,Simulated Annealing
+1159,278.0,30.0,35,Simulated Annealing
+1160,279.0,30.0,35,Simulated Annealing
+1161,281.0,30.0,35,Simulated Annealing
+1162,282.0,30.0,35,Simulated Annealing
+1163,283.0,30.0,35,Simulated Annealing
+1164,284.0,30.0,35,Simulated Annealing
+1165,285.0,30.0,35,Simulated Annealing
+1166,286.0,30.0,35,Simulated Annealing
+1167,287.0,30.0,35,Simulated Annealing
+1168,288.0,30.0,35,Simulated Annealing
+1169,290.0,30.0,35,Simulated Annealing
+1170,291.0,30.0,35,Simulated Annealing
+1171,292.0,30.0,35,Simulated Annealing
+1172,293.0,30.0,35,Simulated Annealing
+1173,294.0,30.0,35,Simulated Annealing
+1174,295.0,30.0,35,Simulated Annealing
+1175,296.0,30.0,35,Simulated Annealing
+1176,298.0,32.0,35,Simulated Annealing
+1177,299.0,32.0,35,Simulated Annealing
+1178,300.0,32.0,35,Simulated Annealing
+1179,301.0,32.0,35,Simulated Annealing
+1180,302.0,32.0,35,Simulated Annealing
+1181,303.0,32.0,35,Simulated Annealing
+1182,305.0,32.0,35,Simulated Annealing
+1183,306.0,32.0,35,Simulated Annealing
+1184,307.0,32.0,35,Simulated Annealing
+1185,308.0,32.0,35,Simulated Annealing
+1186,309.0,32.0,35,Simulated Annealing
+1187,310.0,32.0,35,Simulated Annealing
+1188,312.0,32.0,35,Simulated Annealing
+1189,314.0,32.0,35,Simulated Annealing
+1190,315.0,32.0,35,Simulated Annealing
+1191,316.0,32.0,35,Simulated Annealing
+1192,317.0,32.0,35,Simulated Annealing
+1193,318.0,32.0,35,Simulated Annealing
+1194,319.0,32.0,35,Simulated Annealing
+1195,320.0,32.0,35,Simulated Annealing
+1196,321.0,32.0,35,Simulated Annealing
+1197,322.0,32.0,35,Simulated Annealing
+1198,324.0,32.0,35,Simulated Annealing
+1199,326.0,32.0,35,Simulated Annealing
+1200,327.0,32.0,35,Simulated Annealing
+1201,328.0,32.0,35,Simulated Annealing
+1202,329.0,32.0,35,Simulated Annealing
+1203,330.0,32.0,35,Simulated Annealing
+1204,331.0,32.0,35,Simulated Annealing
+1205,332.0,32.0,35,Simulated Annealing
+1206,333.0,32.0,35,Simulated Annealing
+1207,334.0,32.0,35,Simulated Annealing
+1208,335.0,32.0,35,Simulated Annealing
+1209,336.0,32.0,35,Simulated Annealing
+1210,2.0,28.0,40,Genetic
+1211,3.0,28.0,40,Genetic
+1212,5.0,29.0,40,Genetic
+1213,7.0,31.0,40,Genetic
+1214,8.0,31.0,40,Genetic
+1215,9.0,31.0,40,Genetic
+1216,10.0,31.0,40,Genetic
+1217,12.0,33.0,40,Genetic
+1218,14.0,34.0,40,Genetic
+1219,15.0,34.0,40,Genetic
+1220,16.0,34.0,40,Genetic
+1221,17.0,34.0,40,Genetic
+1222,19.0,36.0,40,Genetic
+1223,20.0,36.0,40,Genetic
+1224,21.0,36.0,40,Genetic
+1225,23.0,37.0,40,Genetic
+1226,24.0,37.0,40,Genetic
+1227,25.0,37.0,40,Genetic
+1228,26.0,37.0,40,Genetic
+1229,27.0,37.0,40,Genetic
+1230,28.0,37.0,40,Genetic
+1231,29.0,37.0,40,Genetic
+1232,31.0,38.0,40,Genetic
+1233,32.0,38.0,40,Genetic
+1234,33.0,38.0,40,Genetic
+1235,35.0,39.0,40,Genetic
+1236,36.0,39.0,40,Genetic
+1237,37.0,39.0,40,Genetic
+1238,38.0,39.0,40,Genetic
+1239,39.0,39.0,40,Genetic
+1240,40.0,39.0,40,Genetic
+1241,41.0,39.0,40,Genetic
+1242,42.0,39.0,40,Genetic
+1243,43.0,39.0,40,Genetic
+1244,44.0,39.0,40,Genetic
+1245,45.0,39.0,40,Genetic
+1246,47.0,20.0,40,Random Hill Climb
+1247,48.0,20.0,40,Random Hill Climb
+1248,49.0,20.0,40,Random Hill Climb
+1249,50.0,20.0,40,Random Hill Climb
+1250,51.0,20.0,40,Random Hill Climb
+1251,52.0,20.0,40,Random Hill Climb
+1252,53.0,20.0,40,Random Hill Climb
+1253,54.0,20.0,40,Random Hill Climb
+1254,56.0,22.0,40,Random Hill Climb
+1255,58.0,24.0,40,Random Hill Climb
+1256,60.0,26.0,40,Random Hill Climb
+1257,62.0,28.0,40,Random Hill Climb
+1258,63.0,28.0,40,Random Hill Climb
+1259,64.0,28.0,40,Random Hill Climb
+1260,65.0,28.0,40,Random Hill Climb
+1261,66.0,28.0,40,Random Hill Climb
+1262,67.0,28.0,40,Random Hill Climb
+1263,68.0,28.0,40,Random Hill Climb
+1264,69.0,28.0,40,Random Hill Climb
+1265,71.0,30.0,40,Random Hill Climb
+1266,72.0,30.0,40,Random Hill Climb
+1267,73.0,30.0,40,Random Hill Climb
+1268,74.0,30.0,40,Random Hill Climb
+1269,75.0,30.0,40,Random Hill Climb
+1270,76.0,30.0,40,Random Hill Climb
+1271,77.0,30.0,40,Random Hill Climb
+1272,78.0,30.0,40,Random Hill Climb
+1273,79.0,30.0,40,Random Hill Climb
+1274,80.0,30.0,40,Random Hill Climb
+1275,81.0,30.0,40,Random Hill Climb
+1276,2.0,28.0,40,MIMIC
+1277,4.0,31.0,40,MIMIC
+1278,6.0,34.0,40,MIMIC
+1279,7.0,34.0,40,MIMIC
+1280,9.0,36.0,40,MIMIC
+1281,10.0,36.0,40,MIMIC
+1282,11.0,36.0,40,MIMIC
+1283,12.0,36.0,40,MIMIC
+1284,13.0,36.0,40,MIMIC
+1285,14.0,36.0,40,MIMIC
+1286,15.0,36.0,40,MIMIC
+1287,16.0,36.0,40,MIMIC
+1288,17.0,36.0,40,MIMIC
+1289,18.0,36.0,40,MIMIC
+1290,19.0,36.0,40,MIMIC
+1291,2.0,20.0,40,Simulated Annealing
+1292,3.0,20.0,40,Simulated Annealing
+1293,5.0,20.0,40,Simulated Annealing
+1294,7.0,20.0,40,Simulated Annealing
+1295,9.0,22.0,40,Simulated Annealing
+1296,11.0,24.0,40,Simulated Annealing
+1297,13.0,24.0,40,Simulated Annealing
+1298,15.0,24.0,40,Simulated Annealing
+1299,17.0,24.0,40,Simulated Annealing
+1300,19.0,24.0,40,Simulated Annealing
+1301,21.0,24.0,40,Simulated Annealing
+1302,23.0,24.0,40,Simulated Annealing
+1303,25.0,24.0,40,Simulated Annealing
+1304,26.0,24.0,40,Simulated Annealing
+1305,27.0,24.0,40,Simulated Annealing
+1306,29.0,24.0,40,Simulated Annealing
+1307,30.0,24.0,40,Simulated Annealing
+1308,32.0,26.0,40,Simulated Annealing
+1309,34.0,26.0,40,Simulated Annealing
+1310,36.0,26.0,40,Simulated Annealing
+1311,38.0,26.0,40,Simulated Annealing
+1312,40.0,26.0,40,Simulated Annealing
+1313,41.0,26.0,40,Simulated Annealing
+1314,42.0,26.0,40,Simulated Annealing
+1315,44.0,26.0,40,Simulated Annealing
+1316,46.0,26.0,40,Simulated Annealing
+1317,48.0,27.0,40,Simulated Annealing
+1318,50.0,27.0,40,Simulated Annealing
+1319,52.0,29.0,40,Simulated Annealing
+1320,54.0,28.0,40,Simulated Annealing
+1321,56.0,26.0,40,Simulated Annealing
+1322,57.0,26.0,40,Simulated Annealing
+1323,58.0,26.0,40,Simulated Annealing
+1324,60.0,26.0,40,Simulated Annealing
+1325,62.0,26.0,40,Simulated Annealing
+1326,64.0,26.0,40,Simulated Annealing
+1327,65.0,26.0,40,Simulated Annealing
+1328,67.0,28.0,40,Simulated Annealing
+1329,69.0,28.0,40,Simulated Annealing
+1330,70.0,28.0,40,Simulated Annealing
+1331,71.0,28.0,40,Simulated Annealing
+1332,72.0,28.0,40,Simulated Annealing
+1333,73.0,28.0,40,Simulated Annealing
+1334,75.0,28.0,40,Simulated Annealing
+1335,76.0,28.0,40,Simulated Annealing
+1336,77.0,28.0,40,Simulated Annealing
+1337,79.0,28.0,40,Simulated Annealing
+1338,81.0,28.0,40,Simulated Annealing
+1339,83.0,28.0,40,Simulated Annealing
+1340,85.0,28.0,40,Simulated Annealing
+1341,86.0,28.0,40,Simulated Annealing
+1342,88.0,28.0,40,Simulated Annealing
+1343,89.0,28.0,40,Simulated Annealing
+1344,91.0,28.0,40,Simulated Annealing
+1345,92.0,28.0,40,Simulated Annealing
+1346,94.0,30.0,40,Simulated Annealing
+1347,96.0,30.0,40,Simulated Annealing
+1348,97.0,30.0,40,Simulated Annealing
+1349,99.0,32.0,40,Simulated Annealing
+1350,101.0,32.0,40,Simulated Annealing
+1351,102.0,32.0,40,Simulated Annealing
+1352,104.0,34.0,40,Simulated Annealing
+1353,106.0,34.0,40,Simulated Annealing
+1354,107.0,34.0,40,Simulated Annealing
+1355,108.0,34.0,40,Simulated Annealing
+1356,109.0,34.0,40,Simulated Annealing
+1357,111.0,34.0,40,Simulated Annealing
+1358,113.0,34.0,40,Simulated Annealing
+1359,115.0,34.0,40,Simulated Annealing
+1360,117.0,34.0,40,Simulated Annealing
+1361,118.0,34.0,40,Simulated Annealing
+1362,119.0,34.0,40,Simulated Annealing
+1363,121.0,34.0,40,Simulated Annealing
+1364,122.0,34.0,40,Simulated Annealing
+1365,124.0,34.0,40,Simulated Annealing
+1366,126.0,34.0,40,Simulated Annealing
+1367,127.0,34.0,40,Simulated Annealing
+1368,128.0,34.0,40,Simulated Annealing
+1369,130.0,34.0,40,Simulated Annealing
+1370,131.0,34.0,40,Simulated Annealing
+1371,133.0,34.0,40,Simulated Annealing
+1372,135.0,34.0,40,Simulated Annealing
+1373,137.0,34.0,40,Simulated Annealing
+1374,138.0,34.0,40,Simulated Annealing
+1375,139.0,34.0,40,Simulated Annealing
+1376,141.0,34.0,40,Simulated Annealing
+1377,142.0,34.0,40,Simulated Annealing
+1378,144.0,34.0,40,Simulated Annealing
+1379,145.0,34.0,40,Simulated Annealing
+1380,146.0,34.0,40,Simulated Annealing
+1381,147.0,34.0,40,Simulated Annealing
+1382,148.0,34.0,40,Simulated Annealing
+1383,149.0,34.0,40,Simulated Annealing
+1384,150.0,34.0,40,Simulated Annealing
+1385,152.0,34.0,40,Simulated Annealing
+1386,153.0,34.0,40,Simulated Annealing
+1387,155.0,34.0,40,Simulated Annealing
+1388,157.0,34.0,40,Simulated Annealing
+1389,158.0,34.0,40,Simulated Annealing
+1390,159.0,34.0,40,Simulated Annealing
+1391,160.0,34.0,40,Simulated Annealing
+1392,161.0,34.0,40,Simulated Annealing
+1393,162.0,34.0,40,Simulated Annealing
+1394,163.0,34.0,40,Simulated Annealing
+1395,165.0,34.0,40,Simulated Annealing
+1396,166.0,34.0,40,Simulated Annealing
+1397,167.0,34.0,40,Simulated Annealing
+1398,168.0,34.0,40,Simulated Annealing
+1399,169.0,34.0,40,Simulated Annealing
+1400,170.0,34.0,40,Simulated Annealing
+1401,172.0,34.0,40,Simulated Annealing
+1402,173.0,34.0,40,Simulated Annealing
+1403,174.0,34.0,40,Simulated Annealing
+1404,175.0,34.0,40,Simulated Annealing
+1405,176.0,34.0,40,Simulated Annealing
+1406,178.0,34.0,40,Simulated Annealing
+1407,179.0,34.0,40,Simulated Annealing
+1408,180.0,34.0,40,Simulated Annealing
+1409,181.0,34.0,40,Simulated Annealing
+1410,182.0,34.0,40,Simulated Annealing
+1411,183.0,34.0,40,Simulated Annealing
+1412,184.0,34.0,40,Simulated Annealing
+1413,185.0,34.0,40,Simulated Annealing
+1414,186.0,34.0,40,Simulated Annealing
+1415,187.0,34.0,40,Simulated Annealing
+1416,188.0,34.0,40,Simulated Annealing
+1417,2.0,31.0,45,Genetic
+1418,3.0,31.0,45,Genetic
+1419,4.0,31.0,45,Genetic
+1420,6.0,32.0,45,Genetic
+1421,8.0,35.0,45,Genetic
+1422,10.0,36.0,45,Genetic
+1423,11.0,36.0,45,Genetic
+1424,12.0,36.0,45,Genetic
+1425,14.0,37.0,45,Genetic
+1426,15.0,37.0,45,Genetic
+1427,17.0,39.0,45,Genetic
+1428,18.0,39.0,45,Genetic
+1429,19.0,39.0,45,Genetic
+1430,21.0,41.0,45,Genetic
+1431,22.0,41.0,45,Genetic
+1432,23.0,41.0,45,Genetic
+1433,24.0,41.0,45,Genetic
+1434,25.0,41.0,45,Genetic
+1435,27.0,42.0,45,Genetic
+1436,29.0,43.0,45,Genetic
+1437,30.0,43.0,45,Genetic
+1438,31.0,43.0,45,Genetic
+1439,32.0,43.0,45,Genetic
+1440,33.0,43.0,45,Genetic
+1441,34.0,43.0,45,Genetic
+1442,35.0,43.0,45,Genetic
+1443,36.0,43.0,45,Genetic
+1444,37.0,43.0,45,Genetic
+1445,38.0,43.0,45,Genetic
+1446,39.0,43.0,45,Genetic
+1447,40.0,19.0,45,Random Hill Climb
+1448,41.0,19.0,45,Random Hill Climb
+1449,43.0,21.0,45,Random Hill Climb
+1450,44.0,21.0,45,Random Hill Climb
+1451,45.0,21.0,45,Random Hill Climb
+1452,46.0,21.0,45,Random Hill Climb
+1453,47.0,21.0,45,Random Hill Climb
+1454,48.0,21.0,45,Random Hill Climb
+1455,50.0,23.0,45,Random Hill Climb
+1456,52.0,25.0,45,Random Hill Climb
+1457,54.0,27.0,45,Random Hill Climb
+1458,56.0,29.0,45,Random Hill Climb
+1459,57.0,29.0,45,Random Hill Climb
+1460,58.0,29.0,45,Random Hill Climb
+1461,59.0,29.0,45,Random Hill Climb
+1462,60.0,29.0,45,Random Hill Climb
+1463,61.0,29.0,45,Random Hill Climb
+1464,63.0,31.0,45,Random Hill Climb
+1465,64.0,31.0,45,Random Hill Climb
+1466,65.0,31.0,45,Random Hill Climb
+1467,67.0,33.0,45,Random Hill Climb
+1468,68.0,33.0,45,Random Hill Climb
+1469,69.0,33.0,45,Random Hill Climb
+1470,70.0,33.0,45,Random Hill Climb
+1471,71.0,33.0,45,Random Hill Climb
+1472,72.0,33.0,45,Random Hill Climb
+1473,73.0,33.0,45,Random Hill Climb
+1474,74.0,33.0,45,Random Hill Climb
+1475,75.0,33.0,45,Random Hill Climb
+1476,76.0,33.0,45,Random Hill Climb
+1477,77.0,33.0,45,Random Hill Climb
+1478,2.0,32.0,45,MIMIC
+1479,4.0,35.0,45,MIMIC
+1480,6.0,38.0,45,MIMIC
+1481,7.0,38.0,45,MIMIC
+1482,9.0,40.0,45,MIMIC
+1483,10.0,40.0,45,MIMIC
+1484,12.0,42.0,45,MIMIC
+1485,13.0,42.0,45,MIMIC
+1486,14.0,42.0,45,MIMIC
+1487,15.0,42.0,45,MIMIC
+1488,16.0,42.0,45,MIMIC
+1489,17.0,42.0,45,MIMIC
+1490,18.0,42.0,45,MIMIC
+1491,19.0,42.0,45,MIMIC
+1492,20.0,42.0,45,MIMIC
+1493,21.0,42.0,45,MIMIC
+1494,22.0,42.0,45,MIMIC
+1495,1.0,19.0,45,Simulated Annealing
+1496,3.0,21.0,45,Simulated Annealing
+1497,5.0,21.0,45,Simulated Annealing
+1498,7.0,21.0,45,Simulated Annealing
+1499,9.0,23.0,45,Simulated Annealing
+1500,11.0,25.0,45,Simulated Annealing
+1501,13.0,25.0,45,Simulated Annealing
+1502,15.0,25.0,45,Simulated Annealing
+1503,17.0,25.0,45,Simulated Annealing
+1504,19.0,25.0,45,Simulated Annealing
+1505,21.0,25.0,45,Simulated Annealing
+1506,23.0,25.0,45,Simulated Annealing
+1507,25.0,25.0,45,Simulated Annealing
+1508,27.0,25.0,45,Simulated Annealing
+1509,28.0,25.0,45,Simulated Annealing
+1510,30.0,25.0,45,Simulated Annealing
+1511,31.0,25.0,45,Simulated Annealing
+1512,33.0,27.0,45,Simulated Annealing
+1513,35.0,27.0,45,Simulated Annealing
+1514,37.0,27.0,45,Simulated Annealing
+1515,39.0,27.0,45,Simulated Annealing
+1516,41.0,27.0,45,Simulated Annealing
+1517,43.0,27.0,45,Simulated Annealing
+1518,45.0,26.0,45,Simulated Annealing
+1519,47.0,26.0,45,Simulated Annealing
+1520,49.0,27.0,45,Simulated Annealing
+1521,51.0,29.0,45,Simulated Annealing
+1522,53.0,31.0,45,Simulated Annealing
+1523,55.0,31.0,45,Simulated Annealing
+1524,57.0,31.0,45,Simulated Annealing
+1525,59.0,33.0,45,Simulated Annealing
+1526,61.0,34.0,45,Simulated Annealing
+1527,62.0,34.0,45,Simulated Annealing
+1528,64.0,36.0,45,Simulated Annealing
+1529,65.0,36.0,45,Simulated Annealing
+1530,66.0,36.0,45,Simulated Annealing
+1531,68.0,36.0,45,Simulated Annealing
+1532,69.0,36.0,45,Simulated Annealing
+1533,71.0,36.0,45,Simulated Annealing
+1534,72.0,36.0,45,Simulated Annealing
+1535,74.0,36.0,45,Simulated Annealing
+1536,75.0,36.0,45,Simulated Annealing
+1537,76.0,36.0,45,Simulated Annealing
+1538,77.0,36.0,45,Simulated Annealing
+1539,78.0,36.0,45,Simulated Annealing
+1540,79.0,36.0,45,Simulated Annealing
+1541,81.0,36.0,45,Simulated Annealing
+1542,83.0,36.0,45,Simulated Annealing
+1543,85.0,36.0,45,Simulated Annealing
+1544,87.0,36.0,45,Simulated Annealing
+1545,89.0,38.0,45,Simulated Annealing
+1546,91.0,38.0,45,Simulated Annealing
+1547,93.0,38.0,45,Simulated Annealing
+1548,94.0,38.0,45,Simulated Annealing
+1549,95.0,38.0,45,Simulated Annealing
+1550,96.0,38.0,45,Simulated Annealing
+1551,98.0,38.0,45,Simulated Annealing
+1552,99.0,38.0,45,Simulated Annealing
+1553,100.0,38.0,45,Simulated Annealing
+1554,102.0,38.0,45,Simulated Annealing
+1555,103.0,38.0,45,Simulated Annealing
+1556,104.0,38.0,45,Simulated Annealing
+1557,106.0,38.0,45,Simulated Annealing
+1558,108.0,38.0,45,Simulated Annealing
+1559,110.0,38.0,45,Simulated Annealing
+1560,111.0,38.0,45,Simulated Annealing
+1561,112.0,38.0,45,Simulated Annealing
+1562,114.0,38.0,45,Simulated Annealing
+1563,115.0,38.0,45,Simulated Annealing
+1564,116.0,38.0,45,Simulated Annealing
+1565,117.0,38.0,45,Simulated Annealing
+1566,118.0,38.0,45,Simulated Annealing
+1567,119.0,38.0,45,Simulated Annealing
+1568,120.0,38.0,45,Simulated Annealing
+1569,121.0,38.0,45,Simulated Annealing
+1570,122.0,38.0,45,Simulated Annealing
+1571,123.0,38.0,45,Simulated Annealing
+1572,124.0,38.0,45,Simulated Annealing

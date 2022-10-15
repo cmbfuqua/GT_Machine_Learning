@@ -1,4 +1,79 @@
 #%%
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+from sklearn.datasets import load_digits
+from sklearn.model_selection import learning_curve
+from sklearn.model_selection import ShuffleSplit
+def plot_learning_curve(
+    estimator,
+    title,
+    X,
+    y,
+    axes=None,
+    ylim=None,
+    cv=None,
+    n_jobs=None,
+    scoring=None,
+    train_sizes=np.linspace(0.1, 1.0, 5),
+):
+    if axes is None:
+        _, axes = plt.subplots(1, 1, figsize=(5, 5))
+
+    axes.set_title(title)
+    if ylim is not None:
+        axes.set_ylim(*ylim)
+    axes.set_xlabel("Training examples")
+    axes.set_ylabel("Score")
+
+    train_sizes, train_scores, test_scores, fit_times, _ = learning_curve(
+        estimator,
+        X,
+        y,
+        scoring=scoring,
+        cv=cv,
+        n_jobs=n_jobs,
+        train_sizes=train_sizes,
+        return_times=True,
+    )
+    train_scores_mean = np.mean(train_scores, axis=1)
+    train_scores_std = np.std(train_scores, axis=1)
+    test_scores_mean = np.mean(test_scores, axis=1)
+    test_scores_std = np.std(test_scores, axis=1)
+    fit_times_mean = np.mean(fit_times, axis=1)
+    fit_times_std = np.std(fit_times, axis=1)
+
+    # Plot learning curve
+    axes.grid()
+    axes.fill_between(
+        train_sizes,
+        train_scores_mean - train_scores_std,
+        train_scores_mean + train_scores_std,
+        alpha=0.1,
+        color="r",
+    )
+    axes.fill_between(
+        train_sizes,
+        test_scores_mean - test_scores_std,
+        test_scores_mean + test_scores_std,
+        alpha=0.1,
+        color="g",
+    )
+    axes.plot(
+        train_sizes, train_scores_mean, "o-", color="r", label="Training score"
+    )
+    axes.plot(
+        train_sizes, test_scores_mean, "o-", color="g", label="Cross-validation score"
+    )
+    axes.legend(loc="best")
+
+    return plt
+
+
+
+
+#%%
 # basic packages
 from configparser import MAX_INTERPOLATION_DEPTH
 import pandas as pd
@@ -52,6 +127,25 @@ MLP2 = mlp(activation = 'logistic',max_iter = 600,solver = 'sgd',hidden_layer_si
 KNN2 = knn(n_neighbors = 4, algorithm = 'ball_tree',metric = 'euclidean')
 boost2 = xgboost(loss = 'log_loss',learning_rate=.1,n_estimators=6)
 svm2 = svc(kernel = 'poly',probability=True,degree=10)
+
+#%%
+X = cleanT.drop(columns= ['churn'])
+Y = cleanT.churn
+
+scaler = ss().fit(X)
+#%%
+plot_learning_curve(decision_tree2,title = 'DT',X = X, y = Y)
+#%%
+plot_learning_curve(MLP2,title = 'MLP',X = X, y = Y)
+#%%
+plot_learning_curve(KNN2,title = 'KNN',X = X, y = Y)
+#%%
+plot_learning_curve(boost2,title = 'Boost',X = X, y = Y)
+#%%
+plot_learning_curve(svm2,title = 'SVM',X = X, y = Y)
+#%%
+
+
 #%%
 X = cleanT.drop(columns= ['churn'])
 Y = cleanT.churn

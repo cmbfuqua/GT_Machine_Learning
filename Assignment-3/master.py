@@ -1,4 +1,5 @@
 #%%
+from re import X
 import pandas as pd 
 import numpy as np 
 import altair as alt 
@@ -15,10 +16,270 @@ from sklearn.decomposition import PCA as pca
 from sklearn.decomposition import FastICA as ica
 from sklearn.random_projection import GaussianRandomProjection as rpa
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as lda
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler as ss
 from sklearn.metrics import accuracy_score as accuracy
 from sklearn.metrics import precision_score as precision
 from sklearn.metrics import silhouette_score 
 
+from sklearn.datasets import load_breast_cancer
+from keras.datasets import cifar10
+import plotly.express as px
+from yellowbrick.cluster import KElbowVisualizer as elbow
+from yellowbrick.cluster import SilhouetteVisualizer
+
+#%%
+#Load new data
+breast = load_breast_cancer()
+breast_data = breast.data
+breast_target = breast.target
+
+labels = np.reshape(breast_target,(569,1))
+final_brest_data = np.concatenate([breast_data,labels],axis = 1)
+columns = breast.feature_names
+columns = np.append(columns, 'target')
+breast = pd.DataFrame(final_brest_data)
+breast.columns = columns
+
+breast_data = breast.drop(columns = 'target')
+x = ss().fit_transform(breast_data)
+feat_cols = ['feature'+str(i) for i in range(x.shape[1])]
+breast_data = pd.DataFrame(x,columns=feat_cols)
+################################
+
+# %%
+# Scale and normalize
+(x_train, y_train), (x_test,y_test) = cifar10.load_data()
+
+########################################
+xs_train = x_train/255.0
+x_train_flat = xs_train.reshape(-1,3072)
+feat_cols = ['pixel'+str(i) for i in range(x_train_flat.shape[1])]
+cifar = pd.DataFrame(x_train_flat,columns=feat_cols)
+cifar['target'] = y_train # Num targets = 10
+#%%
+# see which combo of 2 pics gives the best for the silhouette score
+for i in range(10):
+    for j in range(10):
+        if i == j:
+            continue
+        #print('{},{}'.format(i,j))
+        test = cifar.loc[cifar.target.isin([i,j])]
+        test_data = kmeans(n_clusters=2).fit_transform(test.drop(columns = 'target'))
+        sc = silhouette_score(test_data,test.target)
+        print('Score for ({},{}): {}'.format(i,j,sc))
+# Targets 9 & 4 are the best for this purpose
+#%%
+cifar = cifar.loc[cifar.target.isin([9,4])]
+cifar_data = cifar.drop(columns = 'target')
+
+#%%
+#########################################################################################
+#########################################################################################
+# Custering Algorithms
+# KMeans
+breast_kmean = kmeans()
+breast_kmean_viz = elbow(breast_kmean,k=(1,10))
+breast_kmean_viz.fit(breast_data)
+breast_kmean_viz.show()
+
+cifar_kmean = kmeans()
+cifar_kmean_viz = elbow(cifar_kmean,k=(1,10))
+cifar_kmean_viz.fit(cifar_data)
+
+
+#%%
+##################################################################################
+##################################################################################
+
+
+cifar_kmeans = kmeans(n_clusters = 10)
+cifar_kmeans.fit(cifar_data)
+reduced_data_cifar = cifar_kmeans.transform(cifar_data)
+
+preds = cifar_kmeans.predict(cifar_data)
+cifar['kmean_preds'] = preds
+print('cifar silhouette: {}'.format(silhouette_score(reduced_data_cifar,cifar.target)))
+
+###########################
+
+cifar_kmean = kmeans(n_clusters = 2)
+reduced_data = cifar_kmean.fit_transform(cifar_data)
+cifar_kmean.fit(reduced_data)
+# Step size of the mesh. Decrease to increase the quality of the VQ.
+h = .1  # point in the mesh [x_min, x_max]x[y_min, y_max].
+
+# Plot the decision boundary. For that, we will assign a color to each
+x_min, x_max = reduced_data[:, 0].min() - 1, reduced_data[:, 0].max() + 1
+y_min, y_max = reduced_data[:, 1].min() - 1, reduced_data[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+
+# Obtain labels for each point in mesh. Use last trained model.
+Z = cifar_kmean.predict(np.c_[xx.ravel(), yy.ravel()])
+
+# Put the result into a color plot
+Z = Z.reshape(xx.shape)
+plt.figure(1)
+plt.clf()
+plt.imshow(
+    Z,
+    interpolation="nearest",
+    extent=(xx.min(), xx.max(), yy.min(), yy.max()),
+    cmap=plt.cm.Paired,
+    aspect="auto",
+    origin="lower",
+)
+
+plt.plot(reduced_data[:, 0], reduced_data[:, 1], "k.", markersize=2)
+# Plot the centroids as a white X
+centroids = cifar_kmean.cluster_centers_
+plt.scatter(
+    centroids[:, 0],
+    centroids[:, 1],
+    marker="x",
+    s=169,
+    linewidths=3,
+    color="w",
+    zorder=10,
+)
+plt.title(
+    "Image Clusters\n"
+    "Centroids are marked with white cross"
+)
+plt.xlim(x_min, x_max)
+plt.ylim(y_min, y_max)
+plt.xticks(())
+plt.yticks(())
+plt.show()
+
+#print('Accuracy: {}   Precision: {}'.format(accuracy(cifar.target,cifar.kmean_preds).round(2),precision(cifar.target,cifar.kmean_preds).round(2)))
+# %%
+# EM or GMM
+gm = em(n_components = 2,random_state = 42)
+breast_gm = gm.fit_predict(breast_data)
+gm = em(n_components = 2,random_state = 46)
+cifar_gm = gm.fit_predict(cifar_data)
+
+cacc = accuracy(breast.target,breast_gm).round(2)
+cprec = precision(breast.target,breast_gm).round(2)
+sacc = accuracy(cifar.target,cifar).round(2)
+sprec = precision(cifar.target,cifar).round(2)
+
+print('Breast Cancer\nAccuracy: {}   Precision: {}\n'.format(cacc,cprec))
+print('Cifar\nAccuracy: {}   Precision: {}'.format(sacc,sprec))
+
+# %%
+# PCA
+import plotly.express as px
+churn_clean = pd.concat([pos,neg])
+churn_data = churn_clean.drop(columns = ['churn','credit_card','active_member','gender','Germany','Spain','product_2','product_3','product_4'])
+
+churn_comp = 5
+churn_pca = pca(n_components = churn_comp)
+#churn_data = ss().fit_transform(churn_data)
+churn_pca_values = churn_pca.fit_transform(churn_data)
+churn_pca_values = ss().fit_transform(churn_pca_values)
+labels = {
+    str(i): f"PC {i+1} ({var:.1f}%)"
+    for i, var in enumerate(churn_pca.explained_variance_ratio_ * 100)
+}
+fig = px.scatter_matrix(
+    churn_pca_values,
+    labels=labels,
+    dimensions=range(churn_comp),
+    color=churn_clean.churn
+)
+fig.update_traces(diagonal_visible=False)
+fig.show()
+print('S Score: {}'.format(silhouette_score(churn_pca_values,churn_clean.churn)))
+#%%
+subscribed_comp = 2
+subscribed_pca = pca(n_components = subscribed_comp)
+subscribed_pca_values = subscribed_pca.fit_transform(breast_data)
+labels = {
+    str(i): f"PC {i+1} ({var:.1f}%)"
+    for i, var in enumerate(subscribed_pca.explained_variance_ratio_ * 100)
+}
+fig = px.scatter_matrix(
+    subscribed_pca_values,
+    labels=labels,
+    dimensions=range(subscribed_comp),
+    color=breast.target
+)
+fig.update_traces(diagonal_visible=False)
+fig.show()
+
+
+
+# %%
+# ICA
+churn_comp = 5
+churn_ica = ica(n_components = churn_comp)
+churn_ica_values = churn_ica.fit_transform(churn_data)
+
+fig = px.scatter_matrix(
+    churn_ica_values,
+    dimensions=range(churn_comp),
+    color=churn_clean.churn
+)
+fig.update_traces(diagonal_visible=False)
+fig.show()
+# %%
+data = churn_data
+reduced_data = ica(n_components=2).fit_transform(data)
+fkmeans = kmeans(init="k-means++", n_clusters=2, n_init=4)
+fkmeans.fit(reduced_data)
+
+# Step size of the mesh. Decrease to increase the quality of the VQ.
+h = .01  # point in the mesh [x_min, x_max]x[y_min, y_max].
+
+# Plot the decision boundary. For that, we will assign a color to each
+x_min, x_max = reduced_data[:, 0].min() - .01, reduced_data[:, 0].max() + .01
+y_min, y_max = reduced_data[:, 1].min() - .01, reduced_data[:, 1].max() + .01
+xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+
+# Obtain labels for each point in mesh. Use last trained model.
+Z = fkmeans.predict(np.c_[xx.ravel(), yy.ravel()])
+
+# Put the result into a color plot
+Z = Z.reshape(xx.shape)
+plt.figure(1)
+plt.clf()
+plt.imshow(
+    Z,
+    interpolation="nearest",
+    extent=(xx.min(), xx.max(), yy.min(), yy.max()),
+    cmap=plt.cm.Paired,
+    aspect="auto",
+    origin="lower",
+)
+
+plt.plot(reduced_data[:, 0], reduced_data[:, 1], "k.", markersize=2)
+# Plot the centroids as a white X
+centroids = fkmeans.cluster_centers_
+plt.scatter(
+    centroids[:, 0],
+    centroids[:, 1],
+    marker="x",
+    s=169,
+    linewidths=3,
+    color="w",
+    zorder=10,
+)
+plt.title(
+    "K-means clustering on the digits dataset (PCA-reduced data)\n"
+    "Centroids are marked with white cross"
+)
+plt.xlim(x_min, x_max)
+plt.ylim(y_min, y_max)
+plt.xticks(())
+plt.yticks(())
+plt.show()
+# %%
+
+############################################################################
+# Part 4 & 5
+############################################################################
 # %%
 # Import our datasets
 churn = pd.read_csv('churn.csv')
@@ -40,180 +301,32 @@ sub = data_cleaned.loc[data_cleaned.subscribed == 1]
 nsub = data_cleaned.loc[data_cleaned.subscribed == 0].head(len(sub))
 subscribed_clean = pd.concat([sub,nsub])
 
-# Clean Churn
-churn = churn.drop(columns = ['customer_id'])
-churn['balancedSalary'] = churn.balance/churn.estimated_salary
-churn['tenureAge'] = churn.tenure/churn.age
-churn['creditAge'] = churn.credit_score/churn.age
-churn.loc[churn.credit_card == 0,'credit_card'] = -1
-churn.loc[churn.active_member == 0,'active_member'] = -1
-clean = churn[['credit_score','age','tenure',
-              'balance','credit_card','active_member',
-              'estimated_salary','churn','balancedSalary',
-              'tenureAge','creditAge']]
-# one hot encode country
-countries = pd.get_dummies(churn.country,drop_first=True)
-# one hot encode gender
-clean['gender'] = pd.get_dummies(churn.gender,drop_first=True)
-# one hot encode the 4 products
-products = pd.get_dummies(churn.products_number,drop_first=True,prefix='product')
-
-clean = pd.concat([clean,countries,products],axis = 1)
-#Downsample to balance the data
-pos = clean.loc[clean.churn == 1]
-neg = clean.loc[clean.churn == 0].head(len(pos))
-
-churn_clean = pd.concat([pos,neg])
-
+Z = fkmeans.predict(reduced_data)
+acc = accuracy(churn_clean.churn,Z)
+prec = precision(churn_clean.churn,Z)
+print('Accuracy: {}   Precision: {}'.format(acc,prec))
 # %%
-#########################################################################################
-#########################################################################################
-# Custering Algorithms
-# KMeans
-churn_clean = pd.concat([pos,neg])
-churn_data = churn_clean.drop(columns = 'churn')
-
-churn_kmean = kmeans(n_clusters = 2)
-churn_kmean.fit(churn_data)
-
-preds = churn_kmean.predict(churn_data)
-churn_clean['predictions'] = preds
-
-reduced_data = churn_kmean.fit_transform(churn_data)
-churn_kmean.fit(reduced_data)
-# Step size of the mesh. Decrease to increase the quality of the VQ.
-h = 10  # point in the mesh [x_min, x_max]x[y_min, y_max].
-
-# Plot the decision boundary. For that, we will assign a color to each
-x_min, x_max = reduced_data[:, 0].min() - 1, reduced_data[:, 0].max() + 1
-y_min, y_max = reduced_data[:, 1].min() - 1, reduced_data[:, 1].max() + 1
-c_xx, c_yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-
-# Obtain labels for each point in mesh. Use last trained model.
-Z = churn_kmean.predict(np.c_[c_xx.ravel(), c_yy.ravel()])
-
-# Put the result into a color plot
-Z = Z.reshape(c_xx.shape)
-plt.figure(1)
-plt.clf()
-plt.imshow(
-    Z,
-    interpolation="nearest",
-    extent=(c_xx.min(), c_xx.max(), c_yy.min(), c_yy.max()),
-    cmap=plt.cm.Paired,
-    aspect="auto",
-    origin="lower",
-)
-
-plt.plot(reduced_data[:, 0], reduced_data[:, 1], "k.", markersize=2)
-# Plot the centroids as a white X
-centroids = churn_kmean.cluster_centers_
-plt.scatter(
-    centroids[:, 0],
-    centroids[:, 1],
-    marker="x",
-    s=169,
-    linewidths=3,
-    color="w",
-    zorder=10,
-)
-plt.title(
-    "Customer Churn Clusters\n"
-    "Centroids are marked with white cross"
-)
-plt.xlim(x_min, x_max)
-plt.ylim(y_min, y_max)
-plt.xticks(())
-plt.yticks(())
-plt.show()
-
-##################################################################################
-##################################################################################
-subscribed_data = subscribed_clean.drop(columns = 'subscribed')
-
-subscribed_kmean = kmeans(n_clusters = 2)
-subscribed_kmean.fit(subscribed_data)
-
-preds = subscribed_kmean.predict(subscribed_data)
-subscribed_clean['predictions'] = preds
-
-reduced_data = subscribed_kmean.fit_transform(subscribed_data)
-subscribed_kmean.fit(reduced_data)
-# Step size of the mesh. Decrease to increase the quality of the VQ.
-h = 10  # point in the mesh [x_min, x_max]x[y_min, y_max].
-
-# Plot the decision boundary. For that, we will assign a color to each
-x_min, x_max = reduced_data[:, 0].min() - 1, reduced_data[:, 0].max() + 1
-y_min, y_max = reduced_data[:, 1].min() - 1, reduced_data[:, 1].max() + 1
-xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-
-# Obtain labels for each point in mesh. Use last trained model.
-Z = subscribed_kmean.predict(np.c_[xx.ravel(), yy.ravel()])
-
-# Put the result into a color plot
-Z = Z.reshape(xx.shape)
-plt.figure(1)
-plt.clf()
-plt.imshow(
-    Z,
-    interpolation="nearest",
-    extent=(xx.min(), xx.max(), yy.min(), yy.max()),
-    cmap=plt.cm.Paired,
-    aspect="auto",
-    origin="lower",
-)
-
-plt.plot(reduced_data[:, 0], reduced_data[:, 1], "k.", markersize=2)
-# Plot the centroids as a white X
-centroids = subscribed_kmean.cluster_centers_
-plt.scatter(
-    centroids[:, 0],
-    centroids[:, 1],
-    marker="x",
-    s=169,
-    linewidths=3,
-    color="w",
-    zorder=10,
-)
-plt.title(
-    "Subscribed Clusters\n"
-    "Centroids are marked with white cross"
-)
-plt.xlim(x_min, x_max)
-plt.ylim(y_min, y_max)
-plt.xticks(())
-plt.yticks(())
-plt.show()
+from sklearn.model_selection import train_test_split
+MLP2 = mlp(activation = 'logistic',max_iter = 600,solver = 'sgd',hidden_layer_sizes = 2)
+data = churn_clean[['churn','credit_card','active_member','gender','Germany','Spain','product_2','product_3','product_4']]
+data.index = range(len(data))
+reduced_data = pd.DataFrame(pca(n_components=5).fit_transform(data.drop(columns = 'churn')),columns = ['a1','a2','3','4','5'])
+fkmeans = pd.Series(kmeans(init="k-means++", n_clusters=2, n_init=4).fit_predict(churn_data))
+data_final = pd.concat([data,reduced_data,fkmeans],axis = 1)
 
 
-#%%
-print('Accuracy: {}   Precision: {}'.format(1-accuracy(churn_clean.churn,churn_clean.predictions).round(2),1-precision(churn_clean.churn,churn_clean.predictions).round(2)))
-print('Accuracy: {}   Precision: {}'.format(accuracy(subscribed_clean.subscribed,subscribed_clean.predictions).round(2),precision(subscribed_clean.subscribed,subscribed_clean.predictions).round(2)))
-print('churn silhouette: {}   subscribed silhouette: {}'.format(silhouette_score(churn_clean.drop(columns = 'churn'),churn_clean.churn),silhouette_score(subscribed_clean.drop(columns = 'subscribed'),subscribed_clean.subscribed)))
-# %%
-# EM or GMM
-scaler = sklearn.preprocessing.StandardScaler()
-scaled_churn = scaler.fit_transform(churn_data)
-scaled_churn = pd.DataFrame(scaled_churn, columns = churn_data.columns)
+x_train,x_test,y_train,y_test = train_test_split(data_final.drop(columns = 'churn'),data_final.churn,test_size = .2)
 
-scaled_subscribed = scaler.fit_transform(subscribed_data)
-scaled_subscribed = pd.DataFrame(scaled_subscribed, columns = subscribed_data.columns)
+MLP2.fit(x_train,y_train)
 
-gm = em(n_components = 2,random_state = 42)
-churn_gm = gm.fit_predict(scaled_churn)
-gm = em(n_components = 2,random_state = 46)
-subscribed_gm = gm.fit_predict(scaled_subscribed)
+preds = MLP2.predict(x_test)
 
-cacc = accuracy(churn_clean.churn,churn_gm).round(2)
-cprec = precision(churn_clean.churn,churn_gm).round(2)
-sacc = accuracy(subscribed_clean.subscribed,subscribed_gm).round(2)
-sprec = precision(subscribed_clean.subscribed,subscribed_gm).round(2)
+acc = accuracy(y_test,preds)
+prec = precision(y_test,preds)
 
-print('Churn\nAccuracy: {}   Precision: {}\n'.format(cacc,cprec))
-print('Subscribed\nAccuracy: {}   Precision: {}'.format(sacc,sprec))
+print('Accuracy: {}   Precision: {}'.format(acc,prec))
 
-# %%
-# PCA
-churn_pca = pca(n_components = 5)
-churn_pca.fit(churn_data)
+
+
+
 # %%

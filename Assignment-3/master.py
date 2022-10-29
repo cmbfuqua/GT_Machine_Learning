@@ -3,8 +3,10 @@ from re import X
 import pandas as pd 
 import numpy as np 
 import altair as alt 
+alt.data_transformers.enable(max_rows = None)
 import sklearn
 import matplotlib.pyplot as plt
+import scipy
 
 
 from sklearn.neural_network import MLPClassifier as mlp
@@ -21,12 +23,179 @@ from sklearn.preprocessing import StandardScaler as ss
 from sklearn.metrics import accuracy_score as accuracy
 from sklearn.metrics import precision_score as precision
 from sklearn.metrics import silhouette_score 
+from sklearn.metrics import plot_confusion_matrix as confusion_matrix
 
 from sklearn.datasets import load_breast_cancer
 from keras.datasets import cifar10
 import plotly.express as px
 from yellowbrick.cluster import KElbowVisualizer as elbow
 from yellowbrick.cluster import SilhouetteVisualizer
+
+from scipy.stats import kurtosis
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import learning_curve
+from sklearn.model_selection import ShuffleSplit
+
+
+def plot_learning_curve(
+    estimator,
+    title,
+    X,
+    y,
+    axes=None,
+    ylim=None,
+    cv=None,
+    n_jobs=None,
+    scoring=None,
+    train_sizes=np.linspace(0.1, 1.0, 5),
+):
+    """
+    Generate 3 plots: the test and training learning curve, the training
+    samples vs fit times curve, the fit times vs score curve.
+
+    Parameters
+    ----------
+    estimator : estimator instance
+        An estimator instance implementing `fit` and `predict` methods which
+        will be cloned for each validation.
+
+    title : str
+        Title for the chart.
+
+    X : array-like of shape (n_samples, n_features)
+        Training vector, where ``n_samples`` is the number of samples and
+        ``n_features`` is the number of features.
+
+    y : array-like of shape (n_samples) or (n_samples, n_features)
+        Target relative to ``X`` for classification or regression;
+        None for unsupervised learning.
+
+    axes : array-like of shape (3,), default=None
+        Axes to use for plotting the curves.
+
+    ylim : tuple of shape (2,), default=None
+        Defines minimum and maximum y-values plotted, e.g. (ymin, ymax).
+
+    cv : int, cross-validation generator or an iterable, default=None
+        Determines the cross-validation splitting strategy.
+        Possible inputs for cv are:
+
+          - None, to use the default 5-fold cross-validation,
+          - integer, to specify the number of folds.
+          - :term:`CV splitter`,
+          - An iterable yielding (train, test) splits as arrays of indices.
+
+        For integer/None inputs, if ``y`` is binary or multiclass,
+        :class:`StratifiedKFold` used. If the estimator is not a classifier
+        or if ``y`` is neither binary nor multiclass, :class:`KFold` is used.
+
+        Refer :ref:`User Guide <cross_validation>` for the various
+        cross-validators that can be used here.
+
+    n_jobs : int or None, default=None
+        Number of jobs to run in parallel.
+        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
+        ``-1`` means using all processors. See :term:`Glossary <n_jobs>`
+        for more details.
+
+    scoring : str or callable, default=None
+        A str (see model evaluation documentation) or
+        a scorer callable object / function with signature
+        ``scorer(estimator, X, y)``.
+
+    train_sizes : array-like of shape (n_ticks,)
+        Relative or absolute numbers of training examples that will be used to
+        generate the learning curve. If the ``dtype`` is float, it is regarded
+        as a fraction of the maximum size of the training set (that is
+        determined by the selected validation method), i.e. it has to be within
+        (0, 1]. Otherwise it is interpreted as absolute sizes of the training
+        sets. Note that for classification the number of samples usually have
+        to be big enough to contain at least one sample from each class.
+        (default: np.linspace(0.1, 1.0, 5))
+    """
+    if axes is None:
+        _, axes = plt.subplots(1, 3, figsize=(20, 5))
+
+    axes[0].set_title(title)
+    if ylim is not None:
+        axes[0].set_ylim(*ylim)
+    axes[0].set_xlabel("Training examples")
+    axes[0].set_ylabel("Score")
+
+    train_sizes, train_scores, test_scores, fit_times, _ = learning_curve(
+        estimator,
+        X,
+        y,
+        scoring=scoring,
+        cv=cv,
+        n_jobs=n_jobs,
+        train_sizes=train_sizes,
+        return_times=True,
+    )
+    train_scores_mean = np.mean(train_scores, axis=1)
+    train_scores_std = np.std(train_scores, axis=1)
+    test_scores_mean = np.mean(test_scores, axis=1)
+    test_scores_std = np.std(test_scores, axis=1)
+    fit_times_mean = np.mean(fit_times, axis=1)
+    fit_times_std = np.std(fit_times, axis=1)
+
+    # Plot learning curve
+    axes[0].grid()
+    axes[0].fill_between(
+        train_sizes,
+        train_scores_mean - train_scores_std,
+        train_scores_mean + train_scores_std,
+        alpha=0.1,
+        color="r",
+    )
+    axes[0].fill_between(
+        train_sizes,
+        test_scores_mean - test_scores_std,
+        test_scores_mean + test_scores_std,
+        alpha=0.1,
+        color="g",
+    )
+    axes[0].plot(
+        train_sizes, train_scores_mean, "o-", color="r", label="Training score"
+    )
+    axes[0].plot(
+        train_sizes, test_scores_mean, "o-", color="g", label="Cross-validation score"
+    )
+    axes[0].legend(loc="best")
+
+    # Plot n_samples vs fit_times
+    axes[1].grid()
+    axes[1].plot(train_sizes, fit_times_mean, "o-")
+    axes[1].fill_between(
+        train_sizes,
+        fit_times_mean - fit_times_std,
+        fit_times_mean + fit_times_std,
+        alpha=0.1,
+    )
+    axes[1].set_xlabel("Training examples")
+    axes[1].set_ylabel("fit_times")
+    axes[1].set_title("Scalability of the model")
+
+    # Plot fit_time vs score
+    fit_time_argsort = fit_times_mean.argsort()
+    fit_time_sorted = fit_times_mean[fit_time_argsort]
+    test_scores_mean_sorted = test_scores_mean[fit_time_argsort]
+    test_scores_std_sorted = test_scores_std[fit_time_argsort]
+    axes[2].grid()
+    axes[2].plot(fit_time_sorted, test_scores_mean_sorted, "o-")
+    axes[2].fill_between(
+        fit_time_sorted,
+        test_scores_mean_sorted - test_scores_std_sorted,
+        test_scores_mean_sorted + test_scores_std_sorted,
+        alpha=0.1,
+    )
+    axes[2].set_xlabel("fit_times")
+    axes[2].set_ylabel("Score")
+    axes[2].set_title("Performance of the model")
+
+    return plt
 
 #%%
 #Load new data
@@ -40,6 +209,7 @@ columns = breast.feature_names
 columns = np.append(columns, 'target')
 breast = pd.DataFrame(final_brest_data)
 breast.columns = columns
+breast['target'] = breast.target.astype(int).astype(str)
 
 breast_data = breast.drop(columns = 'target')
 x = ss().fit_transform(breast_data)
@@ -63,9 +233,10 @@ for i in range(10):
     for j in range(10):
         if i == j:
             continue
-        #print('{},{}'.format(i,j))
+        print('{},{}'.format(i,j))
         test = cifar.loc[cifar.target.isin([i,j])]
-        test_data = kmeans(n_clusters=2).fit_transform(test.drop(columns = 'target'))
+        test_data = pca(n_components=3).fit_transform(test.drop(columns = 'target'))
+        #test_data = pd.DataFrame(test_data,columns = ['pca1','pca2','pca3'])
         sc = silhouette_score(test_data,test.target)
         print('Score for ({},{}): {}'.format(i,j,sc))
 # Targets 9 & 4 are the best for this purpose
@@ -75,6 +246,7 @@ cifar_data = cifar.drop(columns = 'target')
 
 #%%
 #########################################################################################
+# Part 1
 #########################################################################################
 # Custering Algorithms
 # KMeans
@@ -82,129 +254,93 @@ breast_kmean = kmeans()
 breast_kmean_viz = elbow(breast_kmean,k=(1,10))
 breast_kmean_viz.fit(breast_data)
 breast_kmean_viz.show()
-
+breast_kmean = kmeans(3)
+breast_kmean_viz = SilhouetteVisualizer(breast_kmean)
+breast_kmean_viz.fit(breast_data)
+breast_kmean_viz.show()
+print('#' *10)
 cifar_kmean = kmeans()
 cifar_kmean_viz = elbow(cifar_kmean,k=(1,10))
 cifar_kmean_viz.fit(cifar_data)
-
+cifar_kmean_viz.show()
+cifar_kmean = kmeans(3)
+cifar_kmean_viz = SilhouetteVisualizer(cifar_kmean)
+cifar_kmean_viz.fit(cifar_data)
+cifar_kmean_viz.show()
 
 #%%
-##################################################################################
-##################################################################################
+# GMM
+# Code to allow us to build an elbow model for GMM
+from sklearn.base import ClusterMixin
+from sklearn.mixture import GaussianMixture
+from yellowbrick.cluster import KElbow
+class GMClusters(GaussianMixture, ClusterMixin):
+    """Subclass of GaussianMixture to make it a ClusterMixin."""
 
+    def fit(self, X):
+        super().fit(X)
+        self.labels_ = self.predict(X)
+        return self
 
-cifar_kmeans = kmeans(n_clusters = 10)
-cifar_kmeans.fit(cifar_data)
-reduced_data_cifar = cifar_kmeans.transform(cifar_data)
+    def get_params(self, **kwargs):
+        output = super().get_params(**kwargs)
+        output["n_clusters"] = output.get("n_components", None)
+        return output
 
-preds = cifar_kmeans.predict(cifar_data)
-cifar['kmean_preds'] = preds
-print('cifar silhouette: {}'.format(silhouette_score(reduced_data_cifar,cifar.target)))
+    def set_params(self, **kwargs):
+        kwargs["n_components"] = kwargs.pop("n_clusters", None)
+        return super().set_params(**kwargs)
 
-###########################
+breast_em_viz = KElbow(GMClusters(), k=(1,10), force_model=True)
+breast_em_viz.fit(breast_data)
+breast_em_viz.show()
 
-cifar_kmean = kmeans(n_clusters = 2)
-reduced_data = cifar_kmean.fit_transform(cifar_data)
-cifar_kmean.fit(reduced_data)
-# Step size of the mesh. Decrease to increase the quality of the VQ.
-h = .1  # point in the mesh [x_min, x_max]x[y_min, y_max].
+cifar_em_viz = KElbow(GMClusters(),k=(1,10), force_model = True)
+cifar_em_viz.fit(cifar_data)
+cifar_em_viz.show()
 
-# Plot the decision boundary. For that, we will assign a color to each
-x_min, x_max = reduced_data[:, 0].min() - 1, reduced_data[:, 0].max() + 1
-y_min, y_max = reduced_data[:, 1].min() - 1, reduced_data[:, 1].max() + 1
-xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
-
-# Obtain labels for each point in mesh. Use last trained model.
-Z = cifar_kmean.predict(np.c_[xx.ravel(), yy.ravel()])
-
-# Put the result into a color plot
-Z = Z.reshape(xx.shape)
-plt.figure(1)
-plt.clf()
-plt.imshow(
-    Z,
-    interpolation="nearest",
-    extent=(xx.min(), xx.max(), yy.min(), yy.max()),
-    cmap=plt.cm.Paired,
-    aspect="auto",
-    origin="lower",
-)
-
-plt.plot(reduced_data[:, 0], reduced_data[:, 1], "k.", markersize=2)
-# Plot the centroids as a white X
-centroids = cifar_kmean.cluster_centers_
-plt.scatter(
-    centroids[:, 0],
-    centroids[:, 1],
-    marker="x",
-    s=169,
-    linewidths=3,
-    color="w",
-    zorder=10,
-)
-plt.title(
-    "Image Clusters\n"
-    "Centroids are marked with white cross"
-)
-plt.xlim(x_min, x_max)
-plt.ylim(y_min, y_max)
-plt.xticks(())
-plt.yticks(())
-plt.show()
-
-#print('Accuracy: {}   Precision: {}'.format(accuracy(cifar.target,cifar.kmean_preds).round(2),precision(cifar.target,cifar.kmean_preds).round(2)))
-# %%
-# EM or GMM
-gm = em(n_components = 2,random_state = 42)
-breast_gm = gm.fit_predict(breast_data)
-gm = em(n_components = 2,random_state = 46)
-cifar_gm = gm.fit_predict(cifar_data)
-
-cacc = accuracy(breast.target,breast_gm).round(2)
-cprec = precision(breast.target,breast_gm).round(2)
-sacc = accuracy(cifar.target,cifar).round(2)
-sprec = precision(cifar.target,cifar).round(2)
-
-print('Breast Cancer\nAccuracy: {}   Precision: {}\n'.format(cacc,cprec))
-print('Cifar\nAccuracy: {}   Precision: {}'.format(sacc,sprec))
-
+##########################################################
+# Part 2
+##########################################################
 # %%
 # PCA
-import plotly.express as px
-churn_clean = pd.concat([pos,neg])
-churn_data = churn_clean.drop(columns = ['churn','credit_card','active_member','gender','Germany','Spain','product_2','product_3','product_4'])
 
-churn_comp = 5
-churn_pca = pca(n_components = churn_comp)
-#churn_data = ss().fit_transform(churn_data)
-churn_pca_values = churn_pca.fit_transform(churn_data)
-churn_pca_values = ss().fit_transform(churn_pca_values)
+breast_comp = 5
+breast_pca = pca(n_components = breast_comp)
+breast_pca_values = breast_pca.fit_transform(breast_data)
 labels = {
     str(i): f"PC {i+1} ({var:.1f}%)"
-    for i, var in enumerate(churn_pca.explained_variance_ratio_ * 100)
+    for i, var in enumerate(breast_pca.explained_variance_ratio_ * 100)
 }
+total = 0
+for i, var in enumerate(breast_pca.explained_variance_ratio_ * 100):
+    total += var
 fig = px.scatter_matrix(
-    churn_pca_values,
+    breast_pca_values,
     labels=labels,
-    dimensions=range(churn_comp),
-    color=churn_clean.churn
+    dimensions=range(breast_comp),
+    color=breast.target,
+    title = f'Total Variance Explained: {total:.1f}%'
 )
 fig.update_traces(diagonal_visible=False)
 fig.show()
-print('S Score: {}'.format(silhouette_score(churn_pca_values,churn_clean.churn)))
-#%%
-subscribed_comp = 2
-subscribed_pca = pca(n_components = subscribed_comp)
-subscribed_pca_values = subscribed_pca.fit_transform(breast_data)
+
+cifar_comp = 5
+cifar_pca = pca(n_components = cifar_comp)
+cifar_pca_values = cifar_pca.fit_transform(cifar_data)
 labels = {
     str(i): f"PC {i+1} ({var:.1f}%)"
-    for i, var in enumerate(subscribed_pca.explained_variance_ratio_ * 100)
+    for i, var in enumerate(cifar_pca.explained_variance_ratio_ * 100)
 }
+total = 0
+for i, var in enumerate(cifar_pca.explained_variance_ratio_ * 100):
+    total += var
 fig = px.scatter_matrix(
-    subscribed_pca_values,
+    cifar_pca_values,
     labels=labels,
-    dimensions=range(subscribed_comp),
-    color=breast.target
+    dimensions=range(cifar_comp),
+    color=cifar.target,
+    title = f'Total Variance Explained: {total:.1f}%'
 )
 fig.update_traces(diagonal_visible=False)
 fig.show()
@@ -213,19 +349,381 @@ fig.show()
 
 # %%
 # ICA
-churn_comp = 5
-churn_ica = ica(n_components = churn_comp)
-churn_ica_values = churn_ica.fit_transform(churn_data)
-
+from scipy.stats import kurtosis
+breast_comp = 5
+breast_pca = ica(n_components = breast_comp)
+breast_pca_values = breast_pca.fit_transform(breast_data)
+kurt = []
+total = 0
+for i in range(len(breast_pca_values[0])):
+    k = kurtosis(breast_pca_values[:,i])
+    print(k)
+    kurt.append(k)
+    total += k
+labels = {
+    str(i): f"K={var:.1f}"
+    for i, var in enumerate(kurt)
+}
 fig = px.scatter_matrix(
-    churn_ica_values,
-    dimensions=range(churn_comp),
-    color=churn_clean.churn
+    breast_pca_values,
+    labels=labels,
+    dimensions=range(breast_comp),
+    color=breast.target,
+    title = f'Total Kurtosis: {total:.1f}'
 )
 fig.update_traces(diagonal_visible=False)
 fig.show()
-# %%
-data = churn_data
+
+
+
+cifar_comp = 5
+cifar_pca = ica(n_components = cifar_comp)
+cifar_pca_values = cifar_pca.fit_transform(cifar_data)
+kurt = []
+total = 0
+for i in range(len(cifar_pca_values[0])):
+    k = kurtosis(cifar_pca_values[:,i])
+    print(k)
+    kurt.append(k)
+    total += k
+labels = {
+    str(i): f"K={var:.1f}"
+    for i, var in enumerate(kurt)
+}
+fig = px.scatter_matrix(
+    cifar_pca_values,
+    labels=labels,
+    dimensions=range(cifar_comp),
+    color=cifar.target,
+    title = f'Total Kurtosis: {total:.1f}'
+)
+fig.update_traces(diagonal_visible=False)
+fig.show()
+
+#%%
+# RPA
+from scipy.stats import kurtosis
+breast_comp = 5
+breast_pca = rpa(n_components = breast_comp)
+breast_pca_values = breast_pca.fit_transform(breast_data)
+kurt = []
+total = 0
+for i in range(len(breast_pca_values[0])):
+    k = kurtosis(breast_pca_values[:,i])
+    print(k)
+    kurt.append(k)
+    total += k
+labels = {
+    str(i): f"K={var:.1f}"
+    for i, var in enumerate(kurt)
+}
+fig = px.scatter_matrix(
+    breast_pca_values,
+    labels=labels,
+    dimensions=range(breast_comp),
+    color=breast.target,
+    title = f'Total Kurtosis: {total:.1f}'
+)
+fig.update_traces(diagonal_visible=False)
+fig.show()
+
+cifar_comp = 5
+cifar_pca = rpa(n_components = cifar_comp)
+cifar_pca_values = cifar_pca.fit_transform(cifar_data)
+kurt = []
+total = 0
+for i in range(len(cifar_pca_values[0])):
+    k = kurtosis(cifar_pca_values[:,i])
+    print(k)
+    kurt.append(k)
+    total += k
+labels = {
+    str(i): f"K={var:.1f}"
+    for i, var in enumerate(kurt)
+}
+fig = px.scatter_matrix(
+    cifar_pca_values,
+    labels=labels,
+    dimensions=range(cifar_comp),
+    color=cifar.target,
+    title = f'Total Kurtosis: {total:.1f}'
+)
+fig.update_traces(diagonal_visible=False)
+fig.show()
+
+#%%
+# LDA
+breast_pca = lda()
+breast_pca_values = pd.Series(breast_pca.fit_transform(breast_data,y = breast.target)[:,0])
+temp_data = pd.concat([breast_pca_values,breast.target],axis = 1)
+temp_data.columns = ['LDA_Values','Target']
+k = kurtosis(breast_pca_values)
+breast_lda = alt.Chart(temp_data,title = f'LDA with kurtosis: {k:.1f}').mark_boxplot().encode(
+    alt.X('Target'),
+    alt.Y('LDA_Values'),
+    alt.Color('Target')
+)
+breast_lda.save('breast_lda.png')
+
+cifar_pca = lda()
+cifar_pca_values = pd.Series(cifar_pca.fit_transform(cifar_data,cifar.target)[:,0])
+k = kurtosis(cifar_pca_values)
+
+temp_data = pd.concat([cifar_pca_values.reset_index(drop = True),cifar.target.reset_index(drop = True)],axis = 1)
+temp_data.columns = ['LDA_Values','Target']
+breast_lda = alt.Chart(temp_data,title = f'LDA with kurtosis: {k:.1f}').mark_boxplot().encode(
+    alt.X('Target'),
+    alt.Y('LDA_Values'),
+    alt.Color('Target:O')
+)
+breast_lda.save('cifar_lda.png')
+#%%
+##############################################################
+# Part 3
+##############################################################
+# Generate lists to iterate over
+cluster_list = [kmeans(3,random_state=42),em(3,random_state=42)]
+cluster_name_list = ['KMeans','EM Or GMM']
+dimension_list = [lda(n_components=1),pca(5),ica(5),rpa(5)]
+dimension_name_list = ['LDA','PCA','ICA','RPA']
+# Start with breast data
+data = breast_data
+data_name = 'Breast Cancer'
+target = breast.target
+
+for c in range(len(cluster_name_list)):
+    cluster = cluster_list[c]
+    cluster_name = cluster_name_list[c]
+    for d in range(len(dimension_name_list)):
+        dimension = dimension_list[d]
+        dimension_name = dimension_name_list[d]
+        print('{} {}'.format(cluster_name,dimension_name))
+        if dimension_name == 'LDA':
+            dimension.fit(data,target)
+            values = dimension.transform(data)
+            # Sort through to find the most kurtotic value
+            best = 0
+            besti = 99
+            if cluster_name == 'KMeans':
+                cluster.set_params(n_clusters = 2).fit(values)
+            elif cluster_name == 'EM Or GMM':
+                cluster.set_params(n_components = 2).fit(values)
+            preds = pd.Series(cluster.predict(values))
+            temp_data = pd.concat([target.astype(int),preds],axis = 1)
+            temp_data.columns = ['target','preds']
+            temp_data.loc[temp_data.preds == 0,'preds'] = 2
+            temp_data.loc[temp_data.preds == 1,'preds'] = 0
+            temp_data.loc[temp_data.preds == 2,'preds'] = 1
+            k = kurtosis(values)
+            a = accuracy(temp_data.target,temp_data.preds).round(2)
+            p = precision(temp_data.target,temp_data.preds).round(2)
+            
+            chart = alt.Chart(temp_data,title = "Breast {}-{} with Kurtosis {}\nAccuracy:{} Precision:{}".format(cluster_name,dimension_name,k,a,p)).mark_point().encode(
+                alt.X('jitter_true:Q',title = 'True Class'),
+                alt.Y('jitter_pred:Q',title = 'Predicted Class'),
+            ).transform_calculate(
+                jitter_true = '(sqrt(-2*log(random()))*cos(2*PI*random())/10)+datum.target',
+                jitter_pred = '(sqrt(-2*log(random()))*cos(2*PI*random())/10)+datum.preds'
+            )
+            chart.save('breast_{}_{}.png'.format(cluster_name,dimension_name))
+
+        else:
+            # Reduce the data
+            reduced_data = dimension.fit_transform(data)
+            # get the best 2 dimensions that are the most kurtotic
+            fbest = 0
+            fbesti = 99
+            sbest = 0
+            sbesti = 0
+            for i in range(len(reduced_data[0])):
+                k = kurtosis(reduced_data[:,i])
+                if abs(k) > abs(fbest):
+                    #print('in 1')
+                    sbest = fbest
+                    sbesti = fbesti
+                    fbest = k
+                    fbesti = i
+                if abs(k) > abs(sbest) and abs(k) < abs(fbest):
+                    #print('in 2')
+                    sbest = k
+                    sbesti = i
+                
+                #print('New K: {}  \nFirst: {}  Second: {}\n'.format(abs(k),fbest,sbest))
+            # Train cluster model
+            best_data = reduced_data[:,[fbesti,sbesti]]
+            cluster.fit(best_data)
+
+            # Plot the decision boundary. For that, we will assign a color to each
+            x_min, x_max = best_data[:, 0].min() - 1, best_data[:, 0].max() + 1
+            y_min, y_max = best_data[:, 1].min() - 1, best_data[:, 1].max() + 1
+            h = (x_max - x_min)/10  # point in the mesh [x_min, x_max]x[y_min, y_max].
+            xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+
+            # Obtain labels for each point in mesh. Use last trained model.
+            Z = cluster.predict(np.c_[xx.ravel(), yy.ravel()])
+
+            # Put the result into a color plot
+            Z = Z.reshape(xx.shape)
+            plt.figure(1)
+            plt.clf()
+            plt.imshow(
+                Z,
+                interpolation="nearest",
+                extent=(xx.min(), xx.max(), yy.min(), yy.max()),
+                cmap=plt.cm.Paired,
+                aspect="auto",
+                origin="lower",
+            )
+
+            plt.plot(best_data[:, 0], best_data[:, 1], "k.", markersize=2)
+            # Plot the centroids as a white X
+            if cluster_name == 'KMeans':
+                centroids = cluster.cluster_centers_
+            elif cluster_name == 'EM Or GMM':
+                centroids = np.empty(shape=(cluster.n_components, best_data.shape[1]))
+                for i in range(cluster.n_components):
+                    density = scipy.stats.multivariate_normal(cov=cluster.covariances_[i], mean=cluster.means_[i]).logpdf(best_data)
+                    centroids[i, :] = best_data[np.argmax(density)]
+
+            plt.scatter(
+                centroids[:, 0],
+                centroids[:, 1],
+                marker="x",
+                s=169,
+                linewidths=3,
+                color="w",
+                zorder=10,
+            )
+            plt.title(
+                f"{cluster_name}-{dimension_name} With Kurtosis of {fbest:.3f} & {sbest:.3f} on {data_name}\nCentroids are marked with white cross"
+            )
+            plt.xlim(x_min, x_max)
+            plt.ylim(y_min, y_max)
+            plt.xticks(())
+            plt.yticks(())
+            plt.savefig(f"breast_{cluster_name}_{dimension_name}.png")
+            plt.show()
+                
+
+#%%
+# Start with CIFAR data
+data = cifar_data
+data_name = 'CIFAR'
+target = cifar.target
+
+for c in range(len(cluster_name_list)):
+    cluster = cluster_list[c]
+    cluster_name = cluster_name_list[c]
+    for d in range(len(dimension_name_list)):
+        dimension = dimension_list[d]
+        dimension_name = dimension_name_list[d]
+        print('{} {}'.format(cluster_name,dimension_name))
+        if dimension_name == 'LDA':
+            dimension.fit(data,target)
+            values = dimension.transform(data)
+            # Sort through to find the most kurtotic value
+            best = 0
+            besti = 99
+            if cluster_name == 'KMeans':
+                cluster.set_params(n_clusters = 2).fit(values)
+            elif cluster_name == 'EM Or GMM':
+                cluster.set_params(n_components = 2).fit(values)
+            preds = pd.Series(cluster.predict(values))
+            temp_data = pd.concat([target.reset_index(drop = True).astype(int),preds],axis = 1)
+            temp_data.columns = ['target','preds']
+            temp_data.loc[temp_data.target == 9,'target'] = 1
+            temp_data.loc[temp_data.target == 4,'target'] = 0
+            k = kurtosis(values)
+            a = accuracy(temp_data.target,temp_data.preds).round(2)
+            p = precision(temp_data.target,temp_data.preds).round(2)
+            
+            chart = alt.Chart(temp_data,title = "Breast {}-{} with Kurtosis {}\nAccuracy:{} Precision:{}".format(cluster_name,dimension_name,k,a,p)).mark_point().encode(
+                alt.X('jitter_true:Q',title = 'True Class'),
+                alt.Y('jitter_pred:Q',title = 'Predicted Class'),
+            ).transform_calculate(
+                jitter_true = '(sqrt(-2*log(random()))*cos(2*PI*random())/10)+datum.target',
+                jitter_pred = '(sqrt(-2*log(random()))*cos(2*PI*random())/10)+datum.preds'
+            )
+            chart.save('cifar_{}_{}.png'.format(cluster_name,dimension_name))
+
+        else:
+            # Reduce the data
+            reduced_data = dimension.fit_transform(data)
+            # get the best 2 dimensions that are the most kurtotic
+            fbest = 0
+            fbesti = 99
+            sbest = 0
+            sbesti = 0
+            for i in range(len(reduced_data[0])):
+                k = kurtosis(reduced_data[:,i])
+                if abs(k) > abs(fbest):
+                    #print('in 1')
+                    sbest = fbest
+                    sbesti = fbesti
+                    fbest = k
+                    fbesti = i
+                if abs(k) > abs(sbest) and abs(k) < abs(fbest):
+                    #print('in 2')
+                    sbest = k
+                    sbesti = i
+                
+                #print('New K: {}  \nFirst: {}  Second: {}\n'.format(abs(k),fbest,sbest))
+            # Train cluster model
+            best_data = reduced_data[:,[fbesti,sbesti]]
+            cluster.fit(best_data)
+
+            # Plot the decision boundary. For that, we will assign a color to each
+            x_min, x_max = best_data[:, 0].min() - 1, best_data[:, 0].max() + 1
+            y_min, y_max = best_data[:, 1].min() - 1, best_data[:, 1].max() + 1
+            h = (x_max - x_min)/10  # point in the mesh [x_min, x_max]x[y_min, y_max].
+            xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+
+            # Obtain labels for each point in mesh. Use last trained model.
+            Z = cluster.predict(np.c_[xx.ravel(), yy.ravel()])
+
+            # Put the result into a color plot
+            Z = Z.reshape(xx.shape)
+            plt.figure(1)
+            plt.clf()
+            plt.imshow(
+                Z,
+                interpolation="nearest",
+                extent=(xx.min(), xx.max(), yy.min(), yy.max()),
+                cmap=plt.cm.Paired,
+                aspect="auto",
+                origin="lower",
+            )
+
+            plt.plot(best_data[:, 0], best_data[:, 1], "k.", markersize=2)
+            # Plot the centroids as a white X
+            if cluster_name == 'KMeans':
+                centroids = cluster.cluster_centers_
+            elif cluster_name == 'EM Or GMM':
+                centroids = np.empty(shape=(cluster.n_components, best_data.shape[1]))
+                for i in range(cluster.n_components):
+                    density = scipy.stats.multivariate_normal(cov=cluster.covariances_[i], mean=cluster.means_[i]).logpdf(best_data)
+                    centroids[i, :] = best_data[np.argmax(density)]
+
+            plt.scatter(
+                centroids[:, 0],
+                centroids[:, 1],
+                marker="x",
+                s=169,
+                linewidths=3,
+                color="w",
+                zorder=10,
+            )
+            plt.title(
+                f"{cluster_name}-{dimension_name} With Kurtosis of {fbest:.3f} & {sbest:.3f} on {data_name}\nCentroids are marked with white cross"
+            )
+            plt.xlim(x_min, x_max)
+            plt.ylim(y_min, y_max)
+            plt.xticks(())
+            plt.yticks(())
+            plt.savefig(f"cifar_{cluster_name}_{dimension_name}.png")
+            plt.show()
+#%%
+data = breast_data
 reduced_data = ica(n_components=2).fit_transform(data)
 fkmeans = kmeans(init="k-means++", n_clusters=2, n_init=4)
 fkmeans.fit(reduced_data)
@@ -282,7 +780,7 @@ plt.show()
 ############################################################################
 # %%
 # Import our datasets
-churn = pd.read_csv('churn.csv')
+
 subscribed = pd.read_csv('subscribed.csv')
 subscribed['subscribed'] = subscribed.term_deposit_subscribed
 subscribed = subscribed.drop(columns = 'term_deposit_subscribed')
@@ -301,32 +799,92 @@ sub = data_cleaned.loc[data_cleaned.subscribed == 1]
 nsub = data_cleaned.loc[data_cleaned.subscribed == 0].head(len(sub))
 subscribed_clean = pd.concat([sub,nsub])
 
-Z = fkmeans.predict(reduced_data)
-acc = accuracy(churn_clean.churn,Z)
-prec = precision(churn_clean.churn,Z)
-print('Accuracy: {}   Precision: {}'.format(acc,prec))
+
+#%%
+####################################
+# Determine best reduction
+####################################
+subscribed_data = subscribed_clean.drop(columns = 'subscribed')
+# create chart that shows cluster distribution for the subscribed data using LDA
+breast_pca = lda()
+breast_pca_values = pd.Series(breast_pca.fit_transform(subscribed_data,y = subscribed_clean.subscribed)[:,0])
+temp_data = pd.concat([breast_pca_values,subscribed_clean.subscribed.reset_index(drop = True)],axis = 1)
+temp_data.columns = ['LDA_Values','Target']
+k = kurtosis(breast_pca_values)
+breast_lda = alt.Chart(temp_data,title = f'Total Kurtosis For LDA: {k:.1f}').mark_boxplot().encode(
+    alt.X('Target'),
+    alt.Y('LDA_Values'),
+    alt.Color('Target:O')
+)
+breast_lda.save('subscribed_lda.png')
+breast_lda
+
+dimension_list = [pca(5),ica(5),rpa(5)]
+dimension_name_list = ['PCA','ICA','RPA']
+for j in range(len(dimension_name_list)):
+    from scipy.stats import kurtosis
+    breast_comp = 5
+    breast_pca = dimension_list[j]
+    breast_pca_values = breast_pca.fit_transform(subscribed_data)
+    kurt = []
+    total = 0
+    for i in range(len(breast_pca_values[0])):
+        k = kurtosis(breast_pca_values[:,i])
+        kurt.append(k)
+        total += k
+    labels = {
+        str(i): f"K={var:.1f}"
+        for i, var in enumerate(kurt)
+    }
+    fig = px.scatter_matrix(
+        breast_pca_values,
+        labels=labels,
+        dimensions=range(breast_comp),
+        color=subscribed_clean.subscribed,
+        title = f'Total Kurtosis For {dimension_name_list[j]}: {total:.1f}'
+    )
+    fig.update_traces(diagonal_visible=False)
+    #fig.write_image(f"subscribed_{dimension_name_list[j]}.png")
+    fig.show()
+
 # %%
-from sklearn.model_selection import train_test_split
-MLP2 = mlp(activation = 'logistic',max_iter = 600,solver = 'sgd',hidden_layer_sizes = 2)
-data = churn_clean[['churn','credit_card','active_member','gender','Germany','Spain','product_2','product_3','product_4']]
-data.index = range(len(data))
-reduced_data = pd.DataFrame(pca(n_components=5).fit_transform(data.drop(columns = 'churn')),columns = ['a1','a2','3','4','5'])
-fkmeans = pd.Series(kmeans(init="k-means++", n_clusters=2, n_init=4).fit_predict(churn_data))
-data_final = pd.concat([data,reduced_data,fkmeans],axis = 1)
+dim = pca(5)
+dim.fit(subscribed_data)
+new_val = dim.transform(subscribed_data)
+#find index with top 2 kurtosis values
+fbest = 0
+fbesti = 99
+sbest = 0
+sbesti = 0
+for i in range(len(new_val[0])):
+    k = kurtosis(new_val[:,i])
+    if abs(k) > abs(fbest):
+        #print('in 1')
+        sbest = fbest
+        sbesti = fbesti
+        fbest = k
+        fbesti = i
+    if abs(k) > abs(sbest) and abs(k) < abs(fbest):
+        #print('in 2')
+        sbest = k
+        sbesti = i
 
+data = pd.DataFrame(new_val)
+fkmeans = pd.Series(kmeans(init="k-means++", n_clusters=5, n_init=4).fit_predict(data))
+lda_data = pd.Series(lda(n_components = 1).fit_transform(subscribed_data,y = subscribed_clean.subscribed)[:,0])
+data_final = pd.concat([lda_data,data,fkmeans,subscribed_clean.reset_index(drop = True).subscribed],axis = 1)
+data_final.columns = ['lda1','ica1','ica2','ica3','ica4','ica5','kmeans_pred','target']
+#%%
+data_test1 = data_final.drop(columns = 'kmeans_pred')
+ann = mlp(activation = 'logistic',max_iter = 600,solver = 'sgd',hidden_layer_sizes = 2)
 
-x_train,x_test,y_train,y_test = train_test_split(data_final.drop(columns = 'churn'),data_final.churn,test_size = .2)
+plot_learning_curve(ann,
+                    title = 'PCA Reduction W/O Cluster Help',
+                    X = data_test1.drop(columns = 'target'),
+                    y = data_test1.target)
 
-MLP2.fit(x_train,y_train)
-
-preds = MLP2.predict(x_test)
-
-acc = accuracy(y_test,preds)
-prec = precision(y_test,preds)
-
-print('Accuracy: {}   Precision: {}'.format(acc,prec))
-
-
-
-
+plot_learning_curve(ann,
+                    title = 'PCA Reduction W Cluster Help',
+                    X = data_final.drop(columns = 'target'),
+                    y = data_final.target)               
 # %%

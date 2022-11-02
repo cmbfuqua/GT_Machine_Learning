@@ -1,4 +1,5 @@
 #%%
+from asyncio.base_subprocess import BaseSubprocessTransport
 from re import X
 import pandas as pd 
 import numpy as np 
@@ -472,7 +473,7 @@ k = kurtosis(cifar_pca_values)
 temp_data = pd.concat([cifar_pca_values.reset_index(drop = True),cifar.target.reset_index(drop = True)],axis = 1)
 temp_data.columns = ['LDA_Values','Target']
 breast_lda = alt.Chart(temp_data,title = f'LDA with kurtosis: {k:.1f}').mark_boxplot().encode(
-    alt.X('Target'),
+    alt.X('Target:O'),
     alt.Y('LDA_Values'),
     alt.Color('Target:O')
 )
@@ -485,7 +486,7 @@ breast_lda.save('cifar_lda.png')
 cluster_list = [kmeans(3,random_state=42),em(3,random_state=42)]
 cluster_name_list = ['KMeans','EM Or GMM']
 dimension_list = [lda(n_components=1),pca(5),ica(5),rpa(5)]
-dimension_name_list = ['LDA','PCA','ICA','RPA']
+dimension_name_list = ['LDA','PCA','ICA','RCA']
 # Start with breast data
 data = breast_data
 data_name = 'Breast Cancer'
@@ -554,8 +555,8 @@ for c in range(len(cluster_name_list)):
             cluster.fit(best_data)
 
             # Plot the decision boundary. For that, we will assign a color to each
-            x_min, x_max = best_data[:, 0].min() - 1, best_data[:, 0].max() + 1
-            y_min, y_max = best_data[:, 1].min() - 1, best_data[:, 1].max() + 1
+            x_min, x_max = best_data[:, 0].min() - np.std(best_data[:, 0]), best_data[:, 0].max() + np.std(best_data[:, 0])
+            y_min, y_max = best_data[:, 1].min() - np.std(best_data[:, 1]), best_data[:, 1].max() + np.std(best_data[:, 1])
             h = (x_max - x_min)/10  # point in the mesh [x_min, x_max]x[y_min, y_max].
             xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
 
@@ -610,7 +611,14 @@ for c in range(len(cluster_name_list)):
 data = cifar_data
 data_name = 'CIFAR'
 target = cifar.target
-
+#cluster_list = [kmeans(3,random_state=42),em(3,random_state=42)]
+#cluster_name_list = ['KMeans','EM Or GMM']
+#dimension_list = [lda(n_components=1),pca(5),ica(5),rpa(5)]
+#dimension_name_list = ['LDA','PCA','ICA','RCA']
+cluster_list = [kmeans(2,random_state=42)]
+cluster_name_list = ['KMeans']
+dimension_list = [ica(5)]
+dimension_name_list = ['ICA']
 for c in range(len(cluster_name_list)):
     cluster = cluster_list[c]
     cluster_name = cluster_name_list[c]
@@ -673,9 +681,9 @@ for c in range(len(cluster_name_list)):
             cluster.fit(best_data)
 
             # Plot the decision boundary. For that, we will assign a color to each
-            x_min, x_max = best_data[:, 0].min() - 1, best_data[:, 0].max() + 1
-            y_min, y_max = best_data[:, 1].min() - 1, best_data[:, 1].max() + 1
-            h = (x_max - x_min)/10  # point in the mesh [x_min, x_max]x[y_min, y_max].
+            x_min, x_max = best_data[:, 0].min() - np.std(best_data[:, 0]), best_data[:, 0].max() + np.std(best_data[:, 0])
+            y_min, y_max = best_data[:, 1].min() - np.std(best_data[:, 1]), best_data[:, 1].max() + np.std(best_data[:, 0])
+            h = (x_max-x_min)/10  # point in the mesh [x_min, x_max]x[y_min, y_max].
             xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
 
             # Obtain labels for each point in mesh. Use last trained model.
@@ -722,6 +730,7 @@ for c in range(len(cluster_name_list)):
             plt.yticks(())
             plt.savefig(f"cifar_{cluster_name}_{dimension_name}.png")
             plt.show()
+#%%
 #%%
 data = breast_data
 reduced_data = ica(n_components=2).fit_transform(data)
@@ -779,36 +788,14 @@ plt.show()
 # Part 4 & 5
 ############################################################################
 # %%
-# Import our datasets
-
-subscribed = pd.read_csv('subscribed.csv')
-subscribed['subscribed'] = subscribed.term_deposit_subscribed
-subscribed = subscribed.drop(columns = 'term_deposit_subscribed')
-##################### clean the datasets
-# Clean Subscriber
-data_raw = pd.get_dummies(subscribed, columns = ['job_type','marital','education','default', 'prev_campaign_outcome'])
-# Transformation of date time: https://ianlondon.github.io/blog/encoding-cyclical-features-24hour-time/
-data_raw['sin_time'] = np.sin(2*np.pi*data_raw.day_of_month/365)
-data_raw['cos_time'] = np.cos(2*np.pi*data_raw.day_of_month/365)
-data_raw['housing_loan'] = np.where(data_raw['housing_loan'] == 'yes', 1,0)
-data_raw['personal_loan'] = np.where(data_raw['personal_loan'] == 'yes', 1,0)
-data_raw = data_raw.fillna(data_raw.mean())
-data_cleaned = data_raw.drop(columns=['communication_type', 'day_of_month', 'month', 'id','days_since_prev_campaign_contact'])
-# Downsample to balanced data
-sub = data_cleaned.loc[data_cleaned.subscribed == 1]
-nsub = data_cleaned.loc[data_cleaned.subscribed == 0].head(len(sub))
-subscribed_clean = pd.concat([sub,nsub])
-
-
-#%%
 ####################################
 # Determine best reduction
 ####################################
-subscribed_data = subscribed_clean.drop(columns = 'subscribed')
-# create chart that shows cluster distribution for the subscribed data using LDA
+breast_data = breast.drop(columns = 'target')
+# create chart that shows cluster distribution for the target data using LDA
 breast_pca = lda()
-breast_pca_values = pd.Series(breast_pca.fit_transform(subscribed_data,y = subscribed_clean.subscribed)[:,0])
-temp_data = pd.concat([breast_pca_values,subscribed_clean.subscribed.reset_index(drop = True)],axis = 1)
+breast_pca_values = pd.Series(breast_pca.fit_transform(breast_data,y = breast.target)[:,0])
+temp_data = pd.concat([breast_pca_values,breast.target.reset_index(drop = True)],axis = 1)
 temp_data.columns = ['LDA_Values','Target']
 k = kurtosis(breast_pca_values)
 breast_lda = alt.Chart(temp_data,title = f'Total Kurtosis For LDA: {k:.1f}').mark_boxplot().encode(
@@ -816,17 +803,18 @@ breast_lda = alt.Chart(temp_data,title = f'Total Kurtosis For LDA: {k:.1f}').mar
     alt.Y('LDA_Values'),
     alt.Color('Target:O')
 )
-breast_lda.save('subscribed_lda.png')
+breast_lda.save('NNbreast_lda.png')
 breast_lda
 
 dimension_list = [pca(5),ica(5),rpa(5)]
-dimension_name_list = ['PCA','ICA','RPA']
+dimension_name_list = ['PCA','ICA','RCA']
 for j in range(len(dimension_name_list)):
     from scipy.stats import kurtosis
     breast_comp = 5
     breast_pca = dimension_list[j]
-    breast_pca_values = breast_pca.fit_transform(subscribed_data)
+    breast_pca_values = breast_pca.fit_transform(breast_data)
     kurt = []
+    sil = silhouette_score(breast_pca_values,breast.target)
     total = 0
     for i in range(len(breast_pca_values[0])):
         k = kurtosis(breast_pca_values[:,i])
@@ -840,17 +828,63 @@ for j in range(len(dimension_name_list)):
         breast_pca_values,
         labels=labels,
         dimensions=range(breast_comp),
-        color=subscribed_clean.subscribed,
-        title = f'Total Kurtosis For {dimension_name_list[j]}: {total:.1f}'
+        color=breast.target,
+        title = f'{dimension_name_list[j]} Kurtosis:{total:.1f}  Silhouette:{sil:.1f}'
     )
     fig.update_traces(diagonal_visible=False)
-    #fig.write_image(f"subscribed_{dimension_name_list[j]}.png")
+    #fig.write_image(f"target_{dimension_name_list[j]}.png")
     fig.show()
 
+#%%
+
+activationdf = []
+solverdf = []
+layersdf = []
+itterdf = []
+accuracyl = []
+precisionl = []
+layers = [2,4,6,8,10]
+solver = ['sgd','adam']
+activation = ['identity','logistic','relu']
+itter = [200,250,300,350,400,450,500,550,600,650,700]
+count = 1
+
+x_train,x_test,y_train,y_test = train_test_split(breast.drop(columns = 'target'),breast.target,test_size = .2)
+
+for l in layers:
+    for s in solver:
+        for a in activation:
+            for i in itter:
+                print('{} out of {}'.format(count,len(layers)*len(solver)*len(activation)*len(itter))) 
+                model_mlp = mlp(hidden_layer_sizes=l,
+                                activation= a,
+                                solver= s,
+                                max_iter=i)
+
+                model_mlp.fit(x_train,y_train)
+
+
+                pred = model_mlp.predict(x_test).astype(int)
+
+                activationdf.append(a)
+                solverdf.append(s)
+                layersdf.append(l)
+                itterdf.append(i)
+                accuracyl.append(accuracy(y_test.astype(int),pred))
+                precisionl.append(precision(y_test.astype(int),pred))
+                print('\n\n')
+
+                count = count + 1
+results_mlp = pd.DataFrame({'activation':activationdf,
+                           'solver':solverdf,
+                           'layers':layersdf,
+                           'iterations':itterdf,
+                           'accuracy':accuracyl,
+                           'precision':precisionl})
 # %%
-dim = pca(5)
-dim.fit(subscribed_data)
-new_val = dim.transform(subscribed_data)
+dim = ica(5)
+dim.fit(breast_data)
+new_val = dim.transform(breast_data)
 #find index with top 2 kurtosis values
 fbest = 0
 fbesti = 99
@@ -871,20 +905,26 @@ for i in range(len(new_val[0])):
 
 data = pd.DataFrame(new_val)
 fkmeans = pd.Series(kmeans(init="k-means++", n_clusters=5, n_init=4).fit_predict(data))
-lda_data = pd.Series(lda(n_components = 1).fit_transform(subscribed_data,y = subscribed_clean.subscribed)[:,0])
-data_final = pd.concat([lda_data,data,fkmeans,subscribed_clean.reset_index(drop = True).subscribed],axis = 1)
-data_final.columns = ['lda1','ica1','ica2','ica3','ica4','ica5','kmeans_pred','target']
+lda_data = pd.Series(lda(n_components = 1).fit_transform(breast_data,y = breast.target)[:,0])
+#optional here to add in one lda column
+data_final = pd.concat([data,fkmeans,breast.reset_index(drop = True).target],axis = 1)
+data_final.columns = ['ica1','ica2','ica3','ica4','ica5','kmeans_pred','target']
 #%%
 data_test1 = data_final.drop(columns = 'kmeans_pred')
-ann = mlp(activation = 'logistic',max_iter = 600,solver = 'sgd',hidden_layer_sizes = 2)
-
+ann = mlp(activation = 'logistic',max_iter = 900,solver = 'adam',hidden_layer_sizes = 2)
 plot_learning_curve(ann,
-                    title = 'PCA Reduction W/O Cluster Help',
+                    title = 'Base Estimator',
+                    X = breast.drop(columns = 'target'),
+                    y = breast.target)
+
+#%%
+plot_learning_curve(ann,
+                    title = 'ICA Reduction W/O Cluster Help',
                     X = data_test1.drop(columns = 'target'),
                     y = data_test1.target)
 
 plot_learning_curve(ann,
-                    title = 'PCA Reduction W Cluster Help',
+                    title = 'ICA Reduction W Cluster Help',
                     X = data_final.drop(columns = 'target'),
                     y = data_final.target)               
 # %%

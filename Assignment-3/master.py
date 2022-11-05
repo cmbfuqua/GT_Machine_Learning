@@ -485,7 +485,7 @@ breast_lda.save('cifar_lda.png')
 # Generate lists to iterate over
 cluster_list = [kmeans(3,random_state=42),em(3,random_state=42)]
 cluster_name_list = ['KMeans','EM Or GMM']
-dimension_list = [lda(n_components=1),pca(5),ica(5),rpa(5)]
+dimension_list = [lda(n_components=1),pca(5,random_state = 42),ica(5,random_state = 42),rpa(5,random_state = 42)]
 dimension_name_list = ['LDA','PCA','ICA','RCA']
 # Start with breast data
 data = breast_data
@@ -611,14 +611,14 @@ for c in range(len(cluster_name_list)):
 data = cifar_data
 data_name = 'CIFAR'
 target = cifar.target
-#cluster_list = [kmeans(3,random_state=42),em(3,random_state=42)]
-#cluster_name_list = ['KMeans','EM Or GMM']
-#dimension_list = [lda(n_components=1),pca(5),ica(5),rpa(5)]
-#dimension_name_list = ['LDA','PCA','ICA','RCA']
-cluster_list = [kmeans(2,random_state=42)]
-cluster_name_list = ['KMeans']
-dimension_list = [ica(5)]
-dimension_name_list = ['ICA']
+cluster_list = [kmeans(3,random_state=42),em(3,random_state=42)]
+cluster_name_list = ['KMeans','EM Or GMM']
+dimension_list = [lda(n_components=1),pca(5,random_state = 42),ica(5,random_state = 42),rpa(5,random_state = 42)]
+dimension_name_list = ['LDA','PCA','ICA','RCA']
+#cluster_list = [em(2,random_state=42)]
+#cluster_name_list = ['EM Or GMM']
+#dimension_list = [pca(5)]
+#dimension_name_list = ['PCA']
 for c in range(len(cluster_name_list)):
     cluster = cluster_list[c]
     cluster_name = cluster_name_list[c]
@@ -881,50 +881,72 @@ results_mlp = pd.DataFrame({'activation':activationdf,
                            'iterations':itterdf,
                            'accuracy':accuracyl,
                            'precision':precisionl})
-# %%
-dim = ica(5)
-dim.fit(breast_data)
-new_val = dim.transform(breast_data)
-#find index with top 2 kurtosis values
-fbest = 0
-fbesti = 99
-sbest = 0
-sbesti = 0
-for i in range(len(new_val[0])):
-    k = kurtosis(new_val[:,i])
-    if abs(k) > abs(fbest):
-        #print('in 1')
-        sbest = fbest
-        sbesti = fbesti
-        fbest = k
-        fbesti = i
-    if abs(k) > abs(sbest) and abs(k) < abs(fbest):
-        #print('in 2')
-        sbest = k
-        sbesti = i
-
-data = pd.DataFrame(new_val)
-fkmeans = pd.Series(kmeans(init="k-means++", n_clusters=5, n_init=4).fit_predict(data))
-lda_data = pd.Series(lda(n_components = 1).fit_transform(breast_data,y = breast.target)[:,0])
-#optional here to add in one lda column
-data_final = pd.concat([data,fkmeans,breast.reset_index(drop = True).target],axis = 1)
-data_final.columns = ['ica1','ica2','ica3','ica4','ica5','kmeans_pred','target']
 #%%
-data_test1 = data_final.drop(columns = 'kmeans_pred')
 ann = mlp(activation = 'logistic',max_iter = 900,solver = 'adam',hidden_layer_sizes = 2)
 plot_learning_curve(ann,
                     title = 'Base Estimator',
                     X = breast.drop(columns = 'target'),
                     y = breast.target)
+# %%
+dimension_list = [pca(5),ica(5),rpa(5),lda(n_components = 1)]
+dimension_name_list = ['PCA','ICA','RCA','LDA']
+for i in range(len(dimension_name_list)):
+    dim = dimension_list[i]
+    if dimension_name_list[i] == 'LDA':
+        dim.fit(breast_data,breast.target)
+    else:
+        dim.fit(breast_data)
+    new_val = dim.transform(breast_data)
 
+    data = pd.DataFrame(new_val)
+    fkmeans = pd.Series(kmeans(n_clusters=3).fit_predict(data))
+    #optional here to add in one lda column
+    data_final = pd.concat([data,fkmeans,breast.reset_index(drop = True).target],axis = 1)
+    if dimension_name_list[i] == 'LDA':
+        data_final.columns = ['comp1','kmeans_pred','target']
+    else:
+        data_final.columns = ['comp1','comp2','comp3','comp4','comp5','kmeans_pred','target']
+
+    ann = mlp(activation = 'logistic',max_iter = 900,solver = 'adam',hidden_layer_sizes = 2)
+
+    plot_learning_curve(ann,
+                        title = '{} Reduction W/O KM Cluster Help'.format(dimension_name_list[i]),
+                        X = data_final.drop(columns = ['target','kmeans_pred']),
+                        y = data_final.target)
+
+    plot_learning_curve(ann,
+                        title = '{} Reduction W KM Cluster Help'.format(dimension_name_list[i]),
+                        X = data_final.drop(columns = 'target'),
+                        y = data_final.target)   
 #%%
-plot_learning_curve(ann,
-                    title = 'ICA Reduction W/O Cluster Help',
-                    X = data_test1.drop(columns = 'target'),
-                    y = data_test1.target)
+dimension_list = [pca(5),ica(5),rpa(5),lda(n_components = 1)]
+dimension_name_list = ['PCA','ICA','RCA','LDA']
+for i in range(len(dimension_name_list)):
+    dim = dimension_list[i]
+    if dimension_name_list[i] == 'LDA':
+        dim.fit(breast_data,breast.target)
+    else:
+        dim.fit(breast_data)
+    new_val = dim.transform(breast_data)
 
-plot_learning_curve(ann,
-                    title = 'ICA Reduction W Cluster Help',
-                    X = data_final.drop(columns = 'target'),
-                    y = data_final.target)               
+    data = pd.DataFrame(new_val)
+    fkmeans = pd.Series(em(n_components=3).fit_predict(data))
+    #optional here to add in one lda column
+    data_final = pd.concat([data,fkmeans,breast.reset_index(drop = True).target],axis = 1)
+    if dimension_name_list[i] == 'LDA':
+        data_final.columns = ['comp1','kmeans_pred','target']
+    else:
+        data_final.columns = ['comp1','comp2','comp3','comp4','comp5','kmeans_pred','target']
+
+    ann = mlp(activation = 'logistic',max_iter = 900,solver = 'adam',hidden_layer_sizes = 2)
+
+    plot_learning_curve(ann,
+                        title = '{} Reduction W/O EM Cluster Help'.format(dimension_name_list[i]),
+                        X = data_final.drop(columns = ['target','kmeans_pred']),
+                        y = data_final.target)
+
+    plot_learning_curve(ann,
+                        title = '{} Reduction W EM Cluster Help'.format(dimension_name_list[i]),
+                        X = data_final.drop(columns = 'target'),
+                        y = data_final.target) 
 # %%
